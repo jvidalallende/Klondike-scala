@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/jvidalallende/Klondike-scala.svg?branch=master)](https://travis-ci.org/jvidalallende/Klondike-scala)
+
 # Scala-TicTacToe
 
 This is the final project for the 2018/19 edition of the
