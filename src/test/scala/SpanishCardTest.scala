@@ -22,4 +22,8 @@ class SpanishCardTest extends FunSuite {
   test("givenOneUpturnedCard_whenDownturningIt_thenItIsNotUpturned") {
     assert(!new SpanishCard(3, "clubs", true).downturn().upturned())
   }
+
+  test("givenOneCard_whenCheckingIfItIsEqualToAString_thenItReturnsFalse") {
+    assert(new SpanishCard(3, "clubs") != "spanish-card")
+  }
 }
