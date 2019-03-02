@@ -39,6 +39,14 @@ To run the tests and get the coverage information, just use this command:
 
     $ sbt clean coverage test coverageReport
 
+Note that this instruments the code, so if you want to run tests from your IDE,
+and the [sbt-coverage](https://github.com/scoverage/sbt-scoverage) plugin is not
+properly configured, it may throw *java.lang.NoClassDefFoundError: scoverage/Invoker$*.
+The fastest solution to the problem consists on rebuilding the project without
+coverage:
+
+    $ sbt clean test
+
 ## Related sites
 
 * [CI server in TravisCI](https://travis-ci.org/jvidalallende/Klondike-scala)
