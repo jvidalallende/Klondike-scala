@@ -32,3 +32,14 @@ be CLI-based, and will be implemented using the functional paradigm and with the
 * If there is enough time, a continuous integration (CI) system will be used to develop the
   project, using free online services, such as [GitHub](https://github.com/) and
   [TravisCI](https://travis-ci.org/).
+
+## Instructions
+
+To run the tests and get the coverage information, just use this command:
+
+    $ sbt clean coverage test coverageReport
+
+## Related sites
+
+* [CI server in TravisCI](https://travis-ci.org/jvidalallende/Klondike-scala)
+* [Coverage report in Coveralls](https://coveralls.io/github/jvidalallende/Klondike-scala)

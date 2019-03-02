@@ -3,7 +3,7 @@ import org.scalatest.FunSuite
 
 class SpanishCardTest extends FunSuite {
 
-  test("givenOneCard_whenCheckingIfItIsEqualToItself_ItIsTrue") {
+  test("givenOneCard_whenCheckingIfItIsEqualToItself_thenItIsTrue") {
     assert(new SpanishCard(3, "golds") == new SpanishCard(3, "golds"))
   }
 
