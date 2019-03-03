@@ -1,4 +1,3 @@
-import exceptions.EmptyPileException
 import models.{Deck, SpanishCard}
 import org.scalatest.FunSuite
 

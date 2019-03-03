@@ -1,5 +1,5 @@
 import controllers.MovementFactory
-import exceptions.EmptyPileException
+import exceptions.{EmptyPileException}
 import models.{Deck, SpanishCard, Waste}
 import org.scalatest.FunSuite
 
@@ -10,7 +10,7 @@ class DeckToWastementTest extends FunSuite {
 
   private val aceOfGolds = new SpanishCard(1, "golds")
   private val twoOfClubs = new SpanishCard(2, "clubs")
-  private val kingOfSpades = new SpanishCard(12, "Spades")
+  private val kingOfswords = new SpanishCard(10, "swords")
 
   private val movements = new MovementFactory()
 
@@ -29,7 +29,7 @@ class DeckToWastementTest extends FunSuite {
 
   test("givenADeckWithOneCard_whenMovingToAFilledWaste_thenNewDeckIsEmptyAndWasteContainsTheCards") {
     val deck = new Deck(aceOfGolds :: Nil)
-    val waste = new Waste(twoOfClubs.upturn() :: kingOfSpades.upturn() :: Nil)
+    val waste = new Waste(twoOfClubs.upturn() :: kingOfswords.upturn() :: Nil)
     val result = movements.deckToWaste()(deck, waste, 1)
     assert(result._1.empty())
     assert(aceOfGolds.upturn() :: waste.cards() == result._2.cards())

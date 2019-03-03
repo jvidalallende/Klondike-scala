@@ -8,7 +8,7 @@ class PileTest extends FunSuite {
 
   private val aceOfGolds = new SpanishCard(1, "golds")
   private val twoOfClubs = new SpanishCard(2, "clubs")
-  private val kingOfSpades = new SpanishCard(12, "Spades")
+  private val kingOfswords = new SpanishCard(10, "swords")
 
   test("givenOneEmptyDeck_whenPickingFromIt_thenRaisesException") {
     intercept[EmptyPileException] {
@@ -25,7 +25,7 @@ class PileTest extends FunSuite {
   }
 
   test("givenADeck_whenComparedToAListOfCards_thenTheyAreNotEqual") {
-    val cards = List(aceOfGolds.upturn(), twoOfClubs, kingOfSpades)
+    val cards = List(aceOfGolds.upturn(), twoOfClubs, kingOfswords)
     assert(new Deck(cards) != cards)
   }
 }

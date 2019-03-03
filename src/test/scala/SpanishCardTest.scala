@@ -1,3 +1,4 @@
+import exceptions.InvalidValueException
 import models.{SpanishCard, SpanishCardLimits}
 import org.scalatest.FunSuite
 
@@ -25,5 +26,23 @@ class SpanishCardTest extends FunSuite {
 
   test("givenOneCard_whenCheckingIfItIsEqualToAString_thenItReturnsFalse") {
     assert(new SpanishCard(3, "clubs") != "spanish-card")
+  }
+
+  test("givenAValueBelowMinValue_whenConstructionASpanishCard_thenItThrowsAnException") {
+    intercept[InvalidValueException] {
+      new SpanishCard(SpanishCardLimits.MIN_VALUE - 1, "clubs")
+    }
+  }
+
+  test("givenAValueAboveMaxValue_whenConstructionASpanishCard_thenItThrowsAnException") {
+    intercept[InvalidValueException] {
+      new SpanishCard(SpanishCardLimits.MAX_VALUE + 1, "clubs")
+    }
+  }
+
+  test("givenAnInvalidSuit_whenConstructingASpanishCard_thenItThrowsAnException") {
+    intercept[InvalidValueException] {
+      new SpanishCard(SpanishCardLimits.MIN_VALUE, "invalid-suit")
+    }
   }
 }
