@@ -1,5 +1,6 @@
+package models
+
 import exceptions.EmptyPileException
-import models.{Deck, SpanishCard}
 import org.scalatest.FunSuite
 
 /* This suite uses the Deck concrete class, but is testing the functionality for Pile

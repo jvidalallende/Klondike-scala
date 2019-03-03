@@ -1,4 +1,5 @@
-import models.{SpanishCard, Foundation}
+package models
+
 import org.scalatest.FunSuite
 
 class FoundationTest extends FunSuite {

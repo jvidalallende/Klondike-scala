@@ -1,5 +1,6 @@
+package models
+
 import exceptions.InvalidValueException
-import models.{SpanishCard, SpanishCardLimits}
 import org.scalatest.FunSuite
 
 class SpanishCardTest extends FunSuite {

@@ -1,9 +1,10 @@
-import controllers.MovementFactory
+package controllers
+
 import exceptions.{EmptyPileException, InvalidMoveException}
 import models.{Foundation, SpanishCard, Waste}
 import org.scalatest.FunSuite
 
-class WasteToFoundationMovementTest extends FunSuite {
+class WasteToFoundationTest extends FunSuite {
 
   private val emptyWaste = new Waste(Nil)
   private val emptyFoundation = new Foundation(Nil)

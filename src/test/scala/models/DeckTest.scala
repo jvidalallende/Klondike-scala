@@ -1,4 +1,5 @@
-import models.{Deck, SpanishCard}
+package models
+
 import org.scalatest.FunSuite
 
 class DeckTest extends FunSuite {

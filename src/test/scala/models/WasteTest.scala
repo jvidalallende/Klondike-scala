@@ -1,4 +1,5 @@
-import models.{Waste, SpanishCard}
+package models
+
 import org.scalatest.FunSuite
 
 class WasteTest extends FunSuite {
