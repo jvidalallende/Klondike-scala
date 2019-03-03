@@ -1,8 +1,8 @@
 import exceptions.EmptyPileException
-import models.{Deck, SpanishCard, Waste}
+import models.{Deck, SpanishCard}
 import org.scalatest.FunSuite
 
-/* This suite uses the Deck and Waste concrete classes, but is testing the funcionality for Pile
+/* This suite uses the Deck concrete class, but is testing the functionality for Pile
    class only, so that suites for concrete classes only contain their specific additions. */
 class PileTest extends FunSuite {
 
@@ -22,11 +22,6 @@ class PileTest extends FunSuite {
 
   test("givenOneDeckWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
     assert(!new Deck(aceOfGolds :: Nil).empty())
-  }
-
-  test("givenADeckAndAWasteWithTheSameCards_whenCompared_thenTheyAreEqual") {
-    val cards = List(aceOfGolds.upturn(), twoOfClubs, kingOfSpades)
-    assert(new Deck(cards) == new Waste(cards))
   }
 
   test("givenADeck_whenComparedToAListOfCards_thenTheyAreNotEqual") {

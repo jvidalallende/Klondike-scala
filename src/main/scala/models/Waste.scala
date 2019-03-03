@@ -1,6 +1,7 @@
 package models
 
-class Waste(__cards: List[Card]) extends Pile(__cards) {
+// A Waste is a Pile with all its cards upturned
+class Waste(__cards: List[Card]) extends Pile(__cards.map(_.upturn())) {
 
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
