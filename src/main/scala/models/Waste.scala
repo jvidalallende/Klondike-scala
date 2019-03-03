@@ -1,11 +1,11 @@
 package models
 
-class Waste(cards: List[Card]) extends Pile(cards) {
+class Waste(__cards: List[Card]) extends Pile(__cards) {
 
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
-    (cards.head, new Waste(cards.tail))
+    (cards().head, new Waste(cards().tail))
   }
 
-  override def put(card: Card): Waste = new Waste(card.upturn() :: cards)
+  override def put(card: Card): Waste = new Waste(card.upturn() :: cards())
 }
