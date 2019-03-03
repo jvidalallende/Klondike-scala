@@ -6,7 +6,7 @@ class FoundationTest extends FunSuite {
 
   val aceOfGolds = new SpanishCard(1, "golds")
   val twoOfCups = new SpanishCard(2, "cups")
-  val kingOfswords = new SpanishCard(10, "swords")
+  val kingOfSwords = new SpanishCard(10, "swords")
 
   test("givenTwoDownturnedCards_whenBuildingAFoundationWithIt_thenCardsInTheFoundationAreUpturn") {
     val foundation = new Foundation(aceOfGolds :: twoOfCups :: Nil)
@@ -30,7 +30,7 @@ class FoundationTest extends FunSuite {
   }
 
   test("givenAFoundation_whenPuttingACardWithMaxValueOnIt_thenFoundationIsFull") {
-    val foundation = new Foundation(Nil).put(kingOfswords)
+    val foundation = new Foundation(Nil).put(kingOfSwords)
     assert(foundation.full())
   }
 }
