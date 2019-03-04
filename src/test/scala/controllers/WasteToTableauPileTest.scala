@@ -1,7 +1,7 @@
 package controllers
 
 import exceptions.{EmptyPileException, InvalidMoveException}
-import models.{SpanishCard, SpanishCardLimits, TableauPile, Waste}
+import models.{SpanishCard, TableauPile, Waste}
 import org.scalatest.FunSuite
 
 class WasteToTableauPileTest extends FunSuite {
@@ -11,7 +11,7 @@ class WasteToTableauPileTest extends FunSuite {
 
   private val aceOfGolds = new SpanishCard(1, "golds", true)
   private val twoOfClubs = new SpanishCard(2, "clubs", true)
-  private val kingOfSwords = new SpanishCard(SpanishCardLimits.MAX_VALUE, "swords", true)
+  private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
   private val movements = new MovementFactory()
 

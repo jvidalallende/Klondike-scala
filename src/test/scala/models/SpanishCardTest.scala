@@ -10,11 +10,11 @@ class SpanishCardTest extends FunSuite {
   }
 
   test("givenOneCardWithLimitsMinValue_whenCallingIsMin_thenItReturnsTrue") {
-    assert(new SpanishCard(SpanishCardLimits.MIN_VALUE, "golds").isMin())
+    assert(new SpanishCard(SpanishCard.MIN_VALUE, "golds").isMin())
   }
 
   test("givenOneCardWithLimitsMaxValue_whenCallingIsMax_thenItReturnsTrue") {
-    assert(new SpanishCard(SpanishCardLimits.MAX_VALUE, "clubs").isMax())
+    assert(new SpanishCard(SpanishCard.MAX_VALUE, "clubs").isMax())
   }
 
   test("givenOneDownturnedCard_whenUpturningIt_thenItIsUpturned") {
@@ -31,19 +31,19 @@ class SpanishCardTest extends FunSuite {
 
   test("givenAValueBelowMinValue_whenConstructionASpanishCard_thenItThrowsAnException") {
     intercept[InvalidValueException] {
-      new SpanishCard(SpanishCardLimits.MIN_VALUE - 1, "clubs")
+      new SpanishCard(SpanishCard.MIN_VALUE - 1, "clubs")
     }
   }
 
   test("givenAValueAboveMaxValue_whenConstructionASpanishCard_thenItThrowsAnException") {
     intercept[InvalidValueException] {
-      new SpanishCard(SpanishCardLimits.MAX_VALUE + 1, "clubs")
+      new SpanishCard(SpanishCard.MAX_VALUE + 1, "clubs")
     }
   }
 
   test("givenAnInvalidSuit_whenConstructingASpanishCard_thenItThrowsAnException") {
     intercept[InvalidValueException] {
-      new SpanishCard(SpanishCardLimits.MIN_VALUE, "invalid-suit")
+      new SpanishCard(SpanishCard.MIN_VALUE, "invalid-suit")
     }
   }
 }

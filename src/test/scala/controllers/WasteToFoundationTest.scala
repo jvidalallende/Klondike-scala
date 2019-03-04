@@ -9,9 +9,9 @@ class WasteToFoundationTest extends FunSuite {
   private val emptyWaste = new Waste(Nil)
   private val emptyFoundation = new Foundation(Nil)
 
-  private val aceOfGolds = new SpanishCard(1, "golds")
-  private val twoOfGolds = new SpanishCard(2, "golds")
-  private val twoOfClubs = new SpanishCard(2, "clubs")
+  private val aceOfGolds = new SpanishCard(1, "golds", true)
+  private val twoOfGolds = new SpanishCard(2, "golds", true)
+  private val twoOfClubs = new SpanishCard(2, "clubs", true)
 
   private val movements = new MovementFactory()
 
@@ -25,7 +25,7 @@ class WasteToFoundationTest extends FunSuite {
     val waste = new Waste(aceOfGolds :: Nil)
     val result = movements.wasteToFoundation()(waste, emptyFoundation, 1)
     assert(result._1.empty())
-    assert(aceOfGolds.upturn() :: Nil == result._2.cards())
+    assert(aceOfGolds :: Nil == result._2.cards())
   }
 
   test("givenAWasteWithACardDifferentFromAnAce_whenMovingToAnEmptyFoundation_thenExceptionIsThrown") {
@@ -37,15 +37,15 @@ class WasteToFoundationTest extends FunSuite {
 
   test("givenAWasteWithOneCard_whenMovingToAFoundationThatCanReceiveThatCard_thenNewWasteIsEmptyAndFoundationsContainsTheCards") {
     val waste = new Waste(twoOfGolds :: Nil)
-    val foundation = new Foundation(aceOfGolds.upturn() :: Nil)
+    val foundation = new Foundation(aceOfGolds :: Nil)
     val result = movements.wasteToFoundation()(waste, foundation, 1)
     assert(result._1.empty())
-    assert(twoOfGolds.upturn() :: foundation.cards() == result._2.cards())
+    assert(twoOfGolds :: foundation.cards() == result._2.cards())
   }
 
   test("givenAWasteWithACard_whenMovingToAFoundationThatCannotReceiveThatCard_thenExceptionIsThrown") {
     val waste = new Waste(twoOfClubs :: Nil)
-    val foundation = new Foundation(aceOfGolds.upturn() :: Nil)
+    val foundation = new Foundation(aceOfGolds :: Nil)
     intercept[InvalidMoveException] {
       movements.wasteToFoundation()(waste, foundation, 1)
     }
