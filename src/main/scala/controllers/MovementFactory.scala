@@ -54,4 +54,19 @@ class MovementFactory {
 
     move(validator)
   }
+
+  def foundationToTableauPile(): (Pile, Pile, Int) => (Pile, Pile) = {
+    def validator(foundation: Pile, tableauPile: Pile): Boolean = {
+      val topOfFoundation = foundation.pick()._1
+      tableauPile match {
+        case f if f.empty() => topOfFoundation.isMax()
+        case _ =>
+          val topOfTableauPile = tableauPile.pick()._1
+          //TODO: consider supporting different stacking rules
+          (topOfFoundation.suit() != topOfTableauPile.suit()) && (topOfTableauPile.value() - topOfFoundation.value() == 1)
+      }
+    }
+
+    move(validator)
+  }
 }
