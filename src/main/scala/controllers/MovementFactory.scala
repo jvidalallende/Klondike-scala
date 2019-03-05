@@ -1,7 +1,7 @@
 package controllers
 
 import exceptions.InvalidMoveException
-import models.Pile
+import models.{Card, Pile, TableauPile}
 
 /* All moves returned by this factory are functions with the same parameter types:
    f(Pile, Pile, Int) --> (Pile, Pile) */
@@ -17,6 +17,20 @@ class MovementFactory {
         }
         val pickResult = source.pick()
         move(validator)(pickResult._2, destination.put(pickResult._1), numberOfCards - 1)
+    }
+  }
+
+  private def moveBetweenTableauPiles(validator: (Card, TableauPile) => Boolean)
+                                     (source: TableauPile, destination: TableauPile, numberOfCards: Int = 1)
+  : (Pile, Pile) = {
+    numberOfCards match {
+      case 0 => (source, destination)
+      case _ =>
+        val (pickedCards, newSource) = source.pick(numberOfCards)
+        if (!validator(pickedCards.head, destination)) {
+          throw InvalidMoveException()
+        }
+        (newSource, destination.put(pickedCards))
     }
   }
 
@@ -68,5 +82,20 @@ class MovementFactory {
     }
 
     move(validator)
+  }
+
+  def tableauPileToTableauPile(): (TableauPile, TableauPile, Int) => (Pile, Pile) = {
+    def validator(topOfPick: Card, destination: TableauPile): Boolean = {
+      destination match {
+        case _ if destination.empty() => topOfPick.isMax()
+        case _ =>
+          val topOfDestination = destination.pick()._1
+          //TODO: consider supporting different stacking rules
+          (topOfPick.suit() != topOfDestination.suit()) && (topOfDestination.value() - topOfPick.value() == 1)
+      }
+
+    }
+
+    moveBetweenTableauPiles(validator)
   }
 }
