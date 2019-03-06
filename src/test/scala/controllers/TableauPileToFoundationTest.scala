@@ -13,17 +13,17 @@ class TableauPileToFoundationTest extends FunSuite {
   private val twoOfGolds = new SpanishCard(2, "golds", true)
   private val twoOfClubs = new SpanishCard(2, "clubs", true)
 
-  private val movements = new MovementFactory()
+  private val move = new MovementFactory().tableauPileToFoundation()
 
   test("givenEmptyTableauPileAndFoundation_whenMovingFromTableauPileToFoundation_thenExceptionIsThrown") {
     intercept[EmptyPileException] {
-      movements.tableauPileToFoundation()(emptyTableauPile, emptyFoundation, 1)
+      move(emptyTableauPile, emptyFoundation)
     }
   }
 
   test("givenATableauPileWithAnAce_whenMovingToAnEmptyFoundation_thenNewTableauPileIsEmptyAndFoundationContainsTheCard") {
     val tableauPile = new TableauPile(aceOfGolds :: Nil)
-    val result = movements.tableauPileToFoundation()(tableauPile, emptyFoundation, 1)
+    val result = move(tableauPile, emptyFoundation)
     assert(result._1.empty())
     assert(aceOfGolds :: Nil == result._2.cards())
   }
@@ -31,14 +31,14 @@ class TableauPileToFoundationTest extends FunSuite {
   test("givenATableauPileWithACardDifferentFromAnAce_whenMovingToAnEmptyFoundation_thenExceptionIsThrown") {
     val tableauPile = new TableauPile(twoOfGolds :: Nil)
     intercept[InvalidMoveException] {
-      movements.tableauPileToFoundation()(tableauPile, emptyFoundation, 1)
+      move(tableauPile, emptyFoundation)
     }
   }
 
   test("givenATableauPileWithOneCard_whenMovingToAFoundationThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndFoundationsContainsTheCards") {
     val tableauPile = new TableauPile(twoOfGolds :: Nil)
     val foundation = new Foundation(aceOfGolds :: Nil)
-    val result = movements.tableauPileToFoundation()(tableauPile, foundation, 1)
+    val result = move(tableauPile, foundation)
     assert(result._1.empty())
     assert(twoOfGolds :: foundation.cards() == result._2.cards())
   }
@@ -47,7 +47,7 @@ class TableauPileToFoundationTest extends FunSuite {
     val tableauPile = new TableauPile(twoOfClubs :: Nil)
     val foundation = new Foundation(aceOfGolds :: Nil)
     intercept[InvalidMoveException] {
-      movements.tableauPileToFoundation()(tableauPile, foundation, 1)
+      move(tableauPile, foundation)
     }
   }
 }

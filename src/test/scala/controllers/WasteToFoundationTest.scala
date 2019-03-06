@@ -13,17 +13,17 @@ class WasteToFoundationTest extends FunSuite {
   private val twoOfGolds = new SpanishCard(2, "golds", true)
   private val twoOfClubs = new SpanishCard(2, "clubs", true)
 
-  private val movements = new MovementFactory()
+  private val move = new MovementFactory().wasteToFoundation()
 
   test("givenEmptyWasteAndFoundation_whenMovingFromWasteToFoundation_thenExceptionIsThrown") {
     intercept[EmptyPileException] {
-      movements.wasteToFoundation()(emptyWaste, emptyFoundation, 1)
+      move(emptyWaste, emptyFoundation)
     }
   }
 
   test("givenAWasteWithAnAce_whenMovingToAnEmptyFoundation_thenNewWasteIsEmptyAndFoundationContainsTheCard") {
     val waste = new Waste(aceOfGolds :: Nil)
-    val result = movements.wasteToFoundation()(waste, emptyFoundation, 1)
+    val result = move(waste, emptyFoundation)
     assert(result._1.empty())
     assert(aceOfGolds :: Nil == result._2.cards())
   }
@@ -31,14 +31,14 @@ class WasteToFoundationTest extends FunSuite {
   test("givenAWasteWithACardDifferentFromAnAce_whenMovingToAnEmptyFoundation_thenExceptionIsThrown") {
     val waste = new Waste(twoOfGolds :: Nil)
     intercept[InvalidMoveException] {
-      movements.wasteToFoundation()(waste, emptyFoundation, 1)
+      move(waste, emptyFoundation)
     }
   }
 
   test("givenAWasteWithOneCard_whenMovingToAFoundationThatCanReceiveThatCard_thenNewWasteIsEmptyAndFoundationsContainsTheCards") {
     val waste = new Waste(twoOfGolds :: Nil)
     val foundation = new Foundation(aceOfGolds :: Nil)
-    val result = movements.wasteToFoundation()(waste, foundation, 1)
+    val result = move(waste, foundation)
     assert(result._1.empty())
     assert(twoOfGolds :: foundation.cards() == result._2.cards())
   }
@@ -47,7 +47,7 @@ class WasteToFoundationTest extends FunSuite {
     val waste = new Waste(twoOfClubs :: Nil)
     val foundation = new Foundation(aceOfGolds :: Nil)
     intercept[InvalidMoveException] {
-      movements.wasteToFoundation()(waste, foundation, 1)
+      move(waste, foundation)
     }
   }
 }

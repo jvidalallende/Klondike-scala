@@ -7,17 +7,12 @@ import models.{Card, Pile, TableauPile}
    f(Pile, Pile, Int) --> (Pile, Pile) */
 class MovementFactory {
 
-  private def move(validator: (Pile, Pile) => Boolean)(source: Pile, destination: Pile, numberOfCards: Int = 1)
-  : (Pile, Pile) = {
-    numberOfCards match {
-      case 0 => (source, destination)
-      case _ =>
-        if (!validator(source, destination)) {
-          throw InvalidMoveException()
-        }
-        val pickResult = source.pick()
-        move(validator)(pickResult._2, destination.put(pickResult._1), numberOfCards - 1)
+  private def moveOne(validator: (Pile, Pile) => Boolean)(source: Pile, destination: Pile): (Pile, Pile) = {
+    if (!validator(source, destination)) {
+      throw InvalidMoveException()
     }
+    val (pickedCard, newSource) = source.pick()
+    (newSource, destination.put(pickedCard))
   }
 
   private def moveBetweenTableauPiles(validator: (Card, TableauPile) => Boolean)
@@ -34,13 +29,13 @@ class MovementFactory {
     }
   }
 
-  def deckToWaste(): (Pile, Pile, Int) => (Pile, Pile) = {
+  def deckToWaste(): (Pile, Pile) => (Pile, Pile) = {
     def validator(deck: Pile, waste: Pile): Boolean = true
 
-    move(validator)
+    moveOne(validator)
   }
 
-  def wasteToFoundation(): (Pile, Pile, Int) => (Pile, Pile) = {
+  def wasteToFoundation(): (Pile, Pile) => (Pile, Pile) = {
     def validator(waste: Pile, foundation: Pile): Boolean = {
       val topOfWaste = waste.pick()._1
       foundation match {
@@ -51,10 +46,10 @@ class MovementFactory {
       }
     }
 
-    move(validator)
+    moveOne(validator)
   }
 
-  def tableauPileToFoundation(): (Pile, Pile, Int) => (Pile, Pile) = {
+  def tableauPileToFoundation(): (Pile, Pile) => (Pile, Pile) = {
     def validator(tableauPile: Pile, foundation: Pile): Boolean = {
       val topOfTableauPile = tableauPile.pick()._1
       foundation match {
@@ -65,10 +60,10 @@ class MovementFactory {
       }
     }
 
-    move(validator)
+    moveOne(validator)
   }
 
-  def wasteToTableauPile(): (Pile, Pile, Int) => (Pile, Pile) = {
+  def wasteToTableauPile(): (Pile, Pile) => (Pile, Pile) = {
     def validator(waste: Pile, tableauPile: Pile): Boolean = {
       val topOfWaste = waste.pick()._1
       tableauPile match {
@@ -80,10 +75,10 @@ class MovementFactory {
       }
     }
 
-    move(validator)
+    moveOne(validator)
   }
 
-  def foundationToTableauPile(): (Pile, Pile, Int) => (Pile, Pile) = {
+  def foundationToTableauPile(): (Pile, Pile) => (Pile, Pile) = {
     def validator(foundation: Pile, tableauPile: Pile): Boolean = {
       val topOfFoundation = foundation.pick()._1
       tableauPile match {
@@ -95,7 +90,7 @@ class MovementFactory {
       }
     }
 
-    move(validator)
+    moveOne(validator)
   }
 
   def tableauPileToTableauPile(): (TableauPile, TableauPile, Int) => (Pile, Pile) = {
