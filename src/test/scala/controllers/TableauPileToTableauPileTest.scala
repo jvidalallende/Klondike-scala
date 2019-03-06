@@ -22,6 +22,12 @@ class TableauPileToTableauPileTest extends FunSuite {
     }
   }
 
+  test("givenTwoEmptyTableauPiles_whenAttemptingToMoveANegativeNumberOfCards_thenExceptionIsThrown") {
+    intercept[InvalidMoveException] {
+      move(emptyTableauPile, emptyTableauPile, -1)
+    }
+  }
+
   test("givenTwoEmptyTableauPiles_whenMovingZeroCardsFromBetweenThem_thenNoExceptionIsThrown") {
     val (sourceAfterMove, destinationAfterMove) = move(emptyTableauPile, emptyTableauPile, 0)
     assert(sourceAfterMove.empty())
