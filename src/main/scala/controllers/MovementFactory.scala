@@ -54,6 +54,20 @@ class MovementFactory {
     move(validator)
   }
 
+  def tableauPileToFoundation(): (Pile, Pile, Int) => (Pile, Pile) = {
+    def validator(tableauPile: Pile, foundation: Pile): Boolean = {
+      val topOfTableauPile = tableauPile.pick()._1
+      foundation match {
+        case f if f.empty() => topOfTableauPile.isMin()
+        case _ =>
+          val topOfFoundation = foundation.pick()._1
+          (topOfTableauPile.suit() == topOfFoundation.suit()) && (topOfTableauPile.value() - topOfFoundation.value() == 1)
+      }
+    }
+
+    move(validator)
+  }
+
   def wasteToTableauPile(): (Pile, Pile, Int) => (Pile, Pile) = {
     def validator(waste: Pile, tableauPile: Pile): Boolean = {
       val topOfWaste = waste.pick()._1
