@@ -16,6 +16,20 @@ class MovementFactory {
     (newSource, destination.put(pickedCard))
   }
 
+  private def moveMany(validate: (Card, Pile) => Boolean)(source: TableauPile, destination: TableauPile, numberOfCards: Int)
+  : (Pile, Pile) = {
+    numberOfCards match {
+      case n if n < 0 => throw InvalidMoveException("The number of cards to move must be positive")
+      case 0 => (source, destination)
+      case _ =>
+        val (pickedCards, newSource) = source.pick(numberOfCards)
+        if (!validate(pickedCards.head, destination)) {
+          throw InvalidMoveException()
+        }
+        (newSource, destination.put(pickedCards))
+    }
+  }
+
   private def foundationValidator(card: Card, foundation: Pile): Boolean = {
     foundation match {
       case f if f.empty() => card.isMin()
@@ -55,20 +69,6 @@ class MovementFactory {
 
   def foundationToTableauPile(): (Pile, Pile) => (Pile, Pile) = {
     moveOne(tableauPileValidator)
-  }
-
-  private def moveMany(validate: (Card, Pile) => Boolean)(source: TableauPile, destination: TableauPile, numberOfCards: Int = 1)
-  : (Pile, Pile) = {
-    numberOfCards match {
-      case n if n < 0 => throw InvalidMoveException("The number of cards to move must be positive")
-      case 0 => (source, destination)
-      case _ =>
-        val (pickedCards, newSource) = source.pick(numberOfCards)
-        if (!validate(pickedCards.head, destination)) {
-          throw InvalidMoveException()
-        }
-        (newSource, destination.put(pickedCards))
-    }
   }
 
   def tableauPileToTableauPile(): (TableauPile, TableauPile, Int) => (Pile, Pile) = {
