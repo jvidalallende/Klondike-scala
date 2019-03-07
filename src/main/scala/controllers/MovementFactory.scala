@@ -3,9 +3,7 @@ package controllers
 import exceptions.InvalidMoveException
 import models.{Card, Pile, TableauPile}
 
-/* All moves returned by this factory are functions with the same parameter types:
-   f(Pile, Pile) --> (Pile, Pile), except for the move between TableauPiles, which is
-   f(Pile, Pile, Int) --> (Pile, Pile) */
+// All moves returned by this factory are functions with the same parameter types: f(Pile, Pile) --> (Pile, Pile)
 object MovementFactory {
 
   private def moveOne(validate: (Card, Pile) => Boolean)(source: Pile, destination: Pile): (Pile, Pile) = {
@@ -16,7 +14,7 @@ object MovementFactory {
     (newSource, destination.put(pickedCard))
   }
 
-  private def moveMany(validate: (Card, Pile) => Boolean)(source: TableauPile, destination: TableauPile, numberOfCards: Int)
+  private def moveMany(validate: (Card, Pile) => Boolean, numberOfCards: Int)(source: TableauPile, destination: TableauPile)
   : (Pile, Pile) = {
     numberOfCards match {
       case n if n < 0 => throw InvalidMoveException("The number of cards to move must be positive")
@@ -71,7 +69,7 @@ object MovementFactory {
     moveOne(tableauPileValidator)
   }
 
-  def tableauPileToTableauPile(): (TableauPile, TableauPile, Int) => (Pile, Pile) = {
-    moveMany(tableauPileValidator)
+  def tableauPileToTableauPile(numberOfCards: Int): (TableauPile, TableauPile) => (Pile, Pile) = {
+    moveMany(tableauPileValidator, numberOfCards)
   }
 }

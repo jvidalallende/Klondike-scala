@@ -14,60 +14,59 @@ class TableauPileToTableauPileTest extends FunSuite {
   private val fourOfCups = new SpanishCard(4, "cups", true)
   private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
-  private val move = MovementFactory.tableauPileToTableauPile()
 
   test("givenTwoEmptyTableauPiles_whenMovingFromTableauPileToTableauPile_thenExceptionIsThrown") {
     intercept[EmptyPileException] {
-      move(emptyTableauPile, emptyTableauPile, 1)
+      MovementFactory.tableauPileToTableauPile(1)(emptyTableauPile, emptyTableauPile)
     }
   }
 
   test("givenTwoEmptyTableauPiles_whenAttemptingToMoveANegativeNumberOfCards_thenExceptionIsThrown") {
     intercept[InvalidMoveException] {
-      move(emptyTableauPile, emptyTableauPile, -1)
+      MovementFactory.tableauPileToTableauPile(-1)(emptyTableauPile, emptyTableauPile)
     }
   }
 
   test("givenTwoEmptyTableauPiles_whenMovingZeroCardsFromBetweenThem_thenNoExceptionIsThrown") {
-    val (sourceAfterMove, destinationAfterMove) = move(emptyTableauPile, emptyTableauPile, 0)
+    val move = MovementFactory.tableauPileToTableauPile(0)
+    val (sourceAfterMove, destinationAfterMove) = move(emptyTableauPile, emptyTableauPile)
     assert(sourceAfterMove.empty())
     assert(destinationAfterMove.empty())
   }
 
   test("givenATableauPileWithAKing_whenMovingToAnEmptyTableauPile_thenTheFirstTableauIsEmptyAndTheOtherTableauPileContainsTheCard") {
-    val source = new TableauPile(kingOfSwords :: Nil)
-    val (sourceAfterMove, destinationAfterMove) = move(source, emptyTableauPile, 1)
+    val move = MovementFactory.tableauPileToTableauPile(1)
+    val (sourceAfterMove, destinationAfterMove) = move(new TableauPile(kingOfSwords :: Nil), emptyTableauPile)
     assert(sourceAfterMove.empty())
     assert(kingOfSwords :: Nil == destinationAfterMove.cards())
   }
 
   test("givenATableauPileWithACardDifferentFromAKing_whenMovingToAnEmptyTableauPile_thenExceptionIsThrown") {
-    val source = new TableauPile(aceOfGolds :: Nil)
+    val move = MovementFactory.tableauPileToTableauPile(1)
     intercept[InvalidMoveException] {
-      move(source, emptyTableauPile, 1)
+      move(new TableauPile(aceOfGolds :: Nil), emptyTableauPile)
     }
   }
 
   test("givenATableauPileWithOneCard_whenMovingToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
-    val source = new TableauPile(aceOfGolds :: Nil)
-    val destination = new TableauPile(twoOfClubs :: Nil)
-    val (sourceAfterMove, destinationAfterMove) = move(source, destination, 1)
+    val move = MovementFactory.tableauPileToTableauPile(1)
+    val (sourceAfterMove, destinationAfterMove) = move(new TableauPile(aceOfGolds :: Nil), new TableauPile(twoOfClubs :: Nil))
     assert(sourceAfterMove.empty())
-    assert(aceOfGolds :: destination.cards() == destinationAfterMove.cards())
+    assert(aceOfGolds :: twoOfClubs :: Nil == destinationAfterMove.cards())
   }
 
   test("givenATableauPileWithACard_whenMovingToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
-    val source = new TableauPile(twoOfClubs :: Nil)
-    val destination = new TableauPile(aceOfGolds :: Nil)
+    val move = MovementFactory.tableauPileToTableauPile(1)
     intercept[InvalidMoveException] {
-      move(source, destination, 1)
+      move(new TableauPile(twoOfClubs :: Nil), new TableauPile(aceOfGolds :: Nil))
     }
   }
 
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
     val source = new TableauPile(aceOfGolds :: twoOfClubs :: threeOfSwords :: Nil)
     val destination = new TableauPile(fourOfCups :: Nil)
-    val (sourceAfterMove, destinationAfterMove) = move(source, destination, 3)
+    val move = MovementFactory.tableauPileToTableauPile(3)
+    val (sourceAfterMove, destinationAfterMove) = move(source, destination)
     assert(sourceAfterMove.empty())
     assert(source.cards() ::: destination.cards() == destinationAfterMove.cards())
   }
@@ -75,8 +74,9 @@ class TableauPileToTableauPileTest extends FunSuite {
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
     val source = new TableauPile(aceOfGolds :: twoOfClubs :: threeOfSwords :: Nil)
     val destination = new TableauPile(kingOfSwords :: Nil)
+    val move = MovementFactory.tableauPileToTableauPile(3)
     intercept[InvalidMoveException] {
-      move(source, destination, 3)
+      move(source, destination)
     }
   }
 }
