@@ -23,11 +23,11 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val kingOfGolds = new SpanishCard(SpanishCard.MAX_VALUE, "golds", true)
   private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
-  testsFor(emptySource(emptyDeck, emptyWaste, deckToWaste))
-  testsFor(emptySource(emptyWaste, emptyFoundation, wasteToFoundation))
-  testsFor(emptySource(emptyWaste, emptyTableauPile, wasteToTableauPile))
-  testsFor(emptySource(emptyTableauPile, emptyFoundation, tableauPileToFoundation))
-  testsFor(emptySource(emptyFoundation, emptyTableauPile, foundationToTableauPile))
+  testsFor(emptySource(emptyDeck, _, deckToWaste))
+  testsFor(emptySource(emptyWaste, _, wasteToFoundation))
+  testsFor(emptySource(emptyWaste, _, wasteToTableauPile))
+  testsFor(emptySource(emptyTableauPile, _, tableauPileToFoundation))
+  testsFor(emptySource(emptyFoundation, _, foundationToTableauPile))
 
   testsFor(emptyDestinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), emptyWaste, deckToWaste))
   testsFor(emptyDestinationThatCanAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyFoundation, wasteToFoundation))

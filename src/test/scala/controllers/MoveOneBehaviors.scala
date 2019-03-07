@@ -18,11 +18,7 @@ trait MoveOneBehaviors {
 
   def emptyDestinationThatCanAcceptTheCard(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
-    test(
-      s"""givenA${source.name}WithOneCard_
-         |whenMovingToAnEmpty${destination.name}ThatCanReceiveTheCard_
-         |thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCard""".stripMargin) {
-
+    test(s"givenA${source.name}WithOneCard_whenMovingToAnEmpty${destination.name}ThatCanReceiveTheCard_thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCard") {
       val (newSource, newDestination) = move(source, destination)
       assert(newSource.empty())
       assert(newDestination.cards().head == source.cards().head.upturn())
@@ -31,11 +27,7 @@ trait MoveOneBehaviors {
 
   def emptyDestinationThatCannotAcceptTheCard(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
-    test(
-      s"""givenA${source.name}WithOneCard_
-         |whenMovingToAnEmpty${destination.name}ThatCannotReceiveTheCard_
-         |thenInvalidMoveExceptionIsThrown""".stripMargin) {
-
+    test(s"givenA${source.name}WithOneCard_whenMovingToAnEmpty${destination.name}ThatCannotReceiveTheCard_thenInvalidMoveExceptionIsThrown") {
       intercept[InvalidMoveException] {
         move(source, destination)
       }
@@ -44,11 +36,7 @@ trait MoveOneBehaviors {
 
   def nonEmptyDestinationThatCanAcceptTheCard(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
-    test(
-      s"""givenA${source.name}WithOneCard_
-         |whenMovingToA${destination.name}ThatCanReceiveTheCard_
-         |thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCardOnTopOfItsPreviousCards""".stripMargin) {
-
+    test(s"givenA${source.name}WithOneCard_whenMovingToA${destination.name}ThatCanReceiveTheCard_thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCardOnTopOfItsPreviousCards") {
       val (newSource, newDestination) = move(source, destination)
       assert(newSource.empty())
       assert(newDestination.cards() == source.cards().head.upturn() :: destination.cards())
@@ -57,11 +45,7 @@ trait MoveOneBehaviors {
 
   def nonEmptyDestinationThatCannotAcceptTheCard(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
-    test(
-      s"""givenA${source.name}WithOneCard_
-         |whenMovingToA${destination.name}ThatCannotReceiveTheCard_
-         |thenInvalidMoveExceptionIsThrown""".stripMargin) {
-
+    test(s"givenA${source.name}WithOneCard_whenMovingToA${destination.name}ThatCannotReceiveTheCard_thenInvalidMoveExceptionIsThrown") {
       intercept[InvalidMoveException] {
         move(source, destination)
       }
