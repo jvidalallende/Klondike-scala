@@ -2,9 +2,11 @@ package models
 
 import exceptions.EmptyPileException
 
-abstract class Pile(__cards: List[Card]) {
+abstract class Pile(__cards: List[Card], __name: String) {
 
   private val _cards = __cards
+
+  val name: String = __name
 
   def cards(): List[Card] = _cards
 
@@ -21,7 +23,7 @@ abstract class Pile(__cards: List[Card]) {
 
   def assertNotEmpty(): Unit = {
     _cards match {
-      case Nil => throw EmptyPileException("Pile is empty")
+      case Nil => throw EmptyPileException(s"$name is empty")
       case _ =>
     }
   }

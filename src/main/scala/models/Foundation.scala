@@ -1,7 +1,7 @@
 package models
 
 // A Foundation is a Pile with all its cards upturned
-class Foundation(__cards: List[Card]) extends Pile(__cards.map(_.upturn())) {
+class Foundation(__cards: List[Card]) extends Pile(__cards.map(_.upturn()), "Foundation") {
 
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
