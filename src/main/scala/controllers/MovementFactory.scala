@@ -6,7 +6,7 @@ import models.{Card, Pile, TableauPile}
 /* All moves returned by this factory are functions with the same parameter types:
    f(Pile, Pile) --> (Pile, Pile), except for the move between TableauPiles, which is
    f(Pile, Pile, Int) --> (Pile, Pile) */
-class MovementFactory {
+object MovementFactory {
 
   private def moveOne(validate: (Card, Pile) => Boolean)(source: Pile, destination: Pile): (Pile, Pile) = {
     val (pickedCard, newSource) = source.pick()

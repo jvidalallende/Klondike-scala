@@ -10,12 +10,11 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val emptyFoundation = new Foundation(Nil)
   private val emptyTableauPile = new TableauPile(Nil)
 
-  private val moveFactory = new MovementFactory()
-  private val deckToWaste = moveFactory.deckToWaste()
-  private val wasteToFoundation = moveFactory.wasteToFoundation()
-  private val wasteToTableauPile = moveFactory.wasteToTableauPile()
-  private val tableauPileToFoundation = moveFactory.tableauPileToFoundation()
-  private val foundationToTableauPile = moveFactory.foundationToTableauPile()
+  private val deckToWaste = MovementFactory.deckToWaste()
+  private val wasteToFoundation = MovementFactory.wasteToFoundation()
+  private val wasteToTableauPile = MovementFactory.wasteToTableauPile()
+  private val tableauPileToFoundation = MovementFactory.tableauPileToFoundation()
+  private val foundationToTableauPile = MovementFactory.foundationToTableauPile()
 
   private val aceOfGolds = new SpanishCard(SpanishCard.MIN_VALUE, "golds", true)
   private val twoOfGolds = new SpanishCard(2, "golds", true)

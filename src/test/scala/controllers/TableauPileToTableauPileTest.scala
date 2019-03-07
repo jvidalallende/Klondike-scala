@@ -14,7 +14,7 @@ class TableauPileToTableauPileTest extends FunSuite {
   private val fourOfCups = new SpanishCard(4, "cups", true)
   private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
-  private val move = new MovementFactory().tableauPileToTableauPile()
+  private val move = MovementFactory.tableauPileToTableauPile()
 
   test("givenTwoEmptyTableauPiles_whenMovingFromTableauPileToTableauPile_thenExceptionIsThrown") {
     intercept[EmptyPileException] {
