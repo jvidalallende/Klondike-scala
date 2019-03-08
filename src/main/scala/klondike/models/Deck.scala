@@ -1,4 +1,4 @@
-package models
+package klondike.models
 
 // A Deck is a Pile with all its cards downturned
 class Deck(__cards: List[Card], __name: String = "Deck") extends Pile(__cards.map(_.downturn()), __name) {

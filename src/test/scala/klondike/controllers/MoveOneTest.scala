@@ -1,6 +1,6 @@
-package controllers
+package klondike.controllers
 
-import models._
+import klondike.models._
 import org.scalatest.FunSuite
 
 class MoveOneTest extends FunSuite with MoveOneBehaviors {

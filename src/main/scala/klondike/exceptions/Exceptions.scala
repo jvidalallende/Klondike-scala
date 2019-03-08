@@ -1,4 +1,4 @@
-package exceptions
+package klondike.exceptions
 
 case class InvalidValueException(message: String) extends Exception
 case class EmptyPileException(message: String) extends Exception

@@ -1,4 +1,4 @@
-package models
+package klondike.models
 
 // A Foundation is a Pile with all its cards upturned
 class Foundation(__cards: List[Card], __name: String = "Foundation") extends Pile(__cards.map(_.upturn()), __name) {

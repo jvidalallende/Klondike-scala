@@ -1,6 +1,6 @@
-package models
+package klondike.models
 
-import exceptions.InvalidValueException
+import klondike.exceptions.InvalidValueException
 import org.scalatest.FunSuite
 
 class SpanishCardTest extends FunSuite {

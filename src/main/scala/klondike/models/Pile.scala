@@ -1,6 +1,6 @@
-package models
+package klondike.models
 
-import exceptions.EmptyPileException
+import klondike.exceptions.EmptyPileException
 
 abstract class Pile(__cards: List[Card], __name: String) {
 

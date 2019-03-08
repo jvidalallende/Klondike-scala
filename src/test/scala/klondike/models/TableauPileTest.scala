@@ -1,6 +1,6 @@
-package models
+package klondike.models
 
-import exceptions.EmptyPileException
+import klondike.exceptions.EmptyPileException
 import org.scalatest.FunSuite
 
 class TableauPileTest extends FunSuite {

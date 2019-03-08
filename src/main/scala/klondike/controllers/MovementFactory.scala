@@ -1,7 +1,7 @@
-package controllers
+package klondike.controllers
 
-import exceptions.InvalidMoveException
-import models.{Card, Pile, TableauPile}
+import klondike.exceptions.InvalidMoveException
+import klondike.models.{Card, Pile, TableauPile}
 
 // All moves returned by this factory are functions with the same parameter types: f(Pile, Pile) --> (Pile, Pile)
 object MovementFactory {

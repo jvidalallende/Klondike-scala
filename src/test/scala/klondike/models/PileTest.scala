@@ -1,6 +1,6 @@
-package models
+package klondike.models
 
-import exceptions.EmptyPileException
+import klondike.exceptions.EmptyPileException
 import org.scalatest.FunSuite
 
 /* This suite uses the Deck concrete class, but is testing the functionality for Pile

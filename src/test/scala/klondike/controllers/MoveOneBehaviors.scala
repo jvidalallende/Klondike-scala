@@ -1,7 +1,7 @@
-package controllers
+package klondike.controllers
 
-import exceptions.{EmptyPileException, InvalidMoveException}
-import models.Pile
+import klondike.exceptions.{EmptyPileException, InvalidMoveException}
+import klondike.models.Pile
 import org.scalatest.FunSuite
 
 trait MoveOneBehaviors {

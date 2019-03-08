@@ -1,6 +1,6 @@
-package models
+package klondike.models
 
-import exceptions.InvalidValueException
+import klondike.exceptions.InvalidValueException
 
 class SpanishCard(__value: Int, __suit: String, __upturned: Boolean = false)
   extends Card(SpanishCard.filterValue(__value), SpanishCard.filterSuit(__suit), __upturned) {

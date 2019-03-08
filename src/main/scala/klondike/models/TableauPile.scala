@@ -1,6 +1,6 @@
-package models
+package klondike.models
 
-import exceptions.EmptyPileException
+import klondike.exceptions.EmptyPileException
 
 /* A TableauPile is a Pile with some cards its cards downturned, and some others upturned.
    Only upturned cards can be picked.

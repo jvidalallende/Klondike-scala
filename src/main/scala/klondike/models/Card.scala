@@ -1,4 +1,4 @@
-package models
+package klondike.models
 
 abstract class Card(__value: Int, __suit: String, __upturned: Boolean = false) {
 

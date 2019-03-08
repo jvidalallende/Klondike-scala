@@ -1,7 +1,7 @@
-package controllers
+package klondike.controllers
 
-import exceptions.{EmptyPileException, InvalidMoveException}
-import models.{SpanishCard, TableauPile}
+import klondike.exceptions.{EmptyPileException, InvalidMoveException}
+import klondike.models.{SpanishCard, TableauPile}
 import org.scalatest.FunSuite
 
 class TableauPileToTableauPileTest extends FunSuite {

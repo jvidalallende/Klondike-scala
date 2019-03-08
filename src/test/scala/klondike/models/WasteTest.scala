@@ -1,4 +1,4 @@
-package models
+package klondike.models
 
 import org.scalatest.FunSuite
 
