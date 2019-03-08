@@ -6,11 +6,11 @@ abstract class Card(__value: Int, __suit: String, __upturned: Boolean = false) {
   private val _suit = __suit
   private val _upturned = __upturned
 
-  def value(): Int = _value
+  def value: Int = _value
 
-  def suit(): String = _suit
+  def suit: String = _suit
 
-  def upturned(): Boolean = _upturned
+  def upturned: Boolean = _upturned
 
   override def equals(that: Any): Boolean =
     that match {
@@ -23,7 +23,7 @@ abstract class Card(__value: Int, __suit: String, __upturned: Boolean = false) {
 
   def downturn(): Card
 
-  def isMin(): Boolean
+  def isMin: Boolean
 
-  def isMax(): Boolean
+  def isMax: Boolean
 }

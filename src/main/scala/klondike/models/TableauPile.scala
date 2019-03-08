@@ -28,7 +28,7 @@ class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends P
       numberOfCards match {
         case 0 => (picked, remaining)
         case _ if remaining.isEmpty => throw EmptyPileException("Pile is empty")
-        case _ if !remaining.head.upturned() => throw EmptyPileException("Not enough upturned cards to pick")
+        case _ if !remaining.head.upturned => throw EmptyPileException("Not enough upturned cards to pick")
         case _ => pick(remaining.head :: picked, remaining.tail, numberOfCards - 1)
       }
     }

@@ -10,19 +10,19 @@ class SpanishCardTest extends FunSuite {
   }
 
   test("givenOneCardWithLimitsMinValue_whenCallingIsMin_thenItReturnsTrue") {
-    assert(new SpanishCard(SpanishCard.MIN_VALUE, "golds").isMin())
+    assert(new SpanishCard(SpanishCard.MIN_VALUE, "golds").isMin)
   }
 
   test("givenOneCardWithLimitsMaxValue_whenCallingIsMax_thenItReturnsTrue") {
-    assert(new SpanishCard(SpanishCard.MAX_VALUE, "clubs").isMax())
+    assert(new SpanishCard(SpanishCard.MAX_VALUE, "clubs").isMax)
   }
 
   test("givenOneDownturnedCard_whenUpturningIt_thenItIsUpturned") {
-    assert(new SpanishCard(3, "clubs").upturn().upturned())
+    assert(new SpanishCard(3, "clubs").upturn().upturned)
   }
 
   test("givenOneUpturnedCard_whenDownturningIt_thenItIsNotUpturned") {
-    assert(!new SpanishCard(3, "clubs", true).downturn().upturned())
+    assert(!new SpanishCard(3, "clubs", true).downturn().upturned)
   }
 
   test("givenOneCard_whenCheckingIfItIsEqualToAString_thenItReturnsFalse") {

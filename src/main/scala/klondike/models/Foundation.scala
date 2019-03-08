@@ -13,7 +13,7 @@ class Foundation(__cards: List[Card], __name: String = "Foundation") extends Pil
   def full(): Boolean = {
     cards() match {
       case Nil => false
-      case head :: _ => head.isMax()
+      case head :: _ => head.isMax
     }
   }
 }

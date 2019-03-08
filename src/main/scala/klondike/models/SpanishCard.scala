@@ -5,15 +5,15 @@ import klondike.exceptions.InvalidValueException
 class SpanishCard(__value: Int, __suit: String, __upturned: Boolean = false)
   extends Card(SpanishCard.filterValue(__value), SpanishCard.filterSuit(__suit), __upturned) {
 
-  override def upturn(): Card = new SpanishCard(value(), suit(), true)
+  override def upturn(): Card = new SpanishCard(value, suit, true)
 
-  override def downturn(): Card = new SpanishCard(value(), suit(), false)
+  override def downturn(): Card = new SpanishCard(value, suit, false)
 
-  override def isMin(): Boolean = {
+  override def isMin: Boolean = {
     value == SpanishCard.MIN_VALUE
   }
 
-  override def isMax(): Boolean = {
+  override def isMax: Boolean = {
     value == SpanishCard.MAX_VALUE
   }
 }
