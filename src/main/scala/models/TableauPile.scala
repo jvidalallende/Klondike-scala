@@ -6,7 +6,7 @@ import exceptions.EmptyPileException
    Only upturned cards can be picked.
    If a pick leaves only downturned cards in the pile, the top card will be upturned */
 
-class TableauPile(__cards: List[Card]) extends Pile(__cards, "TableauPile") {
+class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends Pile(__cards, __name) {
 
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
