@@ -18,11 +18,11 @@ class PileTest extends FunSuite {
   }
 
   test("givenOneEmptyDeck_whenCheckingIfItIsEmpty_thenItIsEmpty") {
-    assert(new Deck(Nil).empty())
+    assert(new Deck(Nil).empty)
   }
 
   test("givenOneDeckWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
-    assert(!new Deck(aceOfGolds :: Nil).empty())
+    assert(!new Deck(aceOfGolds :: Nil).empty)
   }
 
   test("givenADeck_whenComparedToAListOfCards_thenTheyAreNotEqual") {

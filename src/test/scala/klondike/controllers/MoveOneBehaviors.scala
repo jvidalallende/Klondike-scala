@@ -20,8 +20,8 @@ trait MoveOneBehaviors {
 
     test(s"givenA${source.name}WithOneCard_whenMovingTo${destination.name}ThatCanReceiveTheCard_thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCard") {
       val (newSource, newDestination) = move(source, destination)
-      assert(newSource.empty())
-      assert(newDestination.cards().head == source.cards().head.upturn())
+      assert(newSource.empty)
+      assert(newDestination.cards.head == source.cards.head.upturn())
     }
   }
 

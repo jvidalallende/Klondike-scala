@@ -10,7 +10,7 @@ class FoundationTest extends FunSuite {
 
   test("givenTwoDownturnedCards_whenBuildingAFoundationWithIt_thenCardsInTheFoundationAreUpturn") {
     val foundation = new Foundation(aceOfGolds :: twoOfCups :: Nil)
-    assert(aceOfGolds.upturn() :: twoOfCups.upturn() :: Nil == foundation.cards())
+    assert(aceOfGolds.upturn() :: twoOfCups.upturn() :: Nil == foundation.cards)
   }
 
   test("givenAFoundationWithOneCard_whenPickingFromIt_thenReturnsTheCardAndAnEmptyFoundation") {

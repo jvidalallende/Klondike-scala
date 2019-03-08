@@ -9,7 +9,7 @@ class DeckTest extends FunSuite {
 
   test("givenTwoUpturnCards_whenBuildingADeckWithThem_thenCardsInTheDeckAreDownturned") {
     val waste = new Deck(aceOfGolds.upturn() :: twoOfCups.upturn() :: Nil)
-    assert(aceOfGolds.downturn()::twoOfCups.downturn()::Nil == waste.cards())
+    assert(aceOfGolds.downturn()::twoOfCups.downturn()::Nil == waste.cards)
   }
 
   test("givenOneDeckWithOneCard_whenPickingFromIt_thenReturnsTheCardAndAnEmptyDeck") {

@@ -30,15 +30,15 @@ class TableauPileToTableauPileTest extends FunSuite {
   test("givenTwoEmptyTableauPiles_whenMovingZeroCardsFromBetweenThem_thenNoExceptionIsThrown") {
     val move = MovementFactory.tableauPileToTableauPile(0)
     val (sourceAfterMove, destinationAfterMove) = move(emptyTableauPile, emptyTableauPile)
-    assert(sourceAfterMove.empty())
-    assert(destinationAfterMove.empty())
+    assert(sourceAfterMove.empty)
+    assert(destinationAfterMove.empty)
   }
 
   test("givenATableauPileWithAKing_whenMovingToAnEmptyTableauPile_thenTheFirstTableauIsEmptyAndTheOtherTableauPileContainsTheCard") {
     val move = MovementFactory.tableauPileToTableauPile(1)
     val (sourceAfterMove, destinationAfterMove) = move(new TableauPile(kingOfSwords :: Nil), emptyTableauPile)
-    assert(sourceAfterMove.empty())
-    assert(kingOfSwords :: Nil == destinationAfterMove.cards())
+    assert(sourceAfterMove.empty)
+    assert(kingOfSwords :: Nil == destinationAfterMove.cards)
   }
 
   test("givenATableauPileWithACardDifferentFromAKing_whenMovingToAnEmptyTableauPile_thenExceptionIsThrown") {
@@ -51,8 +51,8 @@ class TableauPileToTableauPileTest extends FunSuite {
   test("givenATableauPileWithOneCard_whenMovingToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
     val move = MovementFactory.tableauPileToTableauPile(1)
     val (sourceAfterMove, destinationAfterMove) = move(new TableauPile(aceOfGolds :: Nil), new TableauPile(twoOfClubs :: Nil))
-    assert(sourceAfterMove.empty())
-    assert(aceOfGolds :: twoOfClubs :: Nil == destinationAfterMove.cards())
+    assert(sourceAfterMove.empty)
+    assert(aceOfGolds :: twoOfClubs :: Nil == destinationAfterMove.cards)
   }
 
   test("givenATableauPileWithACard_whenMovingToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
@@ -67,8 +67,8 @@ class TableauPileToTableauPileTest extends FunSuite {
     val destination = new TableauPile(fourOfCups :: Nil)
     val move = MovementFactory.tableauPileToTableauPile(3)
     val (sourceAfterMove, destinationAfterMove) = move(source, destination)
-    assert(sourceAfterMove.empty())
-    assert(source.cards() ::: destination.cards() == destinationAfterMove.cards())
+    assert(sourceAfterMove.empty)
+    assert(source.cards ::: destination.cards == destinationAfterMove.cards)
   }
 
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {

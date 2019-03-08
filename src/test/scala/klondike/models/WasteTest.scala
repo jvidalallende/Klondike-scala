@@ -9,7 +9,7 @@ class WasteTest extends FunSuite {
 
   test("givenTwoDownturnedCards_whenBuildingAWasteWithIt_thenCardsInTheWasteAreUpturn") {
     val waste = new Waste(aceOfGolds :: twoOfCups :: Nil)
-    assert(aceOfGolds.upturn()::twoOfCups.upturn()::Nil == waste.cards())
+    assert(aceOfGolds.upturn()::twoOfCups.upturn()::Nil == waste.cards)
   }
 
   test("givenAWasteWithOneCard_whenPickingFromIt_thenReturnsTheCardAndAnEmptyWaste") {

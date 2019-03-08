@@ -19,13 +19,13 @@ class TableauPileTest extends FunSuite {
     val tableauPile = new TableauPile(aceOfGolds :: Nil)
     val (picked, newTableauPile) = tableauPile.pick()
     assert(aceOfGolds == picked)
-    assert(newTableauPile.empty())
+    assert(newTableauPile.empty)
   }
 
   test("givenATableauPileWithOneUpturnedAndOneDownturnedCard_whenPickingFromIt_thenTheCardInThePileIsUpturned") {
     val tableauPile = new TableauPile(aceOfGolds :: twoOfCups.downturn() :: Nil)
     val (_, newTableauPile) = tableauPile.pick()
-    assert(newTableauPile.cards().head.upturned)
+    assert(newTableauPile.cards.head.upturned)
   }
 
   test("givenATableauPileWithOneUpturnedCard_whenPickingTwoCardsFromIt_thenExceptionIsThrown") {
@@ -49,17 +49,17 @@ class TableauPileTest extends FunSuite {
     val tableauPile = new TableauPile(aceOfGolds :: twoOfCups :: kingOfSwords.downturn() :: Nil)
     val (picked, newTableauPile) = tableauPile.pick(2)
     assert(twoOfCups :: aceOfGolds :: Nil == picked)
-    assert(newTableauPile.cards().head.upturned)
+    assert(newTableauPile.cards.head.upturned)
   }
 
   test("givenAnEmptyTableauPile_whenPuttingOneCard_thenThePileHeadIsThePutCard") {
-    assert(aceOfGolds == new TableauPile(Nil).put(aceOfGolds).cards().head)
+    assert(aceOfGolds == new TableauPile(Nil).put(aceOfGolds).cards.head)
   }
 
   test("givenAnEmptyTableauPile_whenPuttingTwoCards_thenThePileContainsTheCardsInReversedOrder") {
     val tableauPile = new TableauPile(Nil).put(aceOfGolds :: twoOfCups :: Nil)
-    assert(twoOfCups == tableauPile.cards().head)
-    assert(aceOfGolds == tableauPile.cards().tail.head)
+    assert(twoOfCups == tableauPile.cards.head)
+    assert(aceOfGolds == tableauPile.cards.tail.head)
   }
 
   test("givenATableauPileWithTwoUpturnedCards_whenPickingAndPuttingTheSameTwoCards_thenResultIsTheOriginalPile") {

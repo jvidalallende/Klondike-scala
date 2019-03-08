@@ -5,8 +5,8 @@ class Deck(__cards: List[Card], __name: String = "Deck") extends Pile(__cards.ma
 
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
-    (cards().head, new Deck(cards().tail))
+    (cards.head, new Deck(cards.tail))
   }
 
-  override def put(card: Card): Deck = new Deck(card.downturn() :: cards())
+  override def put(card: Card): Deck = new Deck(card.downturn() :: cards)
 }

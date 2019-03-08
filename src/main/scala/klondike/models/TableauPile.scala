@@ -11,15 +11,15 @@ class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends P
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
     val newPile = {
-      cards().tail match {
+      cards.tail match {
         case Nil => Nil
         case head :: tail => head.upturn() :: tail
       }
     }
-    (cards().head, new TableauPile(newPile))
+    (cards.head, new TableauPile(newPile))
   }
 
-  override def put(card: Card): TableauPile = new TableauPile(card.upturn() :: cards())
+  override def put(card: Card): TableauPile = new TableauPile(card.upturn() :: cards)
 
   // Tableau piles also support pick/put with multiple cards
 
@@ -34,9 +34,9 @@ class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends P
     }
 
     numberOfCards match {
-      case 0 => (Nil, new TableauPile(cards()))
+      case 0 => (Nil, new TableauPile(cards))
       case _ =>
-        val (picked, remaining) = pick(Nil, cards(), numberOfCards)
+        val (picked, remaining) = pick(Nil, cards, numberOfCards)
         val newTableauPile = remaining match {
           case Nil => new TableauPile(Nil)
           case head :: tail => new TableauPile(remaining.head.upturn() :: remaining.tail)
@@ -47,8 +47,8 @@ class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends P
 
   def put(cards: List[Card]): TableauPile = {
     cards match {
-      case Nil => new TableauPile(this.cards())
-      case head :: tail => new TableauPile(head :: this.cards()).put(tail)
+      case Nil => new TableauPile(this.cards)
+      case head :: tail => new TableauPile(head :: this.cards).put(tail)
     }
   }
 }

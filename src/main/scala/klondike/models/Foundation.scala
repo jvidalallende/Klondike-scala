@@ -5,13 +5,13 @@ class Foundation(__cards: List[Card], __name: String = "Foundation") extends Pil
 
   override def pick(): (Card, Pile) = {
     assertNotEmpty()
-    (cards().head, new Foundation(cards().tail))
+    (cards.head, new Foundation(cards.tail))
   }
 
-  override def put(card: Card): Foundation = new Foundation(card.upturn() :: cards())
+  override def put(card: Card): Foundation = new Foundation(card.upturn() :: cards)
 
   def full(): Boolean = {
-    cards() match {
+    cards match {
       case Nil => false
       case head :: _ => head.isMax
     }

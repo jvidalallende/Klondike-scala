@@ -30,7 +30,7 @@ object MovementFactory {
 
   private def foundationValidator(card: Card, foundation: Pile): Boolean = {
     foundation match {
-      case f if f.empty() => card.isMin
+      case f if f.empty => card.isMin
       case _ =>
         val topOfFoundation = foundation.pick()._1
         (card.suit == topOfFoundation.suit) && (card.value - topOfFoundation.value == 1)
@@ -39,7 +39,7 @@ object MovementFactory {
 
   private def tableauPileValidator(card: Card, tableauPile: Pile): Boolean = {
     tableauPile match {
-      case f if f.empty() => card.isMax
+      case f if f.empty => card.isMax
       case _ =>
         val topOfTableauPile = tableauPile.pick()._1
         //TODO: consider supporting different stacking rules
