@@ -19,6 +19,9 @@ abstract class Card(__value: Int, __suit: String, __upturned: Boolean = false) {
       case _ => false
     }
 
+  override def toString: String =
+    s"${this.value}_of_${this.suit}"
+
   def upturn(): Card
 
   def downturn(): Card
