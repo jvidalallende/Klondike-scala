@@ -12,8 +12,7 @@ trait SpanishCardViewBehaviors extends MockFactory {
     test(s"givenSpanishCard${card.toString}_whenViewingIt_thenItShouldBe$expected") {
       val mockIOManager = mock[IOManager]
       (mockIOManager.write(_: String)).expects(expected)
-      val view = new SpanishCardView(card, mockIOManager)
-      view.draw()
+      SpanishCardView.draw(card, mockIOManager)
     }
   }
 

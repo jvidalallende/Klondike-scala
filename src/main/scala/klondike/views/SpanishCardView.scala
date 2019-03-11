@@ -1,20 +1,16 @@
 package klondike.views
 
-import klondike.models.{Card, SpanishCard}
+object SpanishCardView extends CardView {
 
-class SpanishCardView(__card: SpanishCard, __io: IOManager) extends CardView(__card, __io) {
-
-  override protected def valueToString: String = {
-    _card.value match {
-      case _ if _card.value <= 7 => s" ${_card.value}"
-      case _ =>
-        val viewValue = _card.value + 2
-        s"$viewValue"
+  override protected def valueToString(value: Int): String = {
+    value match {
+      case _ if value <= 7 => s" $value"
+      case _ => s"${value + 2}"
     }
   }
 
-  override protected def suitToString: String = {
-    _card.suit match {
+  override protected def suitToString(suit: String): String = {
+    suit match {
       case "golds" => "GO"
       case "cups" => "CU"
       case "swords" => "SW"
