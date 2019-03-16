@@ -8,23 +8,29 @@ class WasteTest extends FunSuite {
   val aceOfGolds = new SpanishCard(1, "golds")
   val twoOfCups = new SpanishCard(2, "cups")
 
-  test("givenOneEmptyWaste_whenPickingFromIt_thenRaisesException") {
+  test("givenAEmptyWaste_whenPickingFromIt_thenRaisesException") {
     intercept[EmptyPileException] {
       new Waste(Nil).pick()
     }
   }
 
-  test("givenOneEmptyWaste_whenCheckingIfItIsEmpty_thenItIsEmpty") {
+  test("givenAEmptyWaste_whenCheckingIfItIsEmpty_thenItIsEmpty") {
     assert(new Waste(Nil).empty)
   }
 
-  test("givenOneWasteWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
+  test("givenAWasteWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
     assert(!new Waste(aceOfGolds :: Nil).empty)
   }
 
   test("givenAWaste_whenComparedToAListOfCards_thenTheyAreNotEqual") {
     val cards = List(aceOfGolds.upturn(), twoOfCups)
     assert(new Waste(cards) != cards)
+  }
+
+  test("givenAWasteWithTwoCards_whenUsingConstructorFromPile_thenNewWasteIsEqualToOriginalOne") {
+    val original = new Waste(aceOfGolds :: twoOfCups :: Nil)
+    val copy = new Waste(original)
+    assert(original == copy)
   }
 
   test("givenTwoDownturnedCards_whenBuildingAWasteWithIt_thenCardsInTheWasteAreUpturn") {

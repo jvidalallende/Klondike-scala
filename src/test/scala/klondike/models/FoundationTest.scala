@@ -6,31 +6,37 @@ import org.scalatest.FunSuite
 class FoundationTest extends FunSuite {
 
   val aceOfGolds = new SpanishCard(1, "golds")
-  val twoOfCups = new SpanishCard(2, "cups")
+  val twoOfGolds = new SpanishCard(2, "golds")
   val kingOfSwords = new SpanishCard(10, "swords")
 
-  test("givenOneEmptyFoundation_whenPickingFromIt_thenRaisesException") {
+  test("givenAEmptyFoundation_whenPickingFromIt_thenRaisesException") {
     intercept[EmptyPileException] {
       new Foundation(Nil).pick()
     }
   }
 
-  test("givenOneEmptyFoundation_whenCheckingIfItIsEmpty_thenItIsEmpty") {
+  test("givenAEmptyFoundation_whenCheckingIfItIsEmpty_thenItIsEmpty") {
     assert(new Foundation(Nil).empty)
   }
 
-  test("givenOneFoundationWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
+  test("givenAFoundationWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
     assert(!new Foundation(aceOfGolds :: Nil).empty)
   }
 
   test("givenAFoundation_whenComparedToAListOfCards_thenTheyAreNotEqual") {
-    val cards = List(aceOfGolds.upturn(), twoOfCups)
+    val cards = List(twoOfGolds.upturn(), aceOfGolds)
     assert(new Foundation(cards) != cards)
   }
 
+  test("givenAFoundationWithTwoCards_whenUsingConstructorFromPile_thenNewFoundationIsEqualToOriginalOne") {
+    val original = new Foundation(twoOfGolds :: aceOfGolds :: Nil)
+    val copy = new Foundation(original)
+    assert(original == copy)
+  }
+
   test("givenTwoDownturnedCards_whenBuildingAFoundationWithIt_thenCardsInTheFoundationAreUpturn") {
-    val foundation = new Foundation(aceOfGolds :: twoOfCups :: Nil)
-    assert(aceOfGolds.upturn() :: twoOfCups.upturn() :: Nil == foundation.cards)
+    val foundation = new Foundation(twoOfGolds :: aceOfGolds :: Nil)
+    assert(twoOfGolds.upturn() :: aceOfGolds.upturn() :: Nil == foundation.cards)
   }
 
   test("givenAFoundationWithOneCard_whenPickingFromIt_thenReturnsTheCardAndAnEmptyFoundation") {

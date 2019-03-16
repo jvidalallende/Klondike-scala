@@ -8,6 +8,8 @@ class Deck(__cards: List[Card], __name: String = "Deck") extends Pile[Deck] {
   override val name: String = __name
   override val cards: List[Card] = __cards.map(_.downturn())
 
+  def this(pile: Pile[Deck]) = this(pile.cards, pile.name)
+
   override def pick(): (Card, Deck) = {
     cards match {
       case Nil => throw EmptyPileException(s"$name is empty")

@@ -8,6 +8,8 @@ class Foundation(__cards: List[Card], __name: String = "Foundation") extends Pil
   override val name: String = __name
   override val cards: List[Card] = __cards.map(_.upturn())
 
+  def this(pile: Pile[Foundation]) = this(pile.cards, pile.name)
+
   override def pick(): (Card, Foundation) = {
     cards match {
       case Nil => throw EmptyPileException(s"$name is empty")

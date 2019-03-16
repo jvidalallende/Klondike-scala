@@ -8,6 +8,8 @@ class Waste(__cards: List[Card], __name: String = "Waste") extends Pile[Waste] {
   override val name: String = __name
   override val cards: List[Card] = __cards.map(_.upturn())
 
+  def this(pile: Pile[Waste]) = this(pile.cards, pile.name)
+
   override def pick(): (Card, Waste) = {
     cards match {
       case Nil => throw EmptyPileException(s"$name is empty")

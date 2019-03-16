@@ -11,6 +11,8 @@ class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends P
   override val name: String = __name
   override val cards: List[Card] = __cards
 
+  def this(pile: Pile[TableauPile]) = this(pile.cards, pile.name)
+
   override def pick(): (Card, TableauPile) = {
     cards match {
       case Nil => throw EmptyPileException(s"$name is empty")

@@ -9,23 +9,29 @@ class TableauPileTest extends FunSuite {
   val twoOfCups = new SpanishCard(2, "cups", true)
   val kingOfSwords = new SpanishCard(10, "swords", true)
 
-  test("givenOneEmptyTableauPile_whenPickingFromIt_thenRaisesException") {
+  test("givenAEmptyTableauPile_whenPickingFromIt_thenRaisesException") {
     intercept[EmptyPileException] {
       new TableauPile(Nil).pick()
     }
   }
 
-  test("givenOneEmptyTableauPile_whenCheckingIfItIsEmpty_thenItIsEmpty") {
+  test("givenAEmptyTableauPile_whenCheckingIfItIsEmpty_thenItIsEmpty") {
     assert(new TableauPile(Nil).empty)
   }
 
-  test("givenOneTableauPileWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
+  test("givenATableauPileWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
     assert(!new TableauPile(aceOfGolds :: Nil).empty)
   }
 
   test("givenATableauPile_whenComparedToAListOfCards_thenTheyAreNotEqual") {
     val cards = List(aceOfGolds.upturn(), twoOfCups)
     assert(new TableauPile(cards) != cards)
+  }
+
+  test("givenATableauPileWithTwoCards_whenUsingConstructorFromPile_thenNewTableauPileIsEqualToOriginalOne") {
+    val original = new TableauPile(aceOfGolds :: twoOfCups :: Nil)
+    val copy = new TableauPile(original)
+    assert(original == copy)
   }
 
   test("givenAnEmptyTableauPile_whenPickingFromIt_thenItExceptionIsThrown") {
