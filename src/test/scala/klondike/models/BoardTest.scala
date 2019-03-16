@@ -43,4 +43,14 @@ class BoardTest extends FunSuite {
     assert(tableauPile == board.tableauPile(3))
   }
 
+  test("givenTwoBoardsWithTheSamePilesPiles_whenCheckingIfTheyAreEqual_thenTrueIsReturned") {
+    val board = new Board(deck, waste, emptyFoundation :: emptyFoundation :: Nil, emptyTableauPile :: tableauPile :: Nil)
+    val board2 = new Board(deck, waste, emptyFoundation :: emptyFoundation :: Nil, emptyTableauPile :: tableauPile :: Nil)
+    assert(board == board2)
+  }
+
+  test("givenABoard_whenComparedToAString_thenTheyAreNotEqual") {
+    val board = new Board(deck, waste, emptyFoundation :: emptyFoundation :: Nil, emptyTableauPile :: tableauPile :: Nil)
+    assert(board != "board")
+  }
 }

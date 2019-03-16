@@ -32,4 +32,14 @@ class Board(__deck: Deck, __waste: Waste, __foundations: List[Foundation], __tab
       case _ => pileFromList(index - 1, piles.tail)
     }
   }
+
+  override def equals(that: Any): Boolean = {
+    that match {
+      case that: Board => this.deck == that.deck &&
+        this.waste == that.waste &&
+        this.foundations == that.foundations &&
+        this.tableauPiles == that.tableauPiles
+      case _ => false
+    }
+  }
 }
