@@ -6,20 +6,32 @@ import klondike.exceptions.EmptyPileException
    Only upturned cards can be picked.
    If a pick leaves only downturned cards in the pile, the top card will be upturned */
 
-class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends Pile(__cards, __name) {
+class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends Pile[TableauPile] {
 
-  override def pick(): (Card, Pile) = {
-    assertNotEmpty()
-    val newPile = {
-      cards.tail match {
-        case Nil => Nil
-        case head :: tail => head.upturn() :: tail
+  override val name: String = __name
+  override val cards: List[Card] = __cards
+
+  override def pick(): (Card, TableauPile) = {
+    cards match {
+      case Nil => throw EmptyPileException(s"$name is empty")
+      case _ => val newPile = {
+        cards.tail match {
+          case Nil => Nil
+          case head :: tail => head.upturn() :: tail
+        }
       }
+        (cards.head, new TableauPile(newPile))
     }
-    (cards.head, new TableauPile(newPile))
   }
 
   override def put(card: Card): TableauPile = new TableauPile(card.upturn() :: cards)
+
+  override def equals(that: Any): Boolean = {
+    that match {
+      case that: TableauPile => this.cards == that.cards
+      case _ => false
+    }
+  }
 
   // Tableau piles also support pick/put with multiple cards
 
@@ -39,7 +51,7 @@ class TableauPile(__cards: List[Card], __name: String = "TableauPile") extends P
         val (picked, remaining) = pick(Nil, cards, numberOfCards)
         val newTableauPile = remaining match {
           case Nil => new TableauPile(Nil)
-          case head :: tail => new TableauPile(remaining.head.upturn() :: remaining.tail)
+          case _ => new TableauPile(remaining.head.upturn() :: remaining.tail)
         }
         (picked, newTableauPile)
     }

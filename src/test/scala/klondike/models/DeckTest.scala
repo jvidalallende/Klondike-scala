@@ -1,5 +1,6 @@
 package klondike.models
 
+import klondike.exceptions.EmptyPileException
 import org.scalatest.FunSuite
 
 class DeckTest extends FunSuite {
@@ -7,9 +8,28 @@ class DeckTest extends FunSuite {
   val aceOfGolds = new SpanishCard(1, "golds")
   val twoOfCups = new SpanishCard(2, "cups")
 
+  test("givenOneEmptyDeck_whenPickingFromIt_thenRaisesException") {
+    intercept[EmptyPileException] {
+      new Deck(Nil).pick()
+    }
+  }
+
+  test("givenOneEmptyDeck_whenCheckingIfItIsEmpty_thenItIsEmpty") {
+    assert(new Deck(Nil).empty)
+  }
+
+  test("givenOneDeckWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
+    assert(!new Deck(aceOfGolds :: Nil).empty)
+  }
+
+  test("givenADeck_whenComparedToAListOfCards_thenTheyAreNotEqual") {
+    val cards = List(aceOfGolds.upturn(), twoOfCups)
+    assert(new Deck(cards) != cards)
+  }
+
   test("givenTwoUpturnCards_whenBuildingADeckWithThem_thenCardsInTheDeckAreDownturned") {
     val waste = new Deck(aceOfGolds.upturn() :: twoOfCups.upturn() :: Nil)
-    assert(aceOfGolds.downturn()::twoOfCups.downturn()::Nil == waste.cards)
+    assert(aceOfGolds.downturn() :: twoOfCups.downturn() :: Nil == waste.cards)
   }
 
   test("givenOneDeckWithOneCard_whenPickingFromIt_thenReturnsTheCardAndAnEmptyDeck") {

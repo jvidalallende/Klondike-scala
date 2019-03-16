@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 trait PileViewBehaviors extends MockFactory {
   this: FunSuite =>
 
-  def checkView(pile: Pile, pileView: OnlyTopPileView, cardString: String, message: String) {
+  def checkView[A](pile: Pile[A], pileView: OnlyTopCardPileView, cardString: String, message: String) {
 
     test(s"given${pile.name}${message}_whenViewingIt_thenItShouldBeDrawnAsExpected") {
       val mockIOManager = mock[IOManager]

@@ -11,10 +11,10 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val emptyTableauPile = new TableauPile(Nil, "EmptyTableauPile")
 
   private val deckToWaste = MovementFactory.deckToWaste()
-  private val wasteToFoundation = MovementFactory.wasteToFoundation()
-  private val wasteToTableauPile = MovementFactory.wasteToTableauPile()
-  private val tableauPileToFoundation = MovementFactory.tableauPileToFoundation()
-  private val foundationToTableauPile = MovementFactory.foundationToTableauPile()
+  private val wasteToFoundation = MovementFactory.moveToFoundation[Waste]()
+  private val wasteToTableauPile = MovementFactory.moveToTableauPile[Waste]()
+  private val tableauPileToFoundation = MovementFactory.moveToFoundation[TableauPile]()
+  private val foundationToTableauPile = MovementFactory.moveToTableauPile[Foundation]()
 
   private val aceOfGolds = new SpanishCard(SpanishCard.MIN_VALUE, "golds", true)
   private val twoOfGolds = new SpanishCard(2, "golds", true)
@@ -24,11 +24,11 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
   // Empty source
-  testsFor(emptySource(emptyDeck, _, deckToWaste))
-  testsFor(emptySource(emptyWaste, _, wasteToFoundation))
-  testsFor(emptySource(emptyWaste, _, wasteToTableauPile))
-  testsFor(emptySource(emptyTableauPile, _, tableauPileToFoundation))
-  testsFor(emptySource(emptyFoundation, _, foundationToTableauPile))
+  testsFor(emptySource[Deck, Waste](emptyDeck, _, deckToWaste))
+  testsFor(emptySource[Waste, Foundation](emptyWaste, _, wasteToFoundation))
+  testsFor(emptySource[Waste, TableauPile](emptyWaste, _, wasteToTableauPile))
+  testsFor(emptySource[TableauPile, Foundation](emptyTableauPile, _, tableauPileToFoundation))
+  testsFor(emptySource[Foundation, TableauPile](emptyFoundation, _, foundationToTableauPile))
 
   // Empty destination, can accept
   testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), emptyWaste, deckToWaste))

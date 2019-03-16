@@ -1,14 +1,28 @@
 package klondike.models
 
-// A Foundation is a Pile with all its cards upturned
-class Foundation(__cards: List[Card], __name: String = "Foundation") extends Pile(__cards.map(_.upturn()), __name) {
+import klondike.exceptions.EmptyPileException
 
-  override def pick(): (Card, Pile) = {
-    assertNotEmpty()
-    (cards.head, new Foundation(cards.tail))
+// A Foundation is a Pile with all its cards upturned
+class Foundation(__cards: List[Card], __name: String = "Foundation") extends Pile[Foundation] {
+
+  override val name: String = __name
+  override val cards: List[Card] = __cards.map(_.upturn())
+
+  override def pick(): (Card, Foundation) = {
+    cards match {
+      case Nil => throw EmptyPileException(s"$name is empty")
+      case _ => (cards.head, new Foundation(cards.tail))
+    }
   }
 
   override def put(card: Card): Foundation = new Foundation(card.upturn() :: cards)
+
+  override def equals(that: Any): Boolean = {
+    that match {
+      case that: Foundation => this.cards == that.cards
+      case _ => false
+    }
+  }
 
   def full(): Boolean = {
     cards match {
