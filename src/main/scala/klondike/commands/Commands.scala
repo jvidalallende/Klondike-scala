@@ -14,5 +14,7 @@ object Commands {
 
   def foundationToTableauPile(io: IOManager): Command = new FoundationToTableauPileCommand("Move from one of the foundations to one of the tableau piles", io)
 
+  def tableauPileToTableauPile(io: IOManager): Command = new MoveBetweenTableauPilesCommand("Move from one of the foundations to one of the tableau piles", io)
+
   def exit: Command = new ExitCommand("Exit")
 }
