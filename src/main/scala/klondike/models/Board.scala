@@ -27,8 +27,8 @@ class Board(__deck: Deck, __waste: Waste, __foundations: List[Foundation], __tab
 
   private def pileFromList[A](index: Int, piles: List[A]): A = {
     index match {
-      case _ if index <= 0 || piles.isEmpty => throw InvalidValueException(s"Pile not available")
-      case 1 => piles.head
+      case _ if index < 0 || piles.isEmpty => throw InvalidValueException(s"Pile not available")
+      case 0 => piles.head
       case _ => pileFromList(index - 1, piles.tail)
     }
   }

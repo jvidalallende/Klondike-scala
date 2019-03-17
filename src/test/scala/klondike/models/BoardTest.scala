@@ -26,21 +26,21 @@ class BoardTest extends FunSuite {
   test("givenABoardWithNoFoundations_whenRetrievingTheFirstFoundation_thenExceptionIsRaised") {
     val board = new Board(deck, waste, Nil, Nil)
     intercept[InvalidValueException] {
-      board.foundation(1)
+      board.foundation(0)
     }
   }
 
   test("givenABoardWithFourFoundations_whenRetrievingTheFifthFoundation_thenExceptionIsRaised") {
     val board = new Board(deck, waste, emptyFoundation :: emptyFoundation :: emptyFoundation :: emptyFoundation :: Nil, Nil)
     intercept[InvalidValueException] {
-      board.foundation(5)
+      board.foundation(4)
     }
   }
 
   test("givenABoardWithSevenTableauPiles_whenRetrievingTheThirdOne_thenItIsCorrectlyReturned") {
     val tableauPiles = emptyTableauPile :: emptyTableauPile :: tableauPile :: emptyTableauPile :: emptyTableauPile :: emptyTableauPile :: emptyTableauPile :: Nil
     val board = new Board(deck, waste, Nil, tableauPiles)
-    assert(tableauPile == board.tableauPile(3))
+    assert(tableauPile == board.tableauPile(2))
   }
 
   test("givenTwoBoardsWithTheSamePilesPiles_whenCheckingIfTheyAreEqual_thenTrueIsReturned") {
