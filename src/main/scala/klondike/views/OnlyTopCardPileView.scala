@@ -2,16 +2,14 @@ package klondike.views
 
 import klondike.models.Pile
 
-class OnlyTopCardPileView(__cardView: CardView) {
+object OnlyTopCardPileView {
 
-  protected val _cardView: CardView = __cardView
-
-  def draw[A](pile: Pile[A], io: IOManager): Unit = {
+  def draw[A](pile: Pile[A], cardView: CardView, io: IOManager): Unit = {
     if (pile.empty) {
       io.write("[     ]")
     }
     else {
-      _cardView.draw(pile.pick()._1, io)
+      cardView.draw(pile.pick()._1, io)
     }
   }
 }

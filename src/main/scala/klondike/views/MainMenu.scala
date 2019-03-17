@@ -14,6 +14,7 @@ class MainMenu(__commands: Vector[Command], __initialGame: Game, __io: IOManager
     var game = _initialGame
     var keepRunning = true
     while (keepRunning) {
+      BoardView.draw(game.board, SpanishCardView, _io)
       val command = askUserForCommand()
       try {
         game = command.execute(game)
