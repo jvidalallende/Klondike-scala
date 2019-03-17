@@ -47,6 +47,14 @@ coverage:
 
     $ sbt clean test
 
+## Changelog
+
+* v0.1: First working prototype
+  * Deck is not reloaded
+  * No way to finish the game (only manual exit)
+  * Missing tests for main views and menus
+ 
+
 ## Related sites
 
 * [CI server in TravisCI](https://travis-ci.org/jvidalallende/Klondike-scala)

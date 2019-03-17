@@ -13,17 +13,19 @@ class MainMenu(__commands: Vector[Command], __initialGame: Game, __io: IOManager
   def run(): Unit = {
     var game = _initialGame
     var keepRunning = true
+    val boardView = new BoardView(SpanishCardView, _io)
     while (keepRunning) {
-      BoardView.draw(game.board, SpanishCardView, _io)
+      boardView.draw(game.board)
       val command = askUserForCommand()
       try {
         game = command.execute(game)
+        _io.write("\n *** Successful move! ***\n\n")
       }
       catch {
         case exit: ExitGameException =>
           _io.write(s"${exit.getMessage}\n")
           keepRunning = false
-        case e: Exception => _io.write(s"Error running command: ${e.getMessage}\n")
+        case e: Exception => _io.write(s"\n *** Error running command: ${e.getMessage} ***\n\n")
       }
     }
   }
@@ -42,7 +44,6 @@ class MainMenu(__commands: Vector[Command], __initialGame: Game, __io: IOManager
   private def printCommands(): Unit = {
     // Create a list of tuples (command, index), starting at index 1
     val commandsWithIndex = _commands.zip(Stream from 1)
-    _io.write("Select an option:\n")
     for ((command, index) <- commandsWithIndex) {
       _io.write(s"[$index] ${command.title}\n")
     }

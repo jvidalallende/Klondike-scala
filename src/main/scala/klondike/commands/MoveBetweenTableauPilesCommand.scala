@@ -13,15 +13,15 @@ class MoveBetweenTableauPilesCommand(__title: String, __io: IOManager) extends C
 
   override def execute(game: Game): Game = {
     val sourceIndex = _io.readInt(s"What tableau pile is the source? [1-${game.board.tableauPiles.length}]") - 1
-    val destinationIndex = _io.readInt(s"What foundation is the destination? [1-${game.board.foundations.length}]") - 1
+    val destinationIndex = _io.readInt(s"What tableau pile is the destination? [1-${game.board.tableauPiles.length}]") - 1
     if (sourceIndex == destinationIndex) {
       throw InvalidMoveException("Cannot select the same pile as source an destination")
     }
 
-    val cardsToMove = _io.readInt(s"How many cards should be moved? ")
-
     val source = game.board.tableauPile(sourceIndex)
     val destination = game.board.tableauPile(destinationIndex)
+
+    val cardsToMove = _io.readInt(s"How many cards should be moved? ")
 
     val (sourceAfterMove, destinationAfterMove) = MovementFactory.tableauPileToTableauPile(cardsToMove)(source, destination)
     val newTableauPiles = ListHelpers.replaceAt(

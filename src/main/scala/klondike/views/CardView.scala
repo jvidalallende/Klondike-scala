@@ -4,6 +4,8 @@ import klondike.models.Card
 
 abstract class CardView() {
 
+  // For text console, representation of a card should fit into seven characters, counting brackets
+
   protected def valueToString(value: Int): String
 
   protected def suitToString(suit: String): String
