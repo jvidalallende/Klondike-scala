@@ -13,7 +13,7 @@ class TableauPileToFoundationCommand(__title: String, __io: IOManager) extends C
   override def execute(game: Game): Game = {
     val tableauPileIndex = _io.readInt(s"What tableau pile is the source? [1-${game.board.tableauPiles.length}]") - 1
     val tableauPile = game.board.tableauPile(tableauPileIndex)
-    val foundationIndex = _io.readInt(s"What foundation pile is the destination? [1-${game.board.foundations.length}]") - 1
+    val foundationIndex = _io.readInt(s"What foundation is the destination? [1-${game.board.foundations.length}]") - 1
     val foundation = game.board.foundation(foundationIndex)
 
     val (tableauPileAfterMove, foundationAfterMove) = MovementFactory.moveToFoundation[TableauPile]()(tableauPile, foundation)
