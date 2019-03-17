@@ -1,7 +1,8 @@
-package klondike.views
+package klondike.commands
 
 import klondike.exceptions.EmptyPileException
 import klondike.models._
+import klondike.views.IOManager
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 

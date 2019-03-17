@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.commands.{Command, Commands}
 import klondike.models.{Board, Deck, Game, Waste}
 
 object Launcher extends App {

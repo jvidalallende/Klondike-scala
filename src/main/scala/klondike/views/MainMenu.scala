@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.commands.Command
 import klondike.exceptions.ExitGameException
 import klondike.models.Game
 

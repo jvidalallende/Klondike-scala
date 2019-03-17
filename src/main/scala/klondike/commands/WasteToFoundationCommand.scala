@@ -1,9 +1,9 @@
-package klondike.views
+package klondike.commands
 
 import klondike.controllers.MovementFactory
-import klondike.exceptions.InvalidValueException
 import klondike.models._
-import klondike.util.ListHelpers
+import klondike.utils.ListHelpers
+import klondike.views.IOManager
 
 class WasteToFoundationCommand(__title: String, __io: IOManager) extends Command {
 

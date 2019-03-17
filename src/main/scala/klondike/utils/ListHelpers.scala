@@ -1,4 +1,4 @@
-package klondike.util
+package klondike.utils
 
 import klondike.exceptions.InvalidValueException
 

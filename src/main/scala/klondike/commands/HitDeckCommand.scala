@@ -1,4 +1,4 @@
-package klondike.views
+package klondike.commands
 
 import klondike.controllers.MovementFactory
 import klondike.models.{Board, Deck, Game, Waste}

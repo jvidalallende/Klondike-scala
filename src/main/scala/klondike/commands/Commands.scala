@@ -1,4 +1,6 @@
-package klondike.views
+package klondike.commands
+
+import klondike.views._
 
 object Commands {
 

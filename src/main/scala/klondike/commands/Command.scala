@@ -1,4 +1,4 @@
-package klondike.views
+package klondike.commands
 
 import klondike.models.Game
 
