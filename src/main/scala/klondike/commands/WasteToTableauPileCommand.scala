@@ -11,8 +11,7 @@ class WasteToTableauPileCommand(__title: String, __io: IOManager) extends Comman
   private val _io = __io
 
   override def execute(game: Game): Game = {
-    val numberOfTableauPiles = game.board.tableauPiles.length
-    val tableauPileIndex = _io.readInt(s"What tableau pile is the destination? [1-$numberOfTableauPiles]") - 1
+    val tableauPileIndex = _io.readInt(s"What tableau pile is the destination? [1-${game.board.tableauPiles.length}]") - 1
     val tableauPile = game.board.tableauPile(tableauPileIndex)
 
     val (wasteAfterMove, tableauPileAfterMove) = MovementFactory.moveToTableauPile[Waste]()(game.board.waste, tableauPile)

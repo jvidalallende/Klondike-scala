@@ -14,8 +14,8 @@ class WasteToTableauPileCommandTest extends FunSuite with MockFactory {
 
   test("givenAGameWithEmptyWaste_whenMovingFromWasteToTableauPile_thenExceptionIsRaised") {
     val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles))
-    val stubIO = mock[IOManager]
-    (stubIO.readInt(_: String)).expects(*).returning(1)
+    val stubIO = stub[IOManager]
+    (stubIO.readInt _).when(*).returns(1)
     intercept[EmptyPileException] {
       Commands.wasteToTableauPile(stubIO).execute(game)
     }
@@ -23,8 +23,8 @@ class WasteToTableauPileCommandTest extends FunSuite with MockFactory {
 
   test("givenAGameWithAOneCardInWaste_whenMovingFromWasteToTableauPile_thenTheNewGameHasThatCardInTheExpectedTableauPile") {
     val game = new Game(new Board(new Deck(Nil), new Waste(kingOfGolds :: Nil), Nil, emptyTableauPiles))
-    val stubIO = mock[IOManager]
-    (stubIO.readInt(_: String)).expects(*).returning(5)
+    val stubIO = stub[IOManager]
+    (stubIO.readInt _).when(*).returns(5)
     val expectedTableauPiles = emptyTP :: emptyTP :: emptyTP :: emptyTP :: new TableauPile(kingOfGolds :: Nil) :: emptyTP :: emptyTP :: Nil
     val expected = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, expectedTableauPiles))
     assert(expected == Commands.wasteToTableauPile(stubIO).execute(game))

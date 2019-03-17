@@ -11,8 +11,7 @@ class WasteToFoundationCommand(__title: String, __io: IOManager) extends Command
   private val _io = __io
 
   override def execute(game: Game): Game = {
-    val numberOfFoundations = game.board.foundations.length
-    val foundationIndex = _io.readInt(s"What foundation is the destination? [1-$numberOfFoundations]") - 1
+    val foundationIndex = _io.readInt(s"What foundation is the destination? [1-${game.board.foundations.length}]") - 1
     val foundation = game.board.foundation(foundationIndex)
 
     val (wasteAfterMove, foundationAfterMove) = MovementFactory.moveToFoundation[Waste]()(game.board.waste, foundation)
