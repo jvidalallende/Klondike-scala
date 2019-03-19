@@ -14,8 +14,14 @@ abstract class CardView() {
 
   protected def downturnedView(card: Card): String = "[XXXXX]"
 
+  protected def emptyCardView : String = "       "
+
   def draw(card: Card, io: IOManager): Unit = {
     val cardString = if (card.upturned) upturnedView(card) else downturnedView(card)
     io.write(cardString)
+  }
+
+  def drawEmpty(io: IOManager): Unit = {
+    io.write(emptyCardView)
   }
 }
