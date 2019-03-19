@@ -3,12 +3,12 @@ package klondike.models
 import klondike.exceptions.EmptyPileException
 
 // A Deck is a Pile with all its cards downturned
-class Deck(__cards: List[Card], __name: String = "Deck") extends Pile[Deck] {
+class Deck(__cards: List[Card], __name: String = "Deck") extends Pile {
 
   override val name: String = __name
   override val cards: List[Card] = __cards.map(_.downturn())
 
-  def this(pile: Pile[Deck]) = this(pile.cards, pile.name)
+  def this(pile: Pile) = this(pile.cards, pile.name)
 
   override def pick(): (Card, Deck) = {
     cards match {

@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 trait MoveOneBehaviors {
   this: FunSuite =>
 
-  def emptySource[A, B](source: Pile[A], destination: Pile[B], move: (Pile[A], Pile[B]) => (Pile[A], Pile[B])) {
+  def emptySource(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
     test(s"givenEmpty${source.name}_whenMovingTo${destination.name}_thenEmptyPileExceptionIsThrown") {
       intercept[EmptyPileException] {
@@ -16,7 +16,7 @@ trait MoveOneBehaviors {
     }
   }
 
-  def destinationThatCanAcceptTheCard[A, B](source: Pile[A], destination: Pile[B], move: (Pile[A], Pile[B]) => (Pile[A], Pile[B])) {
+  def destinationThatCanAcceptTheCard(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
     test(s"givenA${source.name}WithOneCard_whenMovingTo${destination.name}ThatCanReceiveTheCard_thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCard") {
       val (newSource, newDestination) = move(source, destination)
@@ -25,7 +25,7 @@ trait MoveOneBehaviors {
     }
   }
 
-  def destinationThatCannotAcceptTheCard[A, B](source: Pile[A], destination: Pile[B], move: (Pile[A], Pile[B]) => (Pile[A], Pile[B])) {
+  def destinationThatCannotAcceptTheCard(source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
     test(s"givenA${source.name}WithOneCard_whenMovingTo${destination.name}ThatCannotReceiveTheCard_thenInvalidMoveExceptionIsThrown") {
       intercept[InvalidMoveException] {

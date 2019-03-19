@@ -14,7 +14,7 @@ class WasteToFoundationCommand(__title: String, __io: IOManager) extends Command
     val foundationIndex = _io.readInt(s"What foundation is the destination? [1-${game.board.foundations.length}]") - 1
     val foundation = game.board.foundation(foundationIndex)
 
-    val (wasteAfterMove, foundationAfterMove) = MovementFactory.moveToFoundation[Waste]()(game.board.waste, foundation)
+    val (wasteAfterMove, foundationAfterMove) = MovementFactory.moveToFoundation()(game.board.waste, foundation)
     val newFoundations = ListHelpers.replaceAt(game.board.foundations, foundationIndex, new Foundation(foundationAfterMove))
     val board = new Board(game.board.deck, new Waste(wasteAfterMove), newFoundations, game.board.tableauPiles)
     new Game(board)

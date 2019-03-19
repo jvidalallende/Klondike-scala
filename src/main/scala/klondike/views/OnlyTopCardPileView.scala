@@ -4,7 +4,7 @@ import klondike.models.Pile
 
 object OnlyTopCardPileView {
 
-  def draw[A](pile: Pile[A], cardView: CardView, io: IOManager): Unit = {
+  def draw(pile: Pile, cardView: CardView, io: IOManager): Unit = {
     if (pile.empty) {
       io.write("[     ]")
     }

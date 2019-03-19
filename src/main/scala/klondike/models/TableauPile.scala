@@ -6,12 +6,12 @@ import klondike.exceptions.EmptyPileException
    Only upturned cards can be picked.
    If a pick leaves only downturned cards in the pile, the top card will be upturned */
 
-class TableauPile(__cards: List[Card], __name: String = "Tableau Pile") extends Pile[TableauPile] {
+class TableauPile(__cards: List[Card], __name: String = "Tableau Pile") extends Pile {
 
   override val name: String = __name
   override val cards: List[Card] = __cards
 
-  def this(pile: Pile[TableauPile]) = this(pile.cards, pile.name)
+  def this(pile: Pile) = this(pile.cards, pile.name)
 
   override def pick(): (Card, TableauPile) = {
     cards match {

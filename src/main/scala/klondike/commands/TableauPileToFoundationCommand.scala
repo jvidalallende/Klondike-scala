@@ -16,7 +16,7 @@ class TableauPileToFoundationCommand(__title: String, __io: IOManager) extends C
     val foundationIndex = _io.readInt(s"What foundation is the destination? [1-${game.board.foundations.length}]") - 1
     val foundation = game.board.foundation(foundationIndex)
 
-    val (tableauPileAfterMove, foundationAfterMove) = MovementFactory.moveToFoundation[TableauPile]()(tableauPile, foundation)
+    val (tableauPileAfterMove, foundationAfterMove) = MovementFactory.moveToFoundation()(tableauPile, foundation)
     val newFoundations = ListHelpers.replaceAt(game.board.foundations, foundationIndex, new Foundation(foundationAfterMove))
     val newTableauPiles = ListHelpers.replaceAt(game.board.tableauPiles, tableauPileIndex, new TableauPile(tableauPileAfterMove))
     val board = new Board(game.board.deck, game.board.waste, newFoundations, newTableauPiles)

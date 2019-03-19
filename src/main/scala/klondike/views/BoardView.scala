@@ -7,7 +7,7 @@ class BoardView(__cardView: CardView, __io: IOManager) {
   private val _cardView = __cardView
   private val _io = __io
 
-  def draw[A](board: Board): Unit = {
+  def draw(board: Board): Unit = {
     drawTopRow(board)
     drawTableauPilesRow(board.tableauPiles)
   }
@@ -35,7 +35,7 @@ class BoardView(__cardView: CardView, __io: IOManager) {
     _io.write("       ")
   }
 
-  private def drawTopCardOfPileList[A](piles: List[Pile[A]]): Unit = {
+  private def drawTopCardOfPileList(piles: List[Pile]): Unit = {
     OnlyTopCardPileView.draw(piles.head, _cardView, _io)
     for (foundation <- piles.tail) {
       _io.write(" ")

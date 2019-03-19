@@ -7,7 +7,7 @@ import org.scalatest.FunSuite
 trait OnlyTopCardPileViewBehaviors extends MockFactory {
   this: FunSuite =>
 
-  def checkView[A](pile: Pile[A], cardView: CardView, cardString: String, message: String) {
+  def checkView[A](pile: Pile, cardView: CardView, cardString: String, message: String) {
 
     test(s"given${pile.name}${message}_whenViewingIt_thenItShouldBeDrawnAsExpected") {
       val mockIOManager = mock[IOManager]

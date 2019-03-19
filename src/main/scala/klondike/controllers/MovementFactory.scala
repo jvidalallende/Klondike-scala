@@ -6,7 +6,7 @@ import klondike.models._
 // All moves returned by this factory are functions with the same parameter types: f(Pile, Pile) --> (Pile, Pile)
 object MovementFactory {
 
-  private def moveOne[A, B](validate: (Card, Pile[B]) => Boolean)(source: Pile[A], destination: Pile[B]): (Pile[A], Pile[B]) = {
+  private def moveOne(validate: (Card, Pile) => Boolean)(source: Pile, destination: Pile): (Pile, Pile) = {
     val (pickedCard, newSource) = source.pick()
     if (!validate(pickedCard, destination)) {
       throw InvalidMoveException()
@@ -28,7 +28,7 @@ object MovementFactory {
     }
   }
 
-  private def foundationValidator(card: Card, foundation: Pile[Foundation]): Boolean = {
+  private def foundationValidator(card: Card, foundation: Pile): Boolean = {
     foundation match {
       case f if f.empty => card.isMin
       case _ =>
@@ -37,7 +37,7 @@ object MovementFactory {
     }
   }
 
-  private def tableauPileValidator(card: Card, tableauPile: Pile[TableauPile]): Boolean = {
+  private def tableauPileValidator(card: Card, tableauPile: Pile): Boolean = {
     tableauPile match {
       case f if f.empty => card.isMax
       case _ =>
@@ -48,16 +48,16 @@ object MovementFactory {
   }
 
 
-  def deckToWaste(): (Pile[Deck], Pile[Waste]) => (Pile[Deck], Pile[Waste]) = {
+  def deckToWaste(): (Pile, Pile) => (Pile, Pile) = {
     // No need to validate this movement, as the Waste has no requirements on which cards it accepts
-    moveOne[Deck, Waste]((_: Card, _: Pile[Waste]) => true)
+    moveOne((_: Card, _: Pile) => true)
   }
 
-  def moveToFoundation[A](): (Pile[A], Pile[Foundation]) => (Pile[A], Pile[Foundation]) = {
-    moveOne[A, Foundation](foundationValidator)
+  def moveToFoundation(): (Pile, Pile) => (Pile, Pile) = {
+    moveOne(foundationValidator)
   }
 
-  def moveToTableauPile[A](): (Pile[A], Pile[TableauPile]) => (Pile[A], Pile[TableauPile]) = {
+  def moveToTableauPile(): (Pile, Pile) => (Pile, Pile) = {
     moveOne(tableauPileValidator)
   }
 

@@ -3,12 +3,12 @@ package klondike.models
 import klondike.exceptions.EmptyPileException
 
 // A Waste is a Pile with all its cards upturned
-class Waste(__cards: List[Card], __name: String = "Waste") extends Pile[Waste] {
+class Waste(__cards: List[Card], __name: String = "Waste") extends Pile {
 
   override val name: String = __name
   override val cards: List[Card] = __cards.map(_.upturn())
 
-  def this(pile: Pile[Waste]) = this(pile.cards, pile.name)
+  def this(pile: Pile) = this(pile.cards, pile.name)
 
   override def pick(): (Card, Waste) = {
     cards match {
