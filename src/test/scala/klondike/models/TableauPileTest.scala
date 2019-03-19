@@ -3,48 +3,19 @@ package klondike.models
 import klondike.exceptions.EmptyPileException
 import org.scalatest.FunSuite
 
-class TableauPileTest extends FunSuite {
+class TableauPileTest extends FunSuite with PileBehaviors {
 
   val aceOfGolds = new SpanishCard(1, "golds", true)
   val twoOfCups = new SpanishCard(2, "cups", true)
   val kingOfSwords = new SpanishCard(10, "swords", true)
 
-  test("givenAEmptyTableauPile_whenPickingFromIt_thenRaisesException") {
-    intercept[EmptyPileException] {
-      new TableauPile(Nil).pick()
-    }
-  }
-
-  test("givenAEmptyTableauPile_whenCheckingIfItIsEmpty_thenItIsEmpty") {
-    assert(new TableauPile(Nil).empty)
-  }
-
-  test("givenATableauPileWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
-    assert(!new TableauPile(aceOfGolds :: Nil).empty)
-  }
-
-  test("givenATableauPile_whenComparedToAListOfCards_thenTheyAreNotEqual") {
-    val cards = List(aceOfGolds.upturn(), twoOfCups)
-    assert(new TableauPile(cards) != cards)
-  }
+  testsFor(emptyPileBehaviors(new TableauPile(Nil)))
+  testsFor(pileWithOneCardBehaviors(new TableauPile(aceOfGolds :: Nil)))
 
   test("givenATableauPileWithTwoCards_whenUsingConstructorFromPile_thenNewTableauPileIsEqualToOriginalOne") {
     val original = new TableauPile(aceOfGolds :: twoOfCups :: Nil)
     val copy = new TableauPile(original)
     assert(original == copy)
-  }
-
-  test("givenAnEmptyTableauPile_whenPickingFromIt_thenItExceptionIsThrown") {
-    intercept[EmptyPileException] {
-      new TableauPile(Nil).pick()
-    }
-  }
-
-  test("givenATableauPileWithOneCard_whenPickingFromIt_thenItBecomesEmpty") {
-    val tableauPile = new TableauPile(aceOfGolds :: Nil)
-    val (picked, newTableauPile) = tableauPile.pick()
-    assert(aceOfGolds == picked)
-    assert(newTableauPile.empty)
   }
 
   test("givenATableauPileWithOneUpturnedAndOneDownturnedCard_whenPickingFromIt_thenTheCardInThePileIsUpturned") {

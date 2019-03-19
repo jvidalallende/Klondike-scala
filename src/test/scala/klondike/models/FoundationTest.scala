@@ -1,32 +1,15 @@
 package klondike.models
 
-import klondike.exceptions.EmptyPileException
 import org.scalatest.FunSuite
 
-class FoundationTest extends FunSuite {
+class FoundationTest extends FunSuite with PileBehaviors {
 
   val aceOfGolds = new SpanishCard(1, "golds")
   val twoOfGolds = new SpanishCard(2, "golds")
   val kingOfSwords = new SpanishCard(10, "swords")
 
-  test("givenAEmptyFoundation_whenPickingFromIt_thenRaisesException") {
-    intercept[EmptyPileException] {
-      new Foundation(Nil).pick()
-    }
-  }
-
-  test("givenAEmptyFoundation_whenCheckingIfItIsEmpty_thenItIsEmpty") {
-    assert(new Foundation(Nil).empty)
-  }
-
-  test("givenAFoundationWithOneCard_whenCheckingIfItIsEmpty_thenItIsNotEmpty") {
-    assert(!new Foundation(aceOfGolds :: Nil).empty)
-  }
-
-  test("givenAFoundation_whenComparedToAListOfCards_thenTheyAreNotEqual") {
-    val cards = List(twoOfGolds.upturn(), aceOfGolds)
-    assert(new Foundation(cards) != cards)
-  }
+  testsFor(emptyPileBehaviors(new Foundation(Nil)))
+  testsFor(pileWithOneCardBehaviors(new Foundation(aceOfGolds :: Nil)))
 
   test("givenAFoundationWithTwoCards_whenUsingConstructorFromPile_thenNewFoundationIsEqualToOriginalOne") {
     val original = new Foundation(twoOfGolds :: aceOfGolds :: Nil)
@@ -37,12 +20,6 @@ class FoundationTest extends FunSuite {
   test("givenTwoDownturnedCards_whenBuildingAFoundationWithIt_thenCardsInTheFoundationAreUpturn") {
     val foundation = new Foundation(twoOfGolds :: aceOfGolds :: Nil)
     assert(twoOfGolds.upturn() :: aceOfGolds.upturn() :: Nil == foundation.cards)
-  }
-
-  test("givenAFoundationWithOneCard_whenPickingFromIt_thenReturnsTheCardAndAnEmptyFoundation") {
-    val aceOfGolds = new SpanishCard(1, "golds")
-    val foundation = new Foundation(aceOfGolds :: Nil)
-    assert((aceOfGolds.upturn(), new Foundation(Nil)) == foundation.pick())
   }
 
   test("givenAnEmptyFoundation_whenCheckingIfItIsFull_thenItReturnsFalse") {
