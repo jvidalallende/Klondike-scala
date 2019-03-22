@@ -2,7 +2,7 @@ package klondike.views
 
 import klondike.commands.Command
 import klondike.exceptions.ExitGameException
-import klondike.models.Game
+import klondike.models.{FoundationsFullGoal, Game}
 
 class MainMenu(__commands: Vector[Command], __initialGame: Game, __io: IOManager) {
 
@@ -19,12 +19,18 @@ class MainMenu(__commands: Vector[Command], __initialGame: Game, __io: IOManager
       val command = askUserForCommand()
       try {
         game = command.execute(game)
-        _io.write("\n *** Successful move! ***\n\n")
+        if (FoundationsFullGoal.done(game.board)) {
+          keepRunning = false;
+          _io.write("\n *** Well done! ***\n\n")
+        }
+        else {
+          _io.write("\n *** Successful move! ***\n\n")
+        }
       }
       catch {
         case exit: ExitGameException =>
-          _io.write(s"${exit.getMessage}\n")
           keepRunning = false
+          _io.write(s"${exit.getMessage}\n")
         case e: Exception => _io.write(s"\n *** Error running command: ${e.getMessage} ***\n\n")
       }
     }
