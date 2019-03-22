@@ -4,7 +4,7 @@ import klondike.commands.{Command, Commands}
 import klondike.models._
 
 object Launcher extends App {
-  val game = new Game(SpanishBoardBuilder.build())
+  val gameFactory = new SpanishGameFactory(7)
   val io = RealIOManager
   val commandsVector = Vector[Command](
     Commands.hitDeck,
@@ -14,6 +14,6 @@ object Launcher extends App {
     Commands.foundationToTableauPile(io),
     Commands.tableauPileToTableauPile(io),
     Commands.exit)
-  val menu = new MainMenu(commandsVector, game, io)
+  val menu = new MainMenu(commandsVector, gameFactory, io)
   menu.run()
 }

@@ -4,16 +4,16 @@ import klondike.commands.Command
 import klondike.exceptions.ExitGameException
 import klondike.models.{FoundationsFullGoal, Game}
 
-class MainMenu(__commands: Vector[Command], __initialGame: Game, __io: IOManager) {
+class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IOManager) {
 
-  private val _initialGame = __initialGame
   private val _commands = __commands
+  private val _gameFactory = __gameFactory
   private val _io = __io
 
   def run(): Unit = {
-    var game = _initialGame
+    var game = new Game(_gameFactory.initialBoard)
     var keepRunning = true
-    val boardView = new BoardView(SpanishCardView, _io)
+    val boardView = new BoardView(_gameFactory.cardView, _io)
     while (keepRunning) {
       boardView.draw(game.board)
       val command = askUserForCommand()
