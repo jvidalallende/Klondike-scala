@@ -24,16 +24,16 @@ class FoundationTest extends FunSuite with PileBehaviors {
 
   test("givenAnEmptyFoundation_whenCheckingIfItIsFull_thenItReturnsFalse") {
     val foundation = new Foundation(Nil)
-    assert(!foundation.full())
+    assert(!foundation.full)
   }
 
   test("givenAFoundation_whenPuttingACardWithMinValueOnIt_thenFoundationIsNotFull") {
     val foundation = new Foundation(Nil).put(aceOfGolds)
-    assert(!foundation.full())
+    assert(!foundation.full)
   }
 
   test("givenAFoundation_whenPuttingACardWithMaxValueOnIt_thenFoundationIsFull") {
     val foundation = new Foundation(Nil).put(kingOfSwords)
-    assert(foundation.full())
+    assert(foundation.full)
   }
 }
