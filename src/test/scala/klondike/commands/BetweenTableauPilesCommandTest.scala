@@ -17,7 +17,7 @@ class BetweenTableauPilesCommandTest extends FunSuite with MockFactory {
   private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
   private val command = new BetweenTableauPilesCommand("", movementFactory, _)
 
-  test("givenAGameWithEmptyTableauPiles_whenMovingBetweenTableauPiles_thenExceptionIsRaised") {
+  test("givenABoardWithEmptyTableauPiles_whenMovingBetweenTableauPiles_thenExceptionIsRaised") {
     val board = new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
@@ -29,7 +29,7 @@ class BetweenTableauPilesCommandTest extends FunSuite with MockFactory {
     }
   }
 
-  test("givenAGameWithEmptyTableauPiles_whenMovingFromOneTableauPileToTheSameOne_thenExceptionIsRaised") {
+  test("givenABoardWithEmptyTableauPiles_whenMovingFromOneTableauPileToTheSameOne_thenExceptionIsRaised") {
     val board = new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
@@ -40,7 +40,7 @@ class BetweenTableauPilesCommandTest extends FunSuite with MockFactory {
     }
   }
 
-  test("givenAGameWithTwoCardsInThirdTableauPile_whenMovingToTheFifthTableauPile_thenTheNewGameHasThatCardInTheExpectedTableauPile") {
+  test("givenABoardWithTwoCardsInThirdTableauPile_whenMovingToTheFifthTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile") {
     val tableauPiles = emptyTP :: emptyTP :: new TableauPile(knightOfGolds :: kingOfGolds :: Nil) :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: Nil
     val board = new Board(new Deck(Nil), new Waste(Nil), Nil, tableauPiles)
     val stubIO = stub[IOManager]

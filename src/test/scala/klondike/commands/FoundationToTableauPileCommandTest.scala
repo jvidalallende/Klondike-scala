@@ -18,7 +18,7 @@ class FoundationToTableauPileCommandTest extends FunSuite with MockFactory {
   private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
   private val command = new FoundationToTableauPileCommand("", movementFactory, _)
 
-  test("givenAGameWithEmptyFoundations_whenMovingFromFoundationToTableauPile_thenExceptionIsRaised") {
+  test("givenABoardWithEmptyFoundations_whenMovingFromFoundationToTableauPile_thenExceptionIsRaised") {
     val board = new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, emptyTableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
@@ -30,7 +30,7 @@ class FoundationToTableauPileCommandTest extends FunSuite with MockFactory {
     }
   }
 
-  test("givenAGameWithOneCardInTheFirstFoundation_whenMovingFromFoundationToTableauPile_thenTheNewGameHasThatCardInTheExpectedTableauPile") {
+  test("givenABoardWithOneCardInTheFirstFoundation_whenMovingFromFoundationToTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile") {
     val foundations = new Foundation(kingOfGolds :: Nil) :: emptyFoundation :: emptyFoundation :: emptyFoundation :: Nil
     val board = new Board(new Deck(Nil), new Waste(Nil), foundations, emptyTableauPiles)
     val stubIO = stub[IOManager]

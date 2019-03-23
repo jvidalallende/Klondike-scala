@@ -16,7 +16,7 @@ class WasteToFoundationCommandTest extends FunSuite with MockFactory {
   private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
   private val command = new WasteToFoundationCommand("", movementFactory, _)
 
-  test("givenAGameWithEmptyWaste_whenMovingFromWasteToFoundation_thenExceptionIsRaised") {
+  test("givenABoardWithEmptyWaste_whenMovingFromWasteToFoundation_thenExceptionIsRaised") {
     val board = new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, Nil)
     val stubIO = stub[IOManager]
     (stubIO.readInt _).when(*).returns(1)
@@ -25,7 +25,7 @@ class WasteToFoundationCommandTest extends FunSuite with MockFactory {
     }
   }
 
-  test("givenAGameWithAOneCardInWaste_whenMovingFromWasteToFoundation_thenTheNewGameHasThatCardInTheExpectedFoundation") {
+  test("givenABoardWithAOneCardInWaste_whenMovingFromWasteToFoundation_thenTheNewBoardHasThatCardInTheExpectedFoundation") {
     val board = new Board(new Deck(Nil), new Waste(aceOfGolds :: Nil), emptyFoundations, Nil)
     val stubIO = stub[IOManager]
     (stubIO.readInt _).when(*).returns(3)

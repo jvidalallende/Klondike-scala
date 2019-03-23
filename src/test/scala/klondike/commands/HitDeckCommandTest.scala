@@ -13,14 +13,14 @@ class HitDeckCommandTest extends FunSuite {
   private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
   private val command = new HitDeckCommand("", movementFactory)
 
-  test("givenAGameWithEmptyDeck_whenDoingHitDeckMovement_thenExceptionIsRaised") {
+  test("givenABoardWithEmptyDeck_whenDoingHitDeckMovement_thenExceptionIsRaised") {
     val board = new Board(new Deck(Nil), new Waste(Nil), Nil, Nil)
     intercept[EmptyPileException] {
       command.execute(board)
     }
   }
 
-  test("givenAGameWithAOneCardDeck_whenDoingHitDeckMovement_thenTheNewGameHasThatCardInTheWaste") {
+  test("givenABoardWithAOneCardDeck_whenDoingHitDeckMovement_thenTheNewBoardHasThatCardInTheWaste") {
     val board = new Board(new Deck(aceOfGolds :: Nil), new Waste(Nil), Nil, Nil)
     val expected = new Board(new Deck(Nil), new Waste(aceOfGolds.upturn() :: Nil), Nil, Nil)
     assert(expected == command.execute(board))

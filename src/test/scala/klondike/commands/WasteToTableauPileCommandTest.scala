@@ -16,7 +16,7 @@ class WasteToTableauPileCommandTest extends FunSuite with MockFactory {
   private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
   private val command = new WasteToTableauPileCommand("", movementFactory, _)
 
-  test("givenAGameWithEmptyWaste_whenMovingFromWasteToTableauPile_thenExceptionIsRaised") {
+  test("givenABoardWithEmptyWaste_whenMovingFromWasteToTableauPile_thenExceptionIsRaised") {
     val board = new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles)
     val stubIO = stub[IOManager]
     (stubIO.readInt _).when(*).returns(1)
@@ -25,7 +25,7 @@ class WasteToTableauPileCommandTest extends FunSuite with MockFactory {
     }
   }
 
-  test("givenAGameWithAOneCardInWaste_whenMovingFromWasteToTableauPile_thenTheNewGameHasThatCardInTheExpectedTableauPile") {
+  test("givenABoardWithAOneCardInWaste_whenMovingFromWasteToTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile") {
     val board = new Board(new Deck(Nil), new Waste(kingOfGolds :: Nil), Nil, emptyTableauPiles)
     val stubIO = stub[IOManager]
     (stubIO.readInt _).when(*).returns(5)
