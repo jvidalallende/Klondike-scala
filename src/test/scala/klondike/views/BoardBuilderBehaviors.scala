@@ -6,10 +6,10 @@ import org.scalatest.FunSuite
 trait BoardBuilderBehaviors {
   this: FunSuite =>
 
-  def checkBuild(name: String, buildFunction: () => Board) {
+  def checkBuild(name: String, buildFunction: Int => Board) {
 
     test(s"givenA${name}_whenABoardIsBuilt_thenItMeetsBoardRequirements") {
-      val board = buildFunction()
+      val board = buildFunction(7)
       assert(!board.deck.cards.head.upturned)
       assert(board.waste.empty)
       assert(board.foundations.forall(f => f.empty))
