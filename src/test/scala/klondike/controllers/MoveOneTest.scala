@@ -1,6 +1,7 @@
 package klondike.controllers
 
 import klondike.models._
+import klondike.views.SpanishGameFactory
 import org.scalatest.FunSuite
 
 class MoveOneTest extends FunSuite with MoveOneBehaviors {
@@ -17,36 +18,38 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val kingOfGolds = new SpanishCard(SpanishCard.MAX_VALUE, "golds", true)
   private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
+  private val movementBuilder = new MovementBuilder(SpanishGameFactory.tableauPileValidator)
+
   // Empty source
-  testsFor(emptySource(emptyDeck, _, Movements.deckToWaste))
-  testsFor(emptySource(emptyWaste, _, Movements.toFoundation))
-  testsFor(emptySource(emptyWaste, _, Movements.toTableauPile))
-  testsFor(emptySource(emptyTableauPile, _, Movements.toFoundation))
-  testsFor(emptySource(emptyFoundation, _, Movements.toTableauPile))
+  testsFor(emptySource(emptyDeck, _, movementBuilder.deckToWaste))
+  testsFor(emptySource(emptyWaste, _, movementBuilder.toFoundation))
+  testsFor(emptySource(emptyWaste, _, movementBuilder.toTableauPile))
+  testsFor(emptySource(emptyTableauPile, _, movementBuilder.toFoundation))
+  testsFor(emptySource(emptyFoundation, _, movementBuilder.toTableauPile))
 
   // Empty destination, can accept
-  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), emptyWaste, Movements.deckToWaste))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyFoundation, Movements.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(kingOfSwords :: Nil), emptyTableauPile, Movements.toTableauPile))
-  testsFor(destinationThatCanAcceptTheCard(new TableauPile(aceOfGolds :: Nil), emptyFoundation, Movements.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Foundation(kingOfSwords :: Nil), emptyTableauPile, Movements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), emptyWaste, movementBuilder.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyFoundation, movementBuilder.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(kingOfSwords :: Nil), emptyTableauPile, movementBuilder.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new TableauPile(aceOfGolds :: Nil), emptyFoundation, movementBuilder.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Foundation(kingOfSwords :: Nil), emptyTableauPile, movementBuilder.toTableauPile))
 
   // Empty destination, cannot accept
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), emptyFoundation, Movements.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyTableauPile, Movements.toTableauPile))
-  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfSwords :: Nil), emptyFoundation, Movements.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Foundation(threeOfCups :: Nil), emptyTableauPile, Movements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), emptyFoundation, movementBuilder.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyTableauPile, movementBuilder.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfSwords :: Nil), emptyFoundation, movementBuilder.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Foundation(threeOfCups :: Nil), emptyTableauPile, movementBuilder.toTableauPile))
 
   // Filled destination, can accept
-  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), new Waste(kingOfSwords :: Nil), Movements.deckToWaste))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfClubs :: Nil), new TableauPile(threeOfCups :: Nil), Movements.toTableauPile))
-  testsFor(destinationThatCanAcceptTheCard(new TableauPile(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Foundation(twoOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), Movements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), new Waste(kingOfSwords :: Nil), movementBuilder.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), movementBuilder.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfClubs :: Nil), new TableauPile(threeOfCups :: Nil), movementBuilder.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new TableauPile(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), movementBuilder.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Foundation(twoOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), movementBuilder.toTableauPile))
 
   // Filled destination, cannot accept
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), Movements.toTableauPile))
-  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Foundation(aceOfGolds :: Nil), new TableauPile(twoOfGolds :: Nil), Movements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), new Foundation(aceOfGolds :: Nil), movementBuilder.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), movementBuilder.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), movementBuilder.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Foundation(aceOfGolds :: Nil), new TableauPile(twoOfGolds :: Nil), movementBuilder.toTableauPile))
 }

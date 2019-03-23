@@ -4,28 +4,21 @@ import klondike.models._
 
 import scala.util.Random
 
-class SpanishGameFactory(__numberOfTableauPiles: Int) extends GameFactory {
+object SpanishGameFactory extends GameFactory {
 
-  private val _numberOfTableauPiles = __numberOfTableauPiles
-
-  // Responsible of drawing the cards
   override def cardView: CardView = SpanishCardView
 
-  // Returns a function that indicates if a Card is allowed to be placed in a TableauPile
-  override def tableauPileValidator: (Card, TableauPile) => Boolean = {
-    (card: Card, tableauPile: TableauPile) => {
-      tableauPile match {
+  override def tableauPileValidator: (Card, Pile) => Boolean = {
+    (card: Card, pile: Pile) => {
+      pile match {
         case f if f.empty => card.isMax
-        case _ =>
-          val topOfTableauPile = tableauPile.cards.head
-          (card.suit != topOfTableauPile.suit) && (topOfTableauPile.value - card.value == 1)
+        case _ => (card.suit != pile.cards.head.suit) && (pile.cards.head.value - card.value == 1)
       }
     }
   }
 
-  // Builds the initial game board, with all the cards in it distributed among the Piles
-  override def initialBoard: Board = {
-    val (tableauPiles, deckCards) = createTableauPiles(createCards())
+  override def initialBoard(numberOfTableauPiles: Int): Board = {
+    val (tableauPiles, deckCards) = createTableauPiles(numberOfTableauPiles, createCards())
     val emptyFoundations = List(Nil, Nil, Nil, Nil).map(x => new Foundation(x))
     new Board(new Deck(deckCards), new Waste(Nil), emptyFoundations, tableauPiles)
   }
@@ -35,16 +28,21 @@ class SpanishGameFactory(__numberOfTableauPiles: Int) extends GameFactory {
     Random.shuffle(cardSequence).toList
   }
 
-  private def createTableauPiles(cards: List[SpanishCard]): (List[TableauPile], List[SpanishCard]) = {
-    val (downturnedTableauPiles, remainingCards) = distributeCardsInTableauPiles(Nil, cards)
+  private def createTableauPiles(numberOfTableauPiles: Int, cards: List[SpanishCard]): (List[TableauPile], List[SpanishCard]) = {
+    val (downturnedTableauPiles, remainingCards) = distributeCardsInTableauPiles(numberOfTableauPiles, Nil, cards)
     val tableauPiles = downturnedTableauPiles.map(tp => new TableauPile(tp.cards.head.upturn() :: tp.cards.tail))
     (tableauPiles, remainingCards)
   }
 
-  private def distributeCardsInTableauPiles(tableauPiles: List[TableauPile], cards: List[SpanishCard]): (List[TableauPile], List[SpanishCard]) = {
+  private def distributeCardsInTableauPiles(numberOfTableauPiles: Int, tableauPiles: List[TableauPile], cards: List[SpanishCard])
+  : (List[TableauPile], List[SpanishCard]) = {
     tableauPiles.length match {
-      case _numberOfTableauPiles => (tableauPiles, cards)
-      case len => distributeCardsInTableauPiles(tableauPiles ::: new TableauPile(cards.take(len + 1)) :: Nil, cards.takeRight(cards.length - (len + 1)))
+      case length if length == numberOfTableauPiles => (tableauPiles, cards)
+      case length =>
+        val newTableauPiles = tableauPiles ::: new TableauPile(cards.take(length + 1)) :: Nil
+        val remainingCards = cards.takeRight(cards.length - (length + 1))
+        distributeCardsInTableauPiles(numberOfTableauPiles, newTableauPiles, remainingCards)
+
     }
   }
 }

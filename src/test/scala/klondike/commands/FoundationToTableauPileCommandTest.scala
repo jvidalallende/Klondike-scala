@@ -1,8 +1,9 @@
 package klondike.commands
 
+import klondike.controllers.MovementBuilder
 import klondike.exceptions.EmptyPileException
 import klondike.models._
-import klondike.views.IOManager
+import klondike.views.{IOManager, SpanishGameFactory}
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 
@@ -14,6 +15,9 @@ class FoundationToTableauPileCommandTest extends FunSuite with MockFactory {
   private val emptyTP = new TableauPile(Nil)
   private val emptyTableauPiles = emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: Nil
 
+  private val movementBuilder = new MovementBuilder(SpanishGameFactory.tableauPileValidator)
+  private val command = new FoundationToTableauPileCommand("", movementBuilder, _)
+
   test("givenAGameWithEmptyFoundations_whenMovingFromFoundationToTableauPile_thenExceptionIsRaised") {
     val game = new Game(new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, emptyTableauPiles))
     val stubIO = stub[IOManager]
@@ -22,7 +26,7 @@ class FoundationToTableauPileCommandTest extends FunSuite with MockFactory {
       (stubIO.readInt _).when(*).returns(2)
     }
     intercept[EmptyPileException] {
-      Commands.foundationToTableauPile(stubIO).execute(game)
+      command(stubIO).execute(game)
     }
   }
 
@@ -36,6 +40,6 @@ class FoundationToTableauPileCommandTest extends FunSuite with MockFactory {
     }
     val expectedTableauPiles = emptyTP :: emptyTP :: emptyTP :: new TableauPile(kingOfGolds :: Nil) :: emptyTP :: emptyTP :: emptyTP :: Nil
     val expected = new Game(new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, expectedTableauPiles))
-    assert(expected == Commands.foundationToTableauPile(stubIO).execute(game))
+    assert(expected == command(stubIO).execute(game))
   }
 }

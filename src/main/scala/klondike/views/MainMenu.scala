@@ -11,7 +11,7 @@ class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IO
   private val _io = __io
 
   def run(): Unit = {
-    var game = new Game(_gameFactory.initialBoard)
+    var game = new Game(_gameFactory.initialBoard(7))
     var keepRunning = true
     val boardView = new BoardView(_gameFactory.cardView, _io)
     while (keepRunning) {
