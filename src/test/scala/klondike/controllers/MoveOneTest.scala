@@ -10,12 +10,6 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val emptyFoundation = new Foundation(Nil, "EmptyFoundation")
   private val emptyTableauPile = new TableauPile(Nil, "EmptyTableauPile")
 
-  private val deckToWaste = MovementFactory.deckToWaste()
-  private val wasteToFoundation = MovementFactory.moveToFoundation()
-  private val wasteToTableauPile = MovementFactory.moveToTableauPile()
-  private val tableauPileToFoundation = MovementFactory.moveToFoundation()
-  private val foundationToTableauPile = MovementFactory.moveToTableauPile()
-
   private val aceOfGolds = new SpanishCard(SpanishCard.MIN_VALUE, "golds", true)
   private val twoOfGolds = new SpanishCard(2, "golds", true)
   private val twoOfClubs = new SpanishCard(2, "clubs", true)
@@ -24,35 +18,35 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
   // Empty source
-  testsFor(emptySource(emptyDeck, _, deckToWaste))
-  testsFor(emptySource(emptyWaste, _, wasteToFoundation))
-  testsFor(emptySource(emptyWaste, _, wasteToTableauPile))
-  testsFor(emptySource(emptyTableauPile, _, tableauPileToFoundation))
-  testsFor(emptySource(emptyFoundation, _, foundationToTableauPile))
+  testsFor(emptySource(emptyDeck, _, Movements.deckToWaste))
+  testsFor(emptySource(emptyWaste, _, Movements.toFoundation))
+  testsFor(emptySource(emptyWaste, _, Movements.toTableauPile))
+  testsFor(emptySource(emptyTableauPile, _, Movements.toFoundation))
+  testsFor(emptySource(emptyFoundation, _, Movements.toTableauPile))
 
   // Empty destination, can accept
-  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), emptyWaste, deckToWaste))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyFoundation, wasteToFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(kingOfSwords :: Nil), emptyTableauPile, wasteToTableauPile))
-  testsFor(destinationThatCanAcceptTheCard(new TableauPile(aceOfGolds :: Nil), emptyFoundation, tableauPileToFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Foundation(kingOfSwords :: Nil), emptyTableauPile, foundationToTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), emptyWaste, Movements.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyFoundation, Movements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(kingOfSwords :: Nil), emptyTableauPile, Movements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new TableauPile(aceOfGolds :: Nil), emptyFoundation, Movements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Foundation(kingOfSwords :: Nil), emptyTableauPile, Movements.toTableauPile))
 
   // Empty destination, cannot accept
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), emptyFoundation, wasteToFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyTableauPile, wasteToTableauPile))
-  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfSwords :: Nil), emptyFoundation, tableauPileToFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Foundation(threeOfCups :: Nil), emptyTableauPile, foundationToTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), emptyFoundation, Movements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), emptyTableauPile, Movements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfSwords :: Nil), emptyFoundation, Movements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Foundation(threeOfCups :: Nil), emptyTableauPile, Movements.toTableauPile))
 
   // Filled destination, can accept
-  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), new Waste(kingOfSwords :: Nil), deckToWaste))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), wasteToFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfClubs :: Nil), new TableauPile(threeOfCups :: Nil), wasteToTableauPile))
-  testsFor(destinationThatCanAcceptTheCard(new TableauPile(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), tableauPileToFoundation))
-  testsFor(destinationThatCanAcceptTheCard(new Foundation(twoOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), foundationToTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new Deck(twoOfClubs :: Nil), new Waste(kingOfSwords :: Nil), Movements.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Waste(twoOfClubs :: Nil), new TableauPile(threeOfCups :: Nil), Movements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard(new TableauPile(twoOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard(new Foundation(twoOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), Movements.toTableauPile))
 
   // Filled destination, cannot accept
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), new Foundation(aceOfGolds :: Nil), wasteToFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), wasteToTableauPile))
-  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), tableauPileToFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(new Foundation(aceOfGolds :: Nil), new TableauPile(twoOfGolds :: Nil), foundationToTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(twoOfClubs :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Waste(aceOfGolds :: Nil), new TableauPile(threeOfCups :: Nil), Movements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard(new TableauPile(kingOfGolds :: Nil), new Foundation(aceOfGolds :: Nil), Movements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard(new Foundation(aceOfGolds :: Nil), new TableauPile(twoOfGolds :: Nil), Movements.toTableauPile))
 }

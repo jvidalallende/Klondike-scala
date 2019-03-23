@@ -1,6 +1,6 @@
 package klondike.commands
 
-import klondike.controllers.MovementFactory
+import klondike.controllers.Movements
 import klondike.models._
 import klondike.utils.ListHelpers
 import klondike.views.IOManager
@@ -16,7 +16,7 @@ class FoundationToTableauPileCommand(__title: String, __io: IOManager) extends C
     val tableauPileIndex = _io.readInt(s"What tableau pile is the destination? [1-${game.board.tableauPiles.length}]") - 1
     val tableauPile = game.board.tableauPile(tableauPileIndex)
 
-    val (foundationAfterMove, tableauPileAfterMove) = MovementFactory.moveToTableauPile()(foundation, tableauPile)
+    val (foundationAfterMove, tableauPileAfterMove) = Movements.toTableauPile(foundation, tableauPile)
     val newTableauPiles = ListHelpers.replaceAt(game.board.tableauPiles, tableauPileIndex, new TableauPile(tableauPileAfterMove))
     val newFoundations = ListHelpers.replaceAt(game.board.foundations, foundationIndex, new Foundation(foundationAfterMove))
     val board = new Board(game.board.deck, game.board.waste, newFoundations, newTableauPiles)

@@ -4,7 +4,7 @@ import klondike.exceptions.InvalidMoveException
 import klondike.models._
 
 // All moves returned by this factory are functions with the same parameter types: f(Pile, Pile) --> (Pile, Pile)
-object MovementFactory {
+object Movements {
 
   private def moveOne(validate: (Card, Pile) => Boolean)(source: Pile, destination: Pile): (Pile, Pile) = {
     val (pickedCard, newSource) = source.pick()
@@ -48,20 +48,20 @@ object MovementFactory {
   }
 
 
-  def deckToWaste(): (Pile, Pile) => (Pile, Pile) = {
+  def deckToWaste: (Pile, Pile) => (Pile, Pile) = {
     // No need to validate this movement, as the Waste has no requirements on which cards it accepts
     moveOne((_: Card, _: Pile) => true)
   }
 
-  def moveToFoundation(): (Pile, Pile) => (Pile, Pile) = {
+  def toFoundation: (Pile, Pile) => (Pile, Pile) = {
     moveOne(foundationValidator)
   }
 
-  def moveToTableauPile(): (Pile, Pile) => (Pile, Pile) = {
+  def toTableauPile: (Pile, Pile) => (Pile, Pile) = {
     moveOne(tableauPileValidator)
   }
 
-  def tableauPileToTableauPile(numberOfCards: Int): (TableauPile, TableauPile) => (TableauPile, TableauPile) = {
+  def betweenTableauPiles(numberOfCards: Int): (TableauPile, TableauPile) => (TableauPile, TableauPile) = {
     moveMany(tableauPileValidator, numberOfCards)
   }
 }
