@@ -12,12 +12,9 @@ class WasteToTableauPileCommand(__title: String, __movementFactory: MovementFact
   private val _io = __io
 
   override def execute(game: Game): Game = {
-    val tableauPileIndex = _io.readInt(s"What tableau pile is the destination? [1-${game.board.tableauPiles.length}]") - 1
-    val tableauPile = game.board.tableauPile(tableauPileIndex)
-
+    val (tableauPile, tableauPileIndex) = PileRetriever.tableauPile(game, "destination", _io)
     val (wasteAfterMove, tableauPileAfterMove) = _movementFactory.toTableauPile(game.board.waste, tableauPile)
     val newTableauPiles = ListHelpers.replaceAt(game.board.tableauPiles, tableauPileIndex, new TableauPile(tableauPileAfterMove))
-    val board = new Board(game.board.deck, new Waste(wasteAfterMove), game.board.foundations, newTableauPiles)
-    new Game(board)
+    new Game(new Board(game.board.deck, new Waste(wasteAfterMove), game.board.foundations, newTableauPiles))
   }
 }
