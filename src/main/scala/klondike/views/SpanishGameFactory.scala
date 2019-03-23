@@ -4,6 +4,8 @@ import klondike.models.{Board, Card, Pile}
 
 object SpanishGameFactory extends GameFactory {
 
+  override val name = "SpanishGameFactory"
+
   override def cardView: CardView = SpanishCardView
 
   override def tableauPileValidator: (Card, Pile) => Boolean = {

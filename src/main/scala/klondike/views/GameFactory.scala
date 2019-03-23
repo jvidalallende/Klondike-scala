@@ -4,6 +4,8 @@ import klondike.models.{Board, Card, Pile}
 
 abstract class GameFactory {
 
+  val name: String
+
   // Builds the initial game board, with all the cards in it distributed among the Piles
   def initialBoard(numberOfTableauPiles: Int): Board
 
