@@ -1,19 +1,12 @@
 package klondike.controllers
 
 import klondike.exceptions.{EmptyPileException, InvalidMoveException}
-import klondike.models.{SpanishCard, TableauPile}
+import klondike.models.TableauPile
+import klondike.test_utils.TestModels._
 import klondike.views.SpanishGameFactory
 import org.scalatest.FunSuite
 
 class TableauPileToTableauPileTest extends FunSuite {
-
-  private val emptyTableauPile = new TableauPile(Nil)
-
-  private val aceOfGolds = new SpanishCard(1, "golds", true)
-  private val twoOfClubs = new SpanishCard(2, "clubs", true)
-  private val threeOfSwords = new SpanishCard(3, "swords", true)
-  private val fourOfCups = new SpanishCard(4, "cups", true)
-  private val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
   private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
 
@@ -38,7 +31,7 @@ class TableauPileToTableauPileTest extends FunSuite {
 
   test("givenATableauPileWithAKing_whenMovingToAnEmptyTableauPile_thenTheFirstTableauIsEmptyAndTheOtherTableauPileContainsTheCard") {
     val move = movementFactory.betweenTableauPiles(1)
-    val (sourceAfterMove, destinationAfterMove) = move(new TableauPile(kingOfSwords :: Nil), emptyTableauPile)
+    val (sourceAfterMove, destinationAfterMove) = move(tableauPileWithCard(kingOfSwords), emptyTableauPile)
     assert(sourceAfterMove.empty)
     assert(kingOfSwords :: Nil == destinationAfterMove.cards)
   }
@@ -46,13 +39,13 @@ class TableauPileToTableauPileTest extends FunSuite {
   test("givenATableauPileWithACardDifferentFromAKing_whenMovingToAnEmptyTableauPile_thenExceptionIsThrown") {
     val move = movementFactory.betweenTableauPiles(1)
     intercept[InvalidMoveException] {
-      move(new TableauPile(aceOfGolds :: Nil), emptyTableauPile)
+      move(tableauPileWithCard(aceOfGolds), emptyTableauPile)
     }
   }
 
   test("givenATableauPileWithOneCard_whenMovingToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
     val move = movementFactory.betweenTableauPiles(1)
-    val (sourceAfterMove, destinationAfterMove) = move(new TableauPile(aceOfGolds :: Nil), new TableauPile(twoOfClubs :: Nil))
+    val (sourceAfterMove, destinationAfterMove) = move(tableauPileWithCard(aceOfGolds), tableauPileWithCard(twoOfClubs))
     assert(sourceAfterMove.empty)
     assert(aceOfGolds :: twoOfClubs :: Nil == destinationAfterMove.cards)
   }
@@ -60,13 +53,13 @@ class TableauPileToTableauPileTest extends FunSuite {
   test("givenATableauPileWithACard_whenMovingToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
     val move = movementFactory.betweenTableauPiles(1)
     intercept[InvalidMoveException] {
-      move(new TableauPile(twoOfClubs :: Nil), new TableauPile(aceOfGolds :: Nil))
+      move(tableauPileWithCard(twoOfClubs), tableauPileWithCard(aceOfGolds))
     }
   }
 
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
     val source = new TableauPile(aceOfGolds :: twoOfClubs :: threeOfSwords :: Nil)
-    val destination = new TableauPile(fourOfCups :: Nil)
+    val destination = tableauPileWithCard(fourOfCups)
     val move = movementFactory.betweenTableauPiles(3)
     val (sourceAfterMove, destinationAfterMove) = move(source, destination)
     assert(sourceAfterMove.empty)
@@ -75,7 +68,7 @@ class TableauPileToTableauPileTest extends FunSuite {
 
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
     val source = new TableauPile(aceOfGolds :: twoOfClubs :: threeOfSwords :: Nil)
-    val destination = new TableauPile(kingOfSwords :: Nil)
+    val destination = tableauPileWithCard(kingOfSwords)
     val move = movementFactory.betweenTableauPiles(3)
     intercept[InvalidMoveException] {
       move(source, destination)

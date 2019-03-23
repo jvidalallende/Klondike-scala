@@ -2,9 +2,9 @@ package klondike.commands
 
 import klondike.controllers.MovementFactory
 import klondike.exceptions.{ExitGameException, InvalidMoveException}
-import klondike.models._
-import klondike.test_utils.{IOStubs, TestModels}
-import klondike.utils.ListHelpers
+import klondike.models.TableauPile
+import klondike.test_utils.IOStubs
+import klondike.test_utils.TestModels._
 import klondike.views.SpanishGameFactory
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
@@ -25,8 +25,8 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(validMove(
     "givenABoardWithAOneCardDeck_whenDoingHitDeckMovement_thenTheNewBoardHasThatCardInTheWaste",
     hitDeckCommand,
-    TestModels.emptyBoardWithDeck(TestModels.deck(TestModels.aceOfGolds)),
-    TestModels.emptyBoardWithWaste(TestModels.waste(TestModels.aceOfGolds))
+    emptyBoardWithDeck(deckWithCard(aceOfGolds)),
+    emptyBoardWithWaste(wasteWithCard(aceOfGolds))
   ))
 
 
@@ -36,8 +36,8 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(validMove(
     "givenABoardWithAOneCardInWaste_whenMovingFromWasteToFoundation_thenTheNewBoardHasThatCardInTheExpectedFoundation",
     wasteToFoundation(IOStubs.readInt(Seq(1))),
-    TestModels.emptyBoardWithWaste(TestModels.waste(TestModels.aceOfGolds)),
-    TestModels.emptyBoardWithFoundation(TestModels.foundation(TestModels.aceOfGolds), 0)
+    emptyBoardWithWaste(wasteWithCard(aceOfGolds)),
+    emptyBoardWithFoundation(foundationWithCard(aceOfGolds), 0)
   ))
 
 
@@ -47,8 +47,8 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(validMove(
     "givenABoardWithAOneCardInWaste_whenMovingFromWasteToTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile",
     wasteToTableauPile(IOStubs.readInt(Seq(7))),
-    TestModels.emptyBoardWithWaste(TestModels.waste(TestModels.kingOfGolds)),
-    TestModels.emptyBoardWithTableauPile(TestModels.tableauPile(TestModels.kingOfGolds), 6)
+    emptyBoardWithWaste(wasteWithCard(kingOfGolds)),
+    emptyBoardWithTableauPile(tableauPileWithCard(kingOfGolds), 6)
   ))
 
 
@@ -58,8 +58,8 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(validMove(
     "givenABoardWithOneCardInTheFirstFoundation_whenMovingFromFoundationToTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile",
     foundationToTableauPile(IOStubs.readInt(Seq(1, 4))),
-    TestModels.emptyBoardWithFoundation(TestModels.foundation(TestModels.kingOfGolds), 0),
-    TestModels.emptyBoardWithTableauPile(TestModels.tableauPile(TestModels.kingOfGolds), 3)
+    emptyBoardWithFoundation(foundationWithCard(kingOfGolds), 0),
+    emptyBoardWithTableauPile(tableauPileWithCard(kingOfGolds), 3)
   ))
 
 
@@ -69,8 +69,8 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(validMove(
     "givenABoardWithOneCardInThirdTableauPile_whenMovingFromTableauPileToFoundation_thenTheNewBoardHasThatCardInTheExpectedFoundation",
     tableauPileToFoundation(IOStubs.readInt(Seq(3, 4))),
-    TestModels.emptyBoardWithTableauPile(TestModels.tableauPile(TestModels.aceOfGolds), 2),
-    TestModels.emptyBoardWithFoundation(TestModels.foundation(TestModels.aceOfGolds), 3)
+    emptyBoardWithTableauPile(tableauPileWithCard(aceOfGolds), 2),
+    emptyBoardWithFoundation(foundationWithCard(aceOfGolds), 3)
   ))
 
 
@@ -78,7 +78,7 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(emptySource(betweenTableauPiles(IOStubs.readInt(Seq(1, 2, 1)))))
 
   test("givenABoardWithEmptyTableauPiles_whenMovingFromOneTableauPileToTheSameOne_thenExceptionIsRaised") {
-    val board = TestModels.emptyBoard
+    val board = emptyBoard
     intercept[InvalidMoveException] {
       betweenTableauPiles(IOStubs.readInt(Seq(5, 5))).execute(board)
     }
@@ -87,15 +87,15 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   testsFor(validMove(
     "givenABoardWithTwoCardsInThirdTableauPile_whenMovingToTheFifthTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile",
     betweenTableauPiles(IOStubs.readInt(Seq(3, 5, 2))),
-    TestModels.emptyBoardWithTableauPile(new TableauPile(TestModels.knightOfCups :: TestModels.kingOfGolds :: Nil), 2),
-    TestModels.emptyBoardWithTableauPile(new TableauPile(TestModels.knightOfCups :: TestModels.kingOfGolds :: Nil), 4)
+    emptyBoardWithTableauPile(new TableauPile(knightOfCups :: kingOfGolds :: Nil), 2),
+    emptyBoardWithTableauPile(new TableauPile(knightOfCups :: kingOfGolds :: Nil), 4)
   ))
 
 
   // Exit Command
   test("givenABoard_whenExecutingExitCommand_thenExitExceptionIsRaised") {
     intercept[ExitGameException] {
-      new ExitCommand("").execute(TestModels.emptyBoard)
+      new ExitCommand("").execute(emptyBoard)
     }
   }
 }

@@ -21,5 +21,4 @@ trait CommandBehaviors {
       assert(expected == command.execute(original))
     }
   }
-
 }

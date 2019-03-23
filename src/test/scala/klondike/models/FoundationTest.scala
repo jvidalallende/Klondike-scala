@@ -1,15 +1,12 @@
 package klondike.models
 
+import klondike.test_utils.TestModels._
 import org.scalatest.FunSuite
 
 class FoundationTest extends FunSuite with PileBehaviors {
 
-  val aceOfGolds = new SpanishCard(1, "golds")
-  val twoOfGolds = new SpanishCard(2, "golds")
-  val kingOfSwords = new SpanishCard(10, "swords")
-
-  testsFor(emptyPileBehaviors(new Foundation(Nil)))
-  testsFor(pileWithOneCardBehaviors(new Foundation(aceOfGolds :: Nil)))
+  testsFor(emptyPileBehaviors(emptyFoundation))
+  testsFor(pileWithOneCardBehaviors(foundationWithCard(aceOfGolds)))
 
   test("givenAFoundationWithTwoCards_whenUsingConstructorFromPile_thenNewFoundationIsEqualToOriginalOne") {
     val original = new Foundation(twoOfGolds :: aceOfGolds :: Nil)
@@ -23,17 +20,14 @@ class FoundationTest extends FunSuite with PileBehaviors {
   }
 
   test("givenAnEmptyFoundation_whenCheckingIfItIsFull_thenItReturnsFalse") {
-    val foundation = new Foundation(Nil)
-    assert(!foundation.full)
+    assert(!emptyFoundation.full)
   }
 
   test("givenAFoundation_whenPuttingACardWithMinValueOnIt_thenFoundationIsNotFull") {
-    val foundation = new Foundation(Nil).put(aceOfGolds)
-    assert(!foundation.full)
+    assert(!emptyFoundation.put(aceOfGolds).full)
   }
 
   test("givenAFoundation_whenPuttingACardWithMaxValueOnIt_thenFoundationIsFull") {
-    val foundation = new Foundation(Nil).put(kingOfSwords)
-    assert(foundation.full)
+    assert(emptyFoundation.put(kingOfSwords).full)
   }
 }
