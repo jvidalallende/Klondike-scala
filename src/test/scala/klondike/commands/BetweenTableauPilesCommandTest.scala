@@ -1,6 +1,6 @@
 package klondike.commands
 
-import klondike.controllers.MovementBuilder
+import klondike.controllers.MovementFactory
 import klondike.exceptions.{EmptyPileException, InvalidMoveException}
 import klondike.models._
 import klondike.views.{IOManager, SpanishGameFactory}
@@ -14,8 +14,8 @@ class BetweenTableauPilesCommandTest extends FunSuite with MockFactory {
   private val emptyTP = new TableauPile(Nil)
   private val emptyTableauPiles = emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: Nil
 
-  private val movementBuilder = new MovementBuilder(SpanishGameFactory.tableauPileValidator)
-  private val command = new BetweenTableauPilesCommand("", movementBuilder, _)
+  private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
+  private val command = new BetweenTableauPilesCommand("", movementFactory, _)
 
   test("givenAGameWithEmptyTableauPiles_whenMovingBetweenTableauPiles_thenExceptionIsRaised") {
     val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles))

@@ -1,15 +1,15 @@
 package klondike.commands
 
-import klondike.controllers.MovementBuilder
+import klondike.controllers.MovementFactory
 import klondike.exceptions.InvalidMoveException
 import klondike.models._
 import klondike.utils.ListHelpers
 import klondike.views.IOManager
 
-class BetweenTableauPilesCommand(__title: String, __movementBuilder: MovementBuilder, __io: IOManager) extends Command {
+class BetweenTableauPilesCommand(__title: String, __movementFactory: MovementFactory, __io: IOManager) extends Command {
 
   override val title: String = __title
-  private val _movementBuilder = __movementBuilder
+  private val _movementFactory = __movementFactory
   private val _io = __io
 
   override def execute(game: Game): Game = {
@@ -24,7 +24,7 @@ class BetweenTableauPilesCommand(__title: String, __movementBuilder: MovementBui
 
     val cardsToMove = _io.readInt(s"How many cards should be moved? ")
 
-    val (sourceAfterMove, destinationAfterMove) = _movementBuilder.betweenTableauPiles(cardsToMove)(source, destination)
+    val (sourceAfterMove, destinationAfterMove) = _movementFactory.betweenTableauPiles(cardsToMove)(source, destination)
     val newTableauPiles = ListHelpers.replaceAt(
       ListHelpers.replaceAt(game.board.tableauPiles, sourceIndex, new TableauPile(sourceAfterMove)),
       destinationIndex,

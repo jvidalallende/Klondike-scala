@@ -3,7 +3,7 @@ package klondike.controllers
 import klondike.exceptions.InvalidMoveException
 import klondike.models.{Card, Pile, TableauPile}
 
-class MovementBuilder(__tableauPileValidator: (Card, Pile) => Boolean) {
+class MovementFactory(__tableauPileValidator: (Card, Pile) => Boolean) {
 
   private val _tableauPileValidator = __tableauPileValidator
 

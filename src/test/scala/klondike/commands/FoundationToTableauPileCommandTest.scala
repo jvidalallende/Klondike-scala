@@ -1,6 +1,6 @@
 package klondike.commands
 
-import klondike.controllers.MovementBuilder
+import klondike.controllers.MovementFactory
 import klondike.exceptions.EmptyPileException
 import klondike.models._
 import klondike.views.{IOManager, SpanishGameFactory}
@@ -15,8 +15,8 @@ class FoundationToTableauPileCommandTest extends FunSuite with MockFactory {
   private val emptyTP = new TableauPile(Nil)
   private val emptyTableauPiles = emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: Nil
 
-  private val movementBuilder = new MovementBuilder(SpanishGameFactory.tableauPileValidator)
-  private val command = new FoundationToTableauPileCommand("", movementBuilder, _)
+  private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
+  private val command = new FoundationToTableauPileCommand("", movementFactory, _)
 
   test("givenAGameWithEmptyFoundations_whenMovingFromFoundationToTableauPile_thenExceptionIsRaised") {
     val game = new Game(new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, emptyTableauPiles))
