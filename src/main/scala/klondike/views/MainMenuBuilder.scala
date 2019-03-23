@@ -5,8 +5,7 @@ import klondike.controllers.MovementFactory
 
 object MainMenuBuilder {
 
-  def build(gameFactory: GameFactory): MainMenu = {
-    val io = RealIOManager
+  def build(gameFactory: GameFactory, io: IOManager): MainMenu = {
     val movementFactory = new MovementFactory(gameFactory.tableauPileValidator)
     val commandFactory = new CommandFactory(movementFactory, io)
     val commandsVector = Vector[Command](
