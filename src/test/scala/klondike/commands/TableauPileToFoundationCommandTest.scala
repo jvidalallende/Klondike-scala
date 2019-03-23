@@ -19,27 +19,27 @@ class TableauPileToFoundationCommandTest extends FunSuite with MockFactory {
   private val command = new TableauPileToFoundationCommand("", movementFactory, _)
 
   test("givenAGameWithEmptyTableauPiles_whenMovingFromTableauPileToFoundation_thenExceptionIsRaised") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, emptyTableauPiles))
+    val board = new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, emptyTableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
       (stubIO.readInt _).when(*).returns(1).noMoreThanOnce()
       (stubIO.readInt _).when(*).returns(2)
     }
     intercept[EmptyPileException] {
-      command(stubIO).execute(game)
+      command(stubIO).execute(board)
     }
   }
 
   test("givenAGameWithOneCardInThirdTableauPile_whenMovingFromTableauPileToFoundation_thenTheNewGameHasThatCardInTheExpectedFoundation") {
     val tableauPiles = emptyTP :: emptyTP :: new TableauPile(aceOfGolds :: Nil) :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: Nil
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, tableauPiles))
+    val board = new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, tableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
       (stubIO.readInt _).when(*).returns(3).noMoreThanOnce()
       (stubIO.readInt _).when(*).returns(1)
     }
     val expectedFoundations = new Foundation(aceOfGolds :: Nil) :: emptyFoundation :: emptyFoundation :: emptyFoundation :: Nil
-    val expected = new Game(new Board(new Deck(Nil), new Waste(Nil), expectedFoundations, emptyTableauPiles))
-    assert(expected == command(stubIO).execute(game))
+    val expected = new Board(new Deck(Nil), new Waste(Nil), expectedFoundations, emptyTableauPiles)
+    assert(expected == command(stubIO).execute(board))
   }
 }

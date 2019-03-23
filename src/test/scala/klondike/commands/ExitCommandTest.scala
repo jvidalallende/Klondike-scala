@@ -7,9 +7,9 @@ import org.scalatest.FunSuite
 class ExitCommandTest extends FunSuite {
 
   test("givenAGame_whenExecutingExitCommand_thenExitExceptionIsRaised") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, Nil))
+    val board = new Board(new Deck(Nil), new Waste(Nil), Nil, Nil)
     intercept[ExitGameException] {
-      new ExitCommand("").execute(game)
+      new ExitCommand("").execute(board)
     }
   }
 }

@@ -1,10 +1,10 @@
 package klondike.commands
 
-import klondike.models.Game
+import klondike.models.Board
 
 abstract class Command {
 
   def title: String
 
-  def execute(game: Game): Game
+  def execute(board: Board): Board
 }

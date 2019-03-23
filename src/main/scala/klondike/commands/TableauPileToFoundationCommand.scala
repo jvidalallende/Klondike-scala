@@ -11,12 +11,12 @@ class TableauPileToFoundationCommand(__title: String, __movementFactory: Movemen
   private val _movementFactory = __movementFactory
   private val _io = __io
 
-  override def execute(game: Game): Game = {
-    val (tableauPile, tableauPileIndex) = PileRetriever.tableauPile(game, "source", _io)
-    val (foundation, foundationIndex) = PileRetriever.foundation(game, "destination", _io)
+  override def execute(board: Board): Board = {
+    val (tableauPile, tableauPileIndex) = PileRetriever.tableauPile(board, "source", _io)
+    val (foundation, foundationIndex) = PileRetriever.foundation(board, "destination", _io)
     val (tableauPileAfterMove, foundationAfterMove) = _movementFactory.toFoundation(tableauPile, foundation)
-    val newFoundations = ListHelpers.replaceAt(game.board.foundations, foundationIndex, new Foundation(foundationAfterMove))
-    val newTableauPiles = ListHelpers.replaceAt(game.board.tableauPiles, tableauPileIndex, new TableauPile(tableauPileAfterMove))
-    new Game(new Board(game.board.deck, game.board.waste, newFoundations, newTableauPiles))
+    val newFoundations = ListHelpers.replaceAt(board.foundations, foundationIndex, new Foundation(foundationAfterMove))
+    val newTableauPiles = ListHelpers.replaceAt(board.tableauPiles, tableauPileIndex, new TableauPile(tableauPileAfterMove))
+    new Board(board.deck, board.waste, newFoundations, newTableauPiles)
   }
 }

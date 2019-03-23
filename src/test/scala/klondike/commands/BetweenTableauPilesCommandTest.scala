@@ -18,31 +18,31 @@ class BetweenTableauPilesCommandTest extends FunSuite with MockFactory {
   private val command = new BetweenTableauPilesCommand("", movementFactory, _)
 
   test("givenAGameWithEmptyTableauPiles_whenMovingBetweenTableauPiles_thenExceptionIsRaised") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles))
+    val board = new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
       (stubIO.readInt _).when(*).returns(1).noMoreThanOnce()
       (stubIO.readInt _).when(*).returns(2)
     }
     intercept[EmptyPileException] {
-      command(stubIO).execute(game)
+      command(stubIO).execute(board)
     }
   }
 
   test("givenAGameWithEmptyTableauPiles_whenMovingFromOneTableauPileToTheSameOne_thenExceptionIsRaised") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles))
+    val board = new Board(new Deck(Nil), new Waste(Nil), Nil, emptyTableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
       (stubIO.readInt _).when(*).returns(1)
     }
     intercept[InvalidMoveException] {
-      command(stubIO).execute(game)
+      command(stubIO).execute(board)
     }
   }
 
   test("givenAGameWithTwoCardsInThirdTableauPile_whenMovingToTheFifthTableauPile_thenTheNewGameHasThatCardInTheExpectedTableauPile") {
     val tableauPiles = emptyTP :: emptyTP :: new TableauPile(knightOfGolds :: kingOfGolds :: Nil) :: emptyTP :: emptyTP :: emptyTP :: emptyTP :: Nil
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, tableauPiles))
+    val board = new Board(new Deck(Nil), new Waste(Nil), Nil, tableauPiles)
     val stubIO = stub[IOManager]
     inSequence {
       (stubIO.readInt _).when(*).returns(3).noMoreThanOnce()
@@ -50,7 +50,7 @@ class BetweenTableauPilesCommandTest extends FunSuite with MockFactory {
       (stubIO.readInt _).when(*).returns(2)
     }
     val expectedTableauPiles = emptyTP :: emptyTP :: emptyTP :: emptyTP :: new TableauPile(knightOfGolds :: kingOfGolds :: Nil) :: emptyTP :: emptyTP :: Nil
-    val expected = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, expectedTableauPiles))
-    assert(expected == command(stubIO).execute(game))
+    val expected = new Board(new Deck(Nil), new Waste(Nil), Nil, expectedTableauPiles)
+    assert(expected == command(stubIO).execute(board))
   }
 }

@@ -18,9 +18,9 @@ class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IO
       boardView.draw(game.board)
       val command = askUserForCommand()
       try {
-        game = command.execute(game)
+        game = new Game(command.execute(game.board))
         if (FoundationsFullGoal.done(game.board)) {
-          keepRunning = false;
+          keepRunning = false
           _io.write("\n *** Well done! ***\n\n")
         }
         else {

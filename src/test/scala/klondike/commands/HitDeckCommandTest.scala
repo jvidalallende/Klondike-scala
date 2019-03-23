@@ -14,15 +14,15 @@ class HitDeckCommandTest extends FunSuite {
   private val command = new HitDeckCommand("", movementFactory)
 
   test("givenAGameWithEmptyDeck_whenDoingHitDeckMovement_thenExceptionIsRaised") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), Nil, Nil))
+    val board = new Board(new Deck(Nil), new Waste(Nil), Nil, Nil)
     intercept[EmptyPileException] {
-      command.execute(game)
+      command.execute(board)
     }
   }
 
   test("givenAGameWithAOneCardDeck_whenDoingHitDeckMovement_thenTheNewGameHasThatCardInTheWaste") {
-    val game = new Game(new Board(new Deck(aceOfGolds :: Nil), new Waste(Nil), Nil, Nil))
-    val expected = new Game(new Board(new Deck(Nil), new Waste(aceOfGolds.upturn() :: Nil), Nil, Nil))
-    assert(expected == command.execute(game))
+    val board = new Board(new Deck(aceOfGolds :: Nil), new Waste(Nil), Nil, Nil)
+    val expected = new Board(new Deck(Nil), new Waste(aceOfGolds.upturn() :: Nil), Nil, Nil)
+    assert(expected == command.execute(board))
   }
 }

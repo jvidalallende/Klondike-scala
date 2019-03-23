@@ -12,9 +12,9 @@ class BetweenTableauPilesCommand(__title: String, __movementFactory: MovementFac
   private val _movementFactory = __movementFactory
   private val _io = __io
 
-  override def execute(game: Game): Game = {
-    val (source, sourceIndex) = PileRetriever.tableauPile(game, "source", _io)
-    val (destination, destinationIndex) = PileRetriever.tableauPile(game, "destination", _io)
+  override def execute(board: Board): Board = {
+    val (source, sourceIndex) = PileRetriever.tableauPile(board, "source", _io)
+    val (destination, destinationIndex) = PileRetriever.tableauPile(board, "destination", _io)
     if (sourceIndex == destinationIndex) {
       throw InvalidMoveException("Cannot select the same pile as source an destination")
     }
@@ -22,10 +22,10 @@ class BetweenTableauPilesCommand(__title: String, __movementFactory: MovementFac
     val cardsToMove = _io.readInt(s"How many cards should be moved? ")
     val (sourceAfterMove, destinationAfterMove) = _movementFactory.betweenTableauPiles(cardsToMove)(source, destination)
     val newTableauPiles = ListHelpers.replaceAt(
-      ListHelpers.replaceAt(game.board.tableauPiles, sourceIndex, new TableauPile(sourceAfterMove)),
+      ListHelpers.replaceAt(board.tableauPiles, sourceIndex, new TableauPile(sourceAfterMove)),
       destinationIndex,
       new TableauPile(destinationAfterMove))
 
-    new Game(new Board(game.board.deck, game.board.waste, game.board.foundations, newTableauPiles))
+    new Board(board.deck, board.waste, board.foundations, newTableauPiles)
   }
 }

@@ -17,20 +17,20 @@ class WasteToFoundationCommandTest extends FunSuite with MockFactory {
   private val command = new WasteToFoundationCommand("", movementFactory, _)
 
   test("givenAGameWithEmptyWaste_whenMovingFromWasteToFoundation_thenExceptionIsRaised") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, Nil))
+    val board = new Board(new Deck(Nil), new Waste(Nil), emptyFoundations, Nil)
     val stubIO = stub[IOManager]
     (stubIO.readInt _).when(*).returns(1)
     intercept[EmptyPileException] {
-      command(stubIO).execute(game)
+      command(stubIO).execute(board)
     }
   }
 
   test("givenAGameWithAOneCardInWaste_whenMovingFromWasteToFoundation_thenTheNewGameHasThatCardInTheExpectedFoundation") {
-    val game = new Game(new Board(new Deck(Nil), new Waste(aceOfGolds :: Nil), emptyFoundations, Nil))
+    val board = new Board(new Deck(Nil), new Waste(aceOfGolds :: Nil), emptyFoundations, Nil)
     val stubIO = stub[IOManager]
     (stubIO.readInt _).when(*).returns(3)
     val expectedFoundations = emptyFoundation :: emptyFoundation :: new Foundation(aceOfGolds :: Nil) :: emptyFoundation :: Nil
-    val expected = new Game(new Board(new Deck(Nil), new Waste(Nil), expectedFoundations, Nil))
-    assert(expected == command(stubIO).execute(game))
+    val expected = new Board(new Deck(Nil), new Waste(Nil), expectedFoundations, Nil)
+    assert(expected == command(stubIO).execute(board))
   }
 }

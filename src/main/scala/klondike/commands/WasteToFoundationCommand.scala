@@ -11,10 +11,10 @@ class WasteToFoundationCommand(__title: String, __movementFactory: MovementFacto
   private val _movementFactory = __movementFactory
   private val _io = __io
 
-  override def execute(game: Game): Game = {
-    val (foundation, foundationIndex) = PileRetriever.foundation(game, "destination", _io)
-    val (wasteAfterMove, foundationAfterMove) = _movementFactory.toFoundation(game.board.waste, foundation)
-    val newFoundations = ListHelpers.replaceAt(game.board.foundations, foundationIndex, new Foundation(foundationAfterMove))
-    new Game(new Board(game.board.deck, new Waste(wasteAfterMove), newFoundations, game.board.tableauPiles))
+  override def execute(board: Board): Board = {
+    val (foundation, foundationIndex) = PileRetriever.foundation(board, "destination", _io)
+    val (wasteAfterMove, foundationAfterMove) = _movementFactory.toFoundation(board.waste, foundation)
+    val newFoundations = ListHelpers.replaceAt(board.foundations, foundationIndex, new Foundation(foundationAfterMove))
+    new Board(board.deck, new Waste(wasteAfterMove), newFoundations, board.tableauPiles)
   }
 }
