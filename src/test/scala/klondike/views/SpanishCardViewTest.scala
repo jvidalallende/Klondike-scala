@@ -9,7 +9,7 @@ class SpanishCardViewTest extends FunSuite with CardViewBehaviors {
   testsFor(drawEmpty(SpanishCardView, "       "))
 
   // Downturned card
-  testsFor(draw(SpanishCardView, new SpanishCard(1, "golds"), "[XXXXX]"))
+  testsFor(draw(SpanishCardView, new SpanishCard(10, "golds"), "[XXXXX]"))
 
   // Single-digit values
   testsFor(draw(SpanishCardView, new SpanishCard(1, "golds", true), "[ 1 GO]"))

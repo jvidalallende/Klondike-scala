@@ -20,4 +20,6 @@ object IOMocks extends MockFactory {
     (mockIO.write(_: String)).expects(*).anyNumberOfTimes()
     mockIO
   }
+
+  def writeAccumulator: WriteAccumulatorIOManager = new WriteAccumulatorIOManager()
 }

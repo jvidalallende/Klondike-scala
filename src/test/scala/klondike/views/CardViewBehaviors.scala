@@ -1,6 +1,7 @@
 package klondike.views
 
 import klondike.models.Card
+import klondike.test_utils.IOMocks
 import org.scalatest.FunSuite
 import org.scalamock.scalatest.MockFactory
 
@@ -9,22 +10,28 @@ trait CardViewBehaviors extends MockFactory {
 
   def draw(view: CardView, card: Card, expected: String) {
 
-    test(s"givenCard${card.toString}_whenViewingIt_thenItShouldBe$expected") {
-      val mockIOManager = mock[IOManager]
-      (mockIOManager.write(_: String)).expects(expected)
-      view.draw(card, mockIOManager)
+    test(s"givenCard${card.toString}_whenViewingIt_thenItShouldBe'$expected'") {
+      val mockIO = mock[IOManager]
+      (mockIO.write(_: String)).expects(expected)
+      view.draw(card, mockIO)
     }
 
-    // There should be a test that verifies that empty space has the same size of upturned/downturned views
-    // However, scalamock does not support argument capture (will do in 4.2.0 apparently)
+    test(s"givenCard${card.toString}_whenViewingIt_thenItsViewHasTheSameSizeAsEmptyView") {
+      val writeAccumulator = IOMocks.writeAccumulator
+      view.draw(card, writeAccumulator)
+      view.drawEmpty(writeAccumulator)
+      val values = writeAccumulator.asList
+      assert(values.length == 2)
+      assert(values.head.length == values.tail.head.length)
+    }
   }
 
   def drawEmpty(view: CardView, expected: String) {
 
-    test(s"givenSpanishCardView_whenViewingItsEmptySpace_thenItShouldBe[$expected]") {
-      val mockIOManager = mock[IOManager]
-      (mockIOManager.write(_: String)).expects(expected)
-      SpanishCardView.drawEmpty(mockIOManager)
+    test(s"givenSpanishCardView_whenViewingItsEmptySpace_thenItShouldBe'$expected'") {
+      val mockIO = mock[IOManager]
+      (mockIO.write(_: String)).expects(expected)
+      SpanishCardView.drawEmpty(mockIO)
     }
   }
 
