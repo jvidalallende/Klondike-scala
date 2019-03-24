@@ -29,7 +29,6 @@ object FrenchGameFactory extends GameFactory {
       case "diamonds" => isBlack(other)
       case "spades" => isRed(other)
       case "clubs" => isRed(other)
-      case _ => false
     }
   }
 

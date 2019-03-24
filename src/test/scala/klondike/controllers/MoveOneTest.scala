@@ -70,6 +70,8 @@ class MoveOneTest extends FunSuite with MoveOneBehaviors {
   testsFor(destinationThatCanAcceptTheCard("FrenchCard", wasteWithCard(twoOfClubsFrench), tableauPileWithCard(threeOfDiamonds), frenchMovements.toTableauPile))
   testsFor(destinationThatCanAcceptTheCard("FrenchCard", tableauPileWithCard(twoOfHearts), foundationWithCard(aceOfHearts), frenchMovements.toFoundation))
   testsFor(destinationThatCanAcceptTheCard("FrenchCard", foundationWithCard(twoOfClubsFrench), tableauPileWithCard(threeOfDiamonds), frenchMovements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", foundationWithCard(twoOfDiamonds), tableauPileWithCard(threeOfSpades), frenchMovements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", foundationWithCard(aceOfSpades), tableauPileWithCard(twoOfDiamonds), frenchMovements.toTableauPile))
 
   // Filled destination, cannot accept
   testsFor(destinationThatCannotAcceptTheCard("FrenchCard", wasteWithCard(twoOfClubsFrench), foundationWithCard(aceOfHearts), frenchMovements.toFoundation))

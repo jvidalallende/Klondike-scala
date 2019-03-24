@@ -6,44 +6,45 @@ import klondike.utils.ListHelpers
 object TestModels {
 
   // Spanish Cards
-  val aceOfGolds: SpanishCard = new SpanishCard(1, "golds", true)
-  val twoOfGolds: SpanishCard = new SpanishCard(2, "golds", true)
-  val kingOfGolds: SpanishCard = new SpanishCard(SpanishCard.MAX_VALUE, "golds", true)
+  val aceOfGolds = new SpanishCard(1, "golds", true)
+  val twoOfGolds = new SpanishCard(2, "golds", true)
+  val kingOfGolds = new SpanishCard(SpanishCard.MAX_VALUE, "golds", true)
 
-  val twoOfCups: SpanishCard = new SpanishCard(2, "cups", true)
-  val threeOfCups: SpanishCard = new SpanishCard(3, "cups", true)
-  val fourOfCups: SpanishCard = new SpanishCard(4, "cups", true)
-  val knightOfCups: SpanishCard = new SpanishCard(SpanishCard.MAX_VALUE - 1, "cups", true)
-  val kingOfCups: SpanishCard = new SpanishCard(SpanishCard.MAX_VALUE, "cups", true)
+  val twoOfCups = new SpanishCard(2, "cups", true)
+  val threeOfCups = new SpanishCard(3, "cups", true)
+  val fourOfCups = new SpanishCard(4, "cups", true)
+  val knightOfCups = new SpanishCard(SpanishCard.MAX_VALUE - 1, "cups", true)
+  val kingOfCups = new SpanishCard(SpanishCard.MAX_VALUE, "cups", true)
 
   val threeOfSwords = new SpanishCard(3, "swords", true)
-  val kingOfSwords: SpanishCard = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
+  val kingOfSwords = new SpanishCard(SpanishCard.MAX_VALUE, "swords", true)
 
-  val twoOfClubsSpanish: SpanishCard = new SpanishCard(2, "clubs", true)
-  val kingOfClubsSpanish: SpanishCard = new SpanishCard(SpanishCard.MAX_VALUE, "clubs", true)
+  val twoOfClubsSpanish = new SpanishCard(2, "clubs", true)
+  val kingOfClubsSpanish = new SpanishCard(SpanishCard.MAX_VALUE, "clubs", true)
 
   // French Cards
-  val aceOfHearts: FrenchCard = new FrenchCard(1, "hearts", true)
-  val twoOfHearts: FrenchCard = new FrenchCard(2, "hearts", true)
-  val kingOfHearts: FrenchCard = new FrenchCard(FrenchCard.MAX_VALUE, "hearts", true)
+  val aceOfHearts = new FrenchCard(1, "hearts", true)
+  val twoOfHearts = new FrenchCard(2, "hearts", true)
+  val kingOfHearts = new FrenchCard(FrenchCard.MAX_VALUE, "hearts", true)
 
-  val twoOfDiamonds: FrenchCard = new FrenchCard(2, "diamonds", true)
-  val threeOfDiamonds: FrenchCard = new FrenchCard(3, "diamonds", true)
-  val fourOfDiamonds: FrenchCard = new FrenchCard(4, "diamonds", true)
-  val knightOfDiamonds: FrenchCard = new FrenchCard(FrenchCard.MAX_VALUE - 1, "diamonds", true)
-  val kingOfDiamonds: FrenchCard = new FrenchCard(FrenchCard.MAX_VALUE, "diamonds", true)
+  val twoOfDiamonds = new FrenchCard(2, "diamonds", true)
+  val threeOfDiamonds = new FrenchCard(3, "diamonds", true)
+  val fourOfDiamonds = new FrenchCard(4, "diamonds", true)
+  val knightOfDiamonds = new FrenchCard(FrenchCard.MAX_VALUE - 1, "diamonds", true)
+  val kingOfDiamonds = new FrenchCard(FrenchCard.MAX_VALUE, "diamonds", true)
 
+  val aceOfSpades = new FrenchCard(1, "spades", true)
   val threeOfSpades = new FrenchCard(3, "spades", true)
-  val kingOfSpades: FrenchCard = new FrenchCard(FrenchCard.MAX_VALUE, "spades", true)
+  val kingOfSpades = new FrenchCard(FrenchCard.MAX_VALUE, "spades", true)
 
-  val twoOfClubsFrench: FrenchCard = new FrenchCard(2, "clubs", true)
-  val kingOfClubsFrench: FrenchCard = new FrenchCard(FrenchCard.MAX_VALUE, "clubs", true)
+  val twoOfClubsFrench = new FrenchCard(2, "clubs", true)
+  val kingOfClubsFrench = new FrenchCard(FrenchCard.MAX_VALUE, "clubs", true)
 
 
-  val emptyDeck: Deck = new Deck(Nil, "EmptyDeck")
-  val emptyWaste: Waste = new Waste(Nil, "EmptyWaste")
-  val emptyFoundation: Foundation = new Foundation(Nil, "EmptyFoundation")
-  val emptyTableauPile: TableauPile = new TableauPile(Nil, "EmptyTableauPile")
+  val emptyDeck = new Deck(Nil, "EmptyDeck")
+  val emptyWaste = new Waste(Nil, "EmptyWaste")
+  val emptyFoundation = new Foundation(Nil, "EmptyFoundation")
+  val emptyTableauPile = new TableauPile(Nil, "EmptyTableauPile")
 
   val emptyFoundations: List[Foundation] = List(Nil, Nil, Nil, Nil).map(x => new Foundation(x))
   val emptyTableauPiles: List[TableauPile] = List(Nil, Nil, Nil, Nil, Nil, Nil, Nil).map(x => new TableauPile(x))

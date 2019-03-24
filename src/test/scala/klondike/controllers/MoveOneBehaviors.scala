@@ -18,7 +18,7 @@ trait MoveOneBehaviors {
 
   def destinationThatCanAcceptTheCard(cardType: String, source: Pile, destination: Pile, move: (Pile, Pile) => (Pile, Pile)) {
 
-    test(s"givenA${source.name}WithOneCard_whenMovingTo${destination.name}ThatCanReceiveThe${cardType}_thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCard") {
+    test(s"givenA${source.name}WithOneCard_whenMoving${source.cards.head.toString}To${destination.name}ThatCanReceiveThe${cardType}_thenNew${source.name}IsEmptyAndNew${destination.name}ContainsTheCard") {
       val (newSource, newDestination) = move(source, destination)
       assert(newSource.empty)
       assert(newDestination.cards.head == source.cards.head.upturn())
