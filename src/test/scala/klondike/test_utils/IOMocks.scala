@@ -9,7 +9,7 @@ object IOMocks extends MockFactory {
     val mockIO = mock[IOManager]
     inSequence {
       for (value <- values) {
-        (mockIO.readInt _).expects(*).returning(value).noMoreThanOnce()
+        (mockIO.readInt _).expects(*).returning(value).once()
       }
     }
     mockIO

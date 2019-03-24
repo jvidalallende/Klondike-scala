@@ -1,5 +1,5 @@
 package klondike.views
 
 object Launcher extends App {
-  MainMenuBuilder.build(SpanishGameFactory, RealIOManager).run()
+  new SetupMenu(RealIOManager).run()
 }

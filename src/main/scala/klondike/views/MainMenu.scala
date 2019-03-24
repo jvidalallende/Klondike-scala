@@ -28,9 +28,7 @@ class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IO
         }
       }
       catch {
-        case exit: ExitGameException =>
-          keepRunning = false
-          _io.write(s"${exit.getMessage}\n")
+        case _: ExitGameException => keepRunning = false
         case e: Exception => _io.write(s"\n *** Error running command: ${e.getMessage} ***\n\n")
       }
     }
