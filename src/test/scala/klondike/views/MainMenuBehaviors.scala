@@ -39,7 +39,7 @@ trait MainMenuBehaviors extends MockFactory {
 
     test(s"givenAMenuBuilderWith${gameFactory.name}_whenCreatingTheMenuSelectingACoupleOfInvalidOptionsAndThenTheExitOption_thenTheTestsEndsWithoutTimeout") {
       // 0: Invalid option, 23: Invalid option, 7: Exit
-      val mockIO = IOMocks.readIntAllowingWrites(Seq(2, 1, 7))
+      val mockIO = IOMocks.readIntAllowingWrites(Seq(0, 23, 7))
       val menu = MainMenuBuilder.build(gameFactory, mockIO)
       failAfter(200 millis) {
         menu.run()
