@@ -16,5 +16,5 @@ class WriteAccumulatorIOManager extends IOManager {
 
   def asList: List[String] = writes.toList
 
-  def asString: String = writes.toString()
+  def asString: String = asList.mkString
 }
