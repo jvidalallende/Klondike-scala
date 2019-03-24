@@ -38,12 +38,20 @@ class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IO
 
   private def askUserForCommand(): Command = {
     var choice = 0
+    var keepLooping = true
     do {
       printCommands()
-      choice = _io.readInt("Your choice? ")
-      _io.write("\n")
+      try {
+        choice = _io.readInt("Your choice? ")
+        _io.write("\n")
+        keepLooping = !validChoice(choice)
+      }
+      catch {
+        case e: Exception =>
+          _io.write(s"\nInput not recognized (${e.getMessage}). Please select a value in the range [1-${_commands.length}]\n\n")
+      }
     }
-    while (!validChoice(choice))
+    while (keepLooping)
     _commands(choice - 1)
   }
 
@@ -60,7 +68,7 @@ class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IO
       true
     }
     else {
-      _io.write(s"Invalid choice ($index). Please select a value in the range [1-${_commands.length}]\n")
+      _io.write(s"Invalid choice ($index). Please select a value in the range [1-${_commands.length}]\n\n")
       false
     }
   }
