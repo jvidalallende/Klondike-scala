@@ -9,14 +9,14 @@ class DeckTest extends FunSuite with PileBehaviors {
   testsFor(pileWithOneCardBehaviors(deckWithCard(aceOfGolds)))
 
   test("givenADeckWithTwoCards_whenUsingConstructorFromPile_thenNewDeckIsEqualToOriginalOne") {
-    val original = new Deck(aceOfGolds :: twoOfClubs :: Nil)
+    val original = new Deck(aceOfGolds :: twoOfClubsSpanish :: Nil)
     val copy = new Deck(original)
     assert(original == copy)
   }
 
   test("givenTwoUpturnCards_whenBuildingADeckWithThem_thenCardsInTheDeckAreDownturned") {
-    val waste = new Deck(aceOfGolds.upturn() :: twoOfClubs.upturn() :: Nil)
-    assert(aceOfGolds.downturn() :: twoOfClubs.downturn() :: Nil == waste.cards)
+    val waste = new Deck(aceOfGolds.upturn() :: twoOfClubsSpanish.upturn() :: Nil)
+    assert(aceOfGolds.downturn() :: twoOfClubsSpanish.downturn() :: Nil == waste.cards)
   }
 
   test("givenADeck_whenPuttingAnUpturnedCardAndPickingIt_thenItReturnsTheCardButDownturned") {

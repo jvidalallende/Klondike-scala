@@ -13,7 +13,7 @@ class MainMenuTest extends FunSuite with MainMenuBehaviors with MockFactory {
 
 
   test("givenAMainMenuWithASpanishGame_whenExecutingTheMovementThatFillsFoundations_thenExecutionsEndsWithoutTimeout") {
-    val foundations = List(kingOfGolds, knightOfCups, kingOfSwords, kingOfClubs).map(c => foundationWithCard(c))
+    val foundations = List(kingOfGolds, knightOfCups, kingOfSwords, kingOfClubsSpanish).map(c => foundationWithCard(c))
     val boardAlmostFinished = new Board(emptyDeck, wasteWithCard(kingOfCups), foundations, emptyTableauPiles)
     val gameFactoryMock = mock[GameFactory]
     val mockIO = mock[IOManager]

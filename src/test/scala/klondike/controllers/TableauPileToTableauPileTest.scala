@@ -45,20 +45,20 @@ class TableauPileToTableauPileTest extends FunSuite {
 
   test("givenATableauPileWithOneCard_whenMovingToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
     val move = movementFactory.betweenTableauPiles(1)
-    val (sourceAfterMove, destinationAfterMove) = move(tableauPileWithCard(aceOfGolds), tableauPileWithCard(twoOfClubs))
+    val (sourceAfterMove, destinationAfterMove) = move(tableauPileWithCard(aceOfGolds), tableauPileWithCard(twoOfClubsSpanish))
     assert(sourceAfterMove.empty)
-    assert(aceOfGolds :: twoOfClubs :: Nil == destinationAfterMove.cards)
+    assert(aceOfGolds :: twoOfClubsSpanish :: Nil == destinationAfterMove.cards)
   }
 
   test("givenATableauPileWithACard_whenMovingToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
     val move = movementFactory.betweenTableauPiles(1)
     intercept[InvalidMoveException] {
-      move(tableauPileWithCard(twoOfClubs), tableauPileWithCard(aceOfGolds))
+      move(tableauPileWithCard(twoOfClubsSpanish), tableauPileWithCard(aceOfGolds))
     }
   }
 
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCanReceiveThatCard_thenNewTableauPileIsEmptyAndTableauPilesContainsTheCards") {
-    val source = new TableauPile(aceOfGolds :: twoOfClubs :: threeOfSwords :: Nil)
+    val source = new TableauPile(aceOfGolds :: twoOfClubsSpanish :: threeOfSwords :: Nil)
     val destination = tableauPileWithCard(fourOfCups)
     val move = movementFactory.betweenTableauPiles(3)
     val (sourceAfterMove, destinationAfterMove) = move(source, destination)
@@ -67,7 +67,7 @@ class TableauPileToTableauPileTest extends FunSuite {
   }
 
   test("givenATableauPileWithThreeCards_whenMovingThemToATableauPileThatCannotReceiveThatCard_thenExceptionIsThrown") {
-    val source = new TableauPile(aceOfGolds :: twoOfClubs :: threeOfSwords :: Nil)
+    val source = new TableauPile(aceOfGolds :: twoOfClubsSpanish :: threeOfSwords :: Nil)
     val destination = tableauPileWithCard(kingOfSwords)
     val move = movementFactory.betweenTableauPiles(3)
     intercept[InvalidMoveException] {

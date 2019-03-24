@@ -17,5 +17,5 @@ object SpanishGameFactory extends GameFactory {
     }
   }
 
-  override def initialBoard(numberOfTableauPiles: Int): Board = SpanishBoardBuilder.build(7)
+  override def initialBoard(numberOfTableauPiles: Int): Board = SpanishBoardBuilder.build(numberOfTableauPiles)
 }

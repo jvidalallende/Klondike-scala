@@ -6,7 +6,7 @@ import org.scalatest.FunSuite
 
 class BoardTest extends FunSuite {
 
-  private val tableauPile = new TableauPile(twoOfGolds :: twoOfClubs.downturn() :: Nil)
+  private val tableauPile = new TableauPile(twoOfGolds :: twoOfClubsSpanish.downturn() :: Nil)
 
   test("givenAnEmptyBoard_whenRetrievingTheFifthFoundation_thenExceptionIsRaised") {
     intercept[InvalidValueException] {

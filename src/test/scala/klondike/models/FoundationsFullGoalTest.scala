@@ -6,7 +6,7 @@ import org.scalatest.FunSuite
 
 class FoundationsFullGoalTest extends FunSuite {
 
-  private val fullFoundations = List(kingOfGolds, kingOfCups, kingOfSwords, kingOfClubs).map(x => new Foundation(x :: Nil))
+  private val fullFoundations = List(kingOfGolds, kingOfCups, kingOfSwords, kingOfClubsSpanish).map(x => new Foundation(x :: Nil))
 
   test("givenABoardWithEmptyFoundations_whenCheckingFoundationsFullGoal_thenItIsFalse") {
     assert(!FoundationsFullGoal.done(emptyBoard))

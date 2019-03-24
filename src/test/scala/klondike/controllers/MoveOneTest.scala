@@ -1,43 +1,79 @@
 package klondike.controllers
 
 import klondike.test_utils.TestModels._
-import klondike.views.SpanishGameFactory
+import klondike.views.{FrenchGameFactory, SpanishGameFactory}
 import org.scalatest.FunSuite
 
 class MoveOneTest extends FunSuite with MoveOneBehaviors {
 
-  private val movementFactory = new MovementFactory(SpanishGameFactory.tableauPileValidator)
+  private val spanishMovements = new MovementFactory(SpanishGameFactory.tableauPileValidator)
+  private val frenchMovements = new MovementFactory(FrenchGameFactory.tableauPileValidator)
 
+  // Spanish card ***************************************
   // Empty source
-  testsFor(emptySource(emptyDeck, _, movementFactory.deckToWaste))
-  testsFor(emptySource(emptyWaste, _, movementFactory.toFoundation))
-  testsFor(emptySource(emptyWaste, _, movementFactory.toTableauPile))
-  testsFor(emptySource(emptyTableauPile, _, movementFactory.toFoundation))
-  testsFor(emptySource(emptyFoundation, _, movementFactory.toTableauPile))
+  testsFor(emptySource("SpanishCard", emptyDeck, _, spanishMovements.deckToWaste))
+  testsFor(emptySource("SpanishCard", emptyWaste, _, spanishMovements.toFoundation))
+  testsFor(emptySource("SpanishCard", emptyWaste, _, spanishMovements.toTableauPile))
+  testsFor(emptySource("SpanishCard", emptyTableauPile, _, spanishMovements.toFoundation))
+  testsFor(emptySource("SpanishCard", emptyFoundation, _, spanishMovements.toTableauPile))
 
   // Empty destination, can accept
-  testsFor(destinationThatCanAcceptTheCard(deckWithCard(twoOfClubs), emptyWaste, movementFactory.deckToWaste))
-  testsFor(destinationThatCanAcceptTheCard(wasteWithCard(aceOfGolds), emptyFoundation, movementFactory.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(wasteWithCard(kingOfSwords), emptyTableauPile, movementFactory.toTableauPile))
-  testsFor(destinationThatCanAcceptTheCard(tableauPileWithCard(aceOfGolds), emptyFoundation, movementFactory.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(foundationWithCard(kingOfSwords), emptyTableauPile, movementFactory.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", deckWithCard(twoOfClubsSpanish), emptyWaste, spanishMovements.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", wasteWithCard(aceOfGolds), emptyFoundation, spanishMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", wasteWithCard(kingOfSwords), emptyTableauPile, spanishMovements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", tableauPileWithCard(aceOfGolds), emptyFoundation, spanishMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", foundationWithCard(kingOfSwords), emptyTableauPile, spanishMovements.toTableauPile))
 
   // Empty destination, cannot accept
-  testsFor(destinationThatCannotAcceptTheCard(wasteWithCard(twoOfClubs), emptyFoundation, movementFactory.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(wasteWithCard(aceOfGolds), emptyTableauPile, movementFactory.toTableauPile))
-  testsFor(destinationThatCannotAcceptTheCard(tableauPileWithCard(kingOfSwords), emptyFoundation, movementFactory.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(foundationWithCard(threeOfCups), emptyTableauPile, movementFactory.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", wasteWithCard(twoOfClubsSpanish), emptyFoundation, spanishMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", wasteWithCard(aceOfGolds), emptyTableauPile, spanishMovements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", tableauPileWithCard(kingOfSwords), emptyFoundation, spanishMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", foundationWithCard(threeOfCups), emptyTableauPile, spanishMovements.toTableauPile))
 
   // Filled destination, can accept
-  testsFor(destinationThatCanAcceptTheCard(deckWithCard(twoOfClubs), wasteWithCard(kingOfSwords), movementFactory.deckToWaste))
-  testsFor(destinationThatCanAcceptTheCard(wasteWithCard(twoOfGolds), foundationWithCard(aceOfGolds), movementFactory.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(wasteWithCard(twoOfClubs), tableauPileWithCard(threeOfCups), movementFactory.toTableauPile))
-  testsFor(destinationThatCanAcceptTheCard(tableauPileWithCard(twoOfGolds), foundationWithCard(aceOfGolds), movementFactory.toFoundation))
-  testsFor(destinationThatCanAcceptTheCard(foundationWithCard(twoOfGolds), tableauPileWithCard(threeOfCups), movementFactory.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", deckWithCard(twoOfClubsSpanish), wasteWithCard(kingOfSwords), spanishMovements.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", wasteWithCard(twoOfGolds), foundationWithCard(aceOfGolds), spanishMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", wasteWithCard(twoOfClubsSpanish), tableauPileWithCard(threeOfCups), spanishMovements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", tableauPileWithCard(twoOfGolds), foundationWithCard(aceOfGolds), spanishMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("SpanishCard", foundationWithCard(twoOfGolds), tableauPileWithCard(threeOfCups), spanishMovements.toTableauPile))
 
   // Filled destination, cannot accept
-  testsFor(destinationThatCannotAcceptTheCard(wasteWithCard(twoOfClubs), foundationWithCard(aceOfGolds), movementFactory.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(wasteWithCard(aceOfGolds), tableauPileWithCard(threeOfCups), movementFactory.toTableauPile))
-  testsFor(destinationThatCannotAcceptTheCard(tableauPileWithCard(kingOfGolds), foundationWithCard(aceOfGolds), movementFactory.toFoundation))
-  testsFor(destinationThatCannotAcceptTheCard(foundationWithCard(aceOfGolds), tableauPileWithCard(twoOfGolds), movementFactory.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", wasteWithCard(twoOfClubsSpanish), foundationWithCard(aceOfGolds), spanishMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", wasteWithCard(aceOfGolds), tableauPileWithCard(threeOfCups), spanishMovements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", tableauPileWithCard(kingOfGolds), foundationWithCard(aceOfGolds), spanishMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("SpanishCard", foundationWithCard(aceOfGolds), tableauPileWithCard(twoOfGolds), spanishMovements.toTableauPile))
+
+  // French card ***************************************
+  // Empty source
+  testsFor(emptySource("FrenchCard", emptyDeck, _, frenchMovements.deckToWaste))
+  testsFor(emptySource("FrenchCard", emptyWaste, _, frenchMovements.toFoundation))
+  testsFor(emptySource("FrenchCard", emptyWaste, _, frenchMovements.toTableauPile))
+  testsFor(emptySource("FrenchCard", emptyTableauPile, _, frenchMovements.toFoundation))
+  testsFor(emptySource("FrenchCard", emptyFoundation, _, frenchMovements.toTableauPile))
+
+  // Empty destination, can accept
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", deckWithCard(twoOfClubsFrench), emptyWaste, frenchMovements.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", wasteWithCard(aceOfHearts), emptyFoundation, frenchMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", wasteWithCard(kingOfSpades), emptyTableauPile, frenchMovements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", tableauPileWithCard(aceOfHearts), emptyFoundation, frenchMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", foundationWithCard(kingOfSpades), emptyTableauPile, frenchMovements.toTableauPile))
+
+  // Empty destination, cannot accept
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", wasteWithCard(twoOfClubsFrench), emptyFoundation, frenchMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", wasteWithCard(aceOfHearts), emptyTableauPile, frenchMovements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", tableauPileWithCard(kingOfSpades), emptyFoundation, frenchMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", foundationWithCard(threeOfDiamonds), emptyTableauPile, frenchMovements.toTableauPile))
+
+  // Filled destination, can accept
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", deckWithCard(twoOfClubsFrench), wasteWithCard(kingOfSpades), frenchMovements.deckToWaste))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", wasteWithCard(twoOfHearts), foundationWithCard(aceOfHearts), frenchMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", wasteWithCard(twoOfClubsFrench), tableauPileWithCard(threeOfDiamonds), frenchMovements.toTableauPile))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", tableauPileWithCard(twoOfHearts), foundationWithCard(aceOfHearts), frenchMovements.toFoundation))
+  testsFor(destinationThatCanAcceptTheCard("FrenchCard", foundationWithCard(twoOfClubsFrench), tableauPileWithCard(threeOfDiamonds), frenchMovements.toTableauPile))
+
+  // Filled destination, cannot accept
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", wasteWithCard(twoOfClubsFrench), foundationWithCard(aceOfHearts), frenchMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", wasteWithCard(aceOfHearts), tableauPileWithCard(threeOfDiamonds), frenchMovements.toTableauPile))
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", tableauPileWithCard(kingOfHearts), foundationWithCard(aceOfHearts), frenchMovements.toFoundation))
+  testsFor(destinationThatCannotAcceptTheCard("FrenchCard", foundationWithCard(aceOfHearts), tableauPileWithCard(twoOfHearts), frenchMovements.toTableauPile))
 }

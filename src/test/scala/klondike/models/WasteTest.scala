@@ -9,14 +9,14 @@ class WasteTest extends FunSuite with PileBehaviors {
   testsFor(pileWithOneCardBehaviors(wasteWithCard(aceOfGolds)))
 
   test("givenAWasteWithTwoCards_whenUsingConstructorFromPile_thenNewWasteIsEqualToOriginalOne") {
-    val original = new Waste(aceOfGolds :: twoOfClubs :: Nil)
+    val original = new Waste(aceOfGolds :: twoOfClubsSpanish :: Nil)
     val copy = new Waste(original)
     assert(original == copy)
   }
 
   test("givenTwoDownturnedCards_whenBuildingAWasteWithIt_thenCardsInTheWasteAreUpturn") {
-    val waste = new Waste(aceOfGolds :: twoOfClubs :: Nil)
-    assert(aceOfGolds.upturn() :: twoOfClubs.upturn() :: Nil == waste.cards)
+    val waste = new Waste(aceOfGolds :: twoOfClubsSpanish :: Nil)
+    assert(aceOfGolds.upturn() :: twoOfClubsSpanish.upturn() :: Nil == waste.cards)
   }
 
   test("givenAWaste_whenPuttingADownturnedCardAndPickingIt_thenItReturnsTheCardButUpturned") {

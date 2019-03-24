@@ -17,7 +17,7 @@ class BoardViewTest extends FunSuite with BoardViewBehaviors {
 
 
   private val initialBoard = SpanishBoardBuilder.build(7)
-  private val knownCards = List(aceOfGolds, twoOfGolds, twoOfCups, twoOfClubs, knightOfCups, kingOfGolds, kingOfSwords)
+  private val knownCards = List(aceOfGolds, twoOfGolds, twoOfCups, twoOfClubsSpanish, knightOfCups, kingOfGolds, kingOfSwords)
   private val initialBoardWithKnownTableauPiles = new Board(
     initialBoard.deck,
     initialBoard.waste,

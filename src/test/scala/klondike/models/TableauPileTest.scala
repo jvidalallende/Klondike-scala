@@ -11,13 +11,13 @@ class TableauPileTest extends FunSuite with PileBehaviors {
   testsFor(pileWithOneCardBehaviors(tableauPileWithCard(aceOfGolds)))
 
   test("givenATableauPileWithTwoCards_whenUsingConstructorFromPile_thenNewTableauPileIsEqualToOriginalOne") {
-    val original = new TableauPile(aceOfGolds :: twoOfClubs :: Nil)
+    val original = new TableauPile(aceOfGolds :: twoOfClubsSpanish :: Nil)
     val copy = new TableauPile(original)
     assert(original == copy)
   }
 
   test("givenATableauPileWithOneUpturnedAndOneDownturnedCard_whenPickingFromIt_thenTheCardInThePileIsUpturned") {
-    val tableauPile = new TableauPile(aceOfGolds :: twoOfClubs.downturn() :: Nil)
+    val tableauPile = new TableauPile(aceOfGolds :: twoOfClubsSpanish.downturn() :: Nil)
     val (_, newTableauPile) = tableauPile.pick()
     assert(newTableauPile.cards.head.upturned)
   }
@@ -35,14 +35,14 @@ class TableauPileTest extends FunSuite with PileBehaviors {
 
   test("givenATableauPileWithOneUpturnedAndOneDownturnedCard_whenPickingTwoCardsFromIt_thenExceptionIsThrown") {
     intercept[EmptyPileException] {
-      new TableauPile(aceOfGolds :: twoOfClubs.downturn() :: Nil).pick(2)
+      new TableauPile(aceOfGolds :: twoOfClubsSpanish.downturn() :: Nil).pick(2)
     }
   }
 
   test("givenATableauPileWithTwoUpturnedAndOneDownturnedCard_whenPickingTwoCardsFromIt_thenPickedCardsComeInOrderAndCardInThePileIsUpturn") {
-    val tableauPile = new TableauPile(aceOfGolds :: twoOfClubs :: kingOfSwords.downturn() :: Nil)
+    val tableauPile = new TableauPile(aceOfGolds :: twoOfClubsSpanish :: kingOfSwords.downturn() :: Nil)
     val (picked, newTableauPile) = tableauPile.pick(2)
-    assert(twoOfClubs :: aceOfGolds :: Nil == picked)
+    assert(twoOfClubsSpanish :: aceOfGolds :: Nil == picked)
     assert(newTableauPile.cards.head.upturned)
   }
 
@@ -51,13 +51,13 @@ class TableauPileTest extends FunSuite with PileBehaviors {
   }
 
   test("givenAnEmptyTableauPile_whenPuttingTwoCards_thenThePileContainsTheCardsInReversedOrder") {
-    val tableauPile = emptyTableauPile.put(aceOfGolds :: twoOfClubs :: Nil)
-    assert(twoOfClubs == tableauPile.cards.head)
+    val tableauPile = emptyTableauPile.put(aceOfGolds :: twoOfClubsSpanish :: Nil)
+    assert(twoOfClubsSpanish == tableauPile.cards.head)
     assert(aceOfGolds == tableauPile.cards.tail.head)
   }
 
   test("givenATableauPileWithTwoUpturnedCards_whenPickingAndPuttingTheSameTwoCards_thenResultIsTheOriginalPile") {
-    val tableauPile = new TableauPile(aceOfGolds :: twoOfClubs :: Nil)
+    val tableauPile = new TableauPile(aceOfGolds :: twoOfClubsSpanish :: Nil)
     val (picked, tempTableauPile) = tableauPile.pick(2)
     assert(tableauPile == tempTableauPile.put(picked))
   }
