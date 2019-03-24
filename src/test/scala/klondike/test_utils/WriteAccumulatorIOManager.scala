@@ -4,7 +4,7 @@ import klondike.views.IOManager
 
 import scala.collection.mutable.ListBuffer
 
-class WriteAccumulatorIOManager extends IOManager {
+object WriteAccumulatorIOManager extends IOManager {
 
   private var writes = new ListBuffer[String]()
 
