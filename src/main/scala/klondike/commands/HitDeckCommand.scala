@@ -9,7 +9,12 @@ class HitDeckCommand(__title: String, __movementFactory: MovementFactory) extend
   private val _movementFactory = __movementFactory
 
   override def execute(board: Board): Board = {
-    val (deckAfterMove, wasteAfterMove) = _movementFactory.deckToWaste(board.deck, board.waste)
-    new Board(new Deck(deckAfterMove), new Waste(wasteAfterMove), board.foundations, board.tableauPiles)
+    if (board.deck.empty) {
+      new Board(new Deck(board.waste.cards.reverse), new Waste(Nil), board.foundations, board.tableauPiles)
+    }
+    else {
+      val (deckAfterMove, wasteAfterMove) = _movementFactory.deckToWaste(board.deck, board.waste)
+      new Board(new Deck(deckAfterMove), new Waste(wasteAfterMove), board.foundations, board.tableauPiles)
+    }
   }
 }

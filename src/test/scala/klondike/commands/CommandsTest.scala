@@ -2,7 +2,7 @@ package klondike.commands
 
 import klondike.controllers.MovementFactory
 import klondike.exceptions.{ExitGameException, InvalidMoveException}
-import klondike.models.TableauPile
+import klondike.models.{Board, TableauPile, Waste}
 import klondike.test_utils.IOMocks
 import klondike.test_utils.TestModels._
 import klondike.views.SpanishGameFactory
@@ -20,14 +20,19 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
   private val betweenTableauPiles = new BetweenTableauPilesCommand("BetweenTableauPilesCommand", movementFactory, _)
 
   // Hit Deck
-  testsFor(emptySource(hitDeckCommand))
-
   testsFor(validMove(
     "givenABoardWithAOneCardDeck_whenDoingHitDeckMovement_thenTheNewBoardHasThatCardInTheWaste",
     hitDeckCommand,
     emptyBoardWithDeck(deckWithCard(aceOfGolds)),
     emptyBoardWithWaste(wasteWithCard(aceOfGolds))
   ))
+
+  test("givenABoardWithEmptyDeckAndWasteWithOneCard_whenDoingHitDeckMovement_thenTheDeckContainsTheCardsAndTheWasteBecomesEmpty") {
+    val board = new Board(emptyDeck, new Waste(aceOfGolds :: kingOfSwords :: Nil), emptyFoundations, emptyTableauPiles)
+    val newBoard = hitDeckCommand.execute(board)
+    assert(newBoard.deck.cards == board.waste.cards.reverse.map(c => c.downturn()))
+    assert(newBoard.waste.empty)
+  }
 
 
   // Waste --> Foundation
