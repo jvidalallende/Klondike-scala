@@ -26,12 +26,21 @@ trait CardViewBehaviors extends MockFactory {
     }
   }
 
-  def drawEmpty(view: CardView, expected: String) {
+  def drawWhitespace(cardType: String, view: CardView, expected: String) {
 
-    test(s"givenSpanishCardView_whenViewingItsEmptySpace_thenItShouldBe'$expected'") {
+    test(s"given${cardType}CardView_whenViewingItsWhitespace_thenItShouldBe'$expected'") {
       val mockIO = mock[IOManager]
       (mockIO.write(_: String)).expects(expected)
-      SpanishCardView.drawWhitespace(mockIO)
+      view.drawWhitespace(mockIO)
+    }
+  }
+
+  def drawPlaceholder(cardType: String, view: CardView, expected: String) {
+
+    test(s"given${cardType}CardView_whenViewingItsPlaceholder_thenItShouldBe'$expected'") {
+      val mockIO = mock[IOManager]
+      (mockIO.write(_: String)).expects(expected)
+      view.drawPlaceholder(mockIO)
     }
   }
 

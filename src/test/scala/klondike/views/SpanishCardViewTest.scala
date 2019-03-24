@@ -5,8 +5,11 @@ import org.scalatest.FunSuite
 
 class SpanishCardViewTest extends FunSuite with CardViewBehaviors {
 
-  // Empty space
-  testsFor(drawEmpty(SpanishCardView, "           "))
+  // Whitespace
+  testsFor(drawWhitespace("Spanish", SpanishCardView, "           "))
+
+  // Placeholder
+  testsFor(drawPlaceholder("Spanish", SpanishCardView, "[         ]"))
 
   // Downturned card
   testsFor(draw(SpanishCardView, new SpanishCard(10, "golds"), "[XXXXXXXXX]"))
