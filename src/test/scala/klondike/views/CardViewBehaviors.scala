@@ -1,7 +1,7 @@
 package klondike.views
 
 import klondike.models.Card
-import klondike.test_utils.WriteAccumulatorIOManager
+import klondike.test_utils.IOMocks
 import org.scalatest.FunSuite
 import org.scalamock.scalatest.MockFactory
 
@@ -17,7 +17,7 @@ trait CardViewBehaviors extends MockFactory {
     }
 
     test(s"givenCard${card.toString}_whenViewingIt_thenItsViewHasTheSameSizeAsEmptyView") {
-      val writeAccumulator = WriteAccumulatorIOManager
+      val writeAccumulator = IOMocks.writeAccumulator
       view.draw(card, writeAccumulator)
       view.drawEmpty(writeAccumulator)
       val values = writeAccumulator.asList
