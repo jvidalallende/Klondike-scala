@@ -49,11 +49,16 @@ coverage:
 
 ## Changelog
 
-* v0.1: First working prototype
+* **[v0.1](https://github.com/jvidalallende/Klondike-scala/releases/tag/v0.1)**: First working prototype
   * Deck is not reloaded
   * No way to finish the game (only manual exit)
   * Missing tests for main views and menus
- 
+
+* **[v0.2](https://github.com/jvidalallende/Klondike-scala/releases/tag/v0.2)**: Complete working application
+  * Works with both French and Spanish card types
+  * Good test coverage of all relevant code, including views
+  * Card view now draws the whole suit name instead of just initials
+
 
 ## Related sites
 
