@@ -6,4 +6,5 @@ class BoardBuilderTest extends FunSuite with BoardBuilderBehaviors {
 
   testsFor(checkBuild("SpanishBoardBuilder", SpanishBoardBuilder.build))
 
+  testsFor(checkBuild("FrenchBoardBuilder", FrenchBoardBuilder.build))
 }
