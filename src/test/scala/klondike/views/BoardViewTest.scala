@@ -7,9 +7,9 @@ import klondike.test_utils.TestModels._
 class BoardViewTest extends FunSuite with BoardViewBehaviors {
 
   private val emptyBoardString =
-    """[     ] [     ]         [     ] [     ] [     ] [     ]
+    """[         ] [         ]             [         ] [         ] [         ] [         ]
       |
-      |[     ] [     ] [     ] [     ] [     ] [     ] [     ]
+      |[         ] [         ] [         ] [         ] [         ] [         ] [         ]
       |
       |""".stripMargin
 
@@ -25,15 +25,15 @@ class BoardViewTest extends FunSuite with BoardViewBehaviors {
     initialBoard.tableauPiles.zip(knownCards).map { case (tp, card) => new TableauPile(card :: tp.cards.tail) }
   )
   private val initialBoardWithKnownTableauPilesString =
-    """[XXXXX] [     ]         [     ] [     ] [     ] [     ]
+    """[XXXXXXXXX] [         ]             [         ] [         ] [         ] [         ]
       |
-      |[ 1 GO] [XXXXX] [XXXXX] [XXXXX] [XXXXX] [XXXXX] [XXXXX]
-      |        [ 2 GO] [XXXXX] [XXXXX] [XXXXX] [XXXXX] [XXXXX]
-      |                [ 2 CU] [XXXXX] [XXXXX] [XXXXX] [XXXXX]
-      |                        [ 2 CL] [XXXXX] [XXXXX] [XXXXX]
-      |                                [11 CU] [XXXXX] [XXXXX]
-      |                                        [12 GO] [XXXXX]
-      |                                                [12 SW]
+      |[ 1 GOLDS ] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX]
+      |            [ 2 GOLDS ] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX]
+      |                        [ 2 CUPS  ] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX]
+      |                                    [ 2 CLUBS ] [XXXXXXXXX] [XXXXXXXXX] [XXXXXXXXX]
+      |                                                [11 CUPS  ] [XXXXXXXXX] [XXXXXXXXX]
+      |                                                            [12 GOLDS ] [XXXXXXXXX]
+      |                                                                        [12 SWORDS]
       |
       |""".stripMargin
 

@@ -1,5 +1,7 @@
 package klondike.views
 
+import klondike.models.Card
+
 object SpanishCardView extends CardView {
 
   override protected def valueToString(value: Int): String = {
@@ -11,10 +13,16 @@ object SpanishCardView extends CardView {
 
   override protected def suitToString(suit: String): String = {
     suit match {
-      case "golds" => "GO"
-      case "cups" => "CU"
-      case "swords" => "SW"
-      case "clubs" => "CL"
+      case "golds" => "GOLDS "
+      case "cups" => "CUPS  "
+      case "swords" => "SWORDS"
+      case "clubs" => "CLUBS "
     }
   }
+
+  override protected def downturnedView(card: Card): String = "[XXXXXXXXX]"
+
+  override protected def placeholderView: String = "[         ]"
+
+  override protected def whitespace: String = "           "
 }

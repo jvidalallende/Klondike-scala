@@ -27,7 +27,7 @@ class BoardView(__cardView: CardView, __io: IOManager) {
 
   private def drawSpaceBetweenWasteAndFoundations(_io: IOManager): Unit = {
     _io.write(" ")
-    _cardView.drawEmpty(_io)
+    _cardView.drawWhitespace(_io)
     _io.write(" ")
   }
 
@@ -75,7 +75,7 @@ class BoardView(__cardView: CardView, __io: IOManager) {
 
   private def drawCardColumn(cardColumn: List[Card]): Unit = {
     if (cardColumn.isEmpty) {
-      _cardView.drawEmpty(_io)
+      _cardView.drawWhitespace(_io)
     } else {
       _cardView.draw(cardColumn.head, _io)
     }
