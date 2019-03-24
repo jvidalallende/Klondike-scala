@@ -3,7 +3,7 @@ package klondike.commands
 import klondike.controllers.MovementFactory
 import klondike.exceptions.{ExitGameException, InvalidMoveException}
 import klondike.models.TableauPile
-import klondike.test_utils.IOStubs
+import klondike.test_utils.IOMocks
 import klondike.test_utils.TestModels._
 import klondike.views.SpanishGameFactory
 import org.scalamock.scalatest.MockFactory
@@ -31,62 +31,62 @@ class CommandsTest extends FunSuite with MockFactory with CommandBehaviors {
 
 
   // Waste --> Foundation
-  testsFor(emptySource(wasteToFoundation(IOStubs.readInt(Seq(1)))))
+  testsFor(emptySource(wasteToFoundation(IOMocks.readInt(Seq(1)))))
 
   testsFor(validMove(
     "givenABoardWithAOneCardInWaste_whenMovingFromWasteToFoundation_thenTheNewBoardHasThatCardInTheExpectedFoundation",
-    wasteToFoundation(IOStubs.readInt(Seq(1))),
+    wasteToFoundation(IOMocks.readInt(Seq(1))),
     emptyBoardWithWaste(wasteWithCard(aceOfGolds)),
     emptyBoardWithFoundation(foundationWithCard(aceOfGolds), 0)
   ))
 
 
   // Waste --> TableauPile
-  testsFor(emptySource(wasteToTableauPile(IOStubs.readInt(Seq(7)))))
+  testsFor(emptySource(wasteToTableauPile(IOMocks.readInt(Seq(7)))))
 
   testsFor(validMove(
     "givenABoardWithAOneCardInWaste_whenMovingFromWasteToTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile",
-    wasteToTableauPile(IOStubs.readInt(Seq(7))),
+    wasteToTableauPile(IOMocks.readInt(Seq(7))),
     emptyBoardWithWaste(wasteWithCard(kingOfGolds)),
     emptyBoardWithTableauPile(tableauPileWithCard(kingOfGolds), 6)
   ))
 
 
   // Foundation --> TableauPile
-  testsFor(emptySource(foundationToTableauPile(IOStubs.readInt(Seq(1, 1)))))
+  testsFor(emptySource(foundationToTableauPile(IOMocks.readInt(Seq(1, 1)))))
 
   testsFor(validMove(
     "givenABoardWithOneCardInTheFirstFoundation_whenMovingFromFoundationToTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile",
-    foundationToTableauPile(IOStubs.readInt(Seq(1, 4))),
+    foundationToTableauPile(IOMocks.readInt(Seq(1, 4))),
     emptyBoardWithFoundation(foundationWithCard(kingOfGolds), 0),
     emptyBoardWithTableauPile(tableauPileWithCard(kingOfGolds), 3)
   ))
 
 
   // TableauPile --> Foundation
-  testsFor(emptySource(tableauPileToFoundation(IOStubs.readInt(Seq(1, 1)))))
+  testsFor(emptySource(tableauPileToFoundation(IOMocks.readInt(Seq(1, 1)))))
 
   testsFor(validMove(
     "givenABoardWithOneCardInThirdTableauPile_whenMovingFromTableauPileToFoundation_thenTheNewBoardHasThatCardInTheExpectedFoundation",
-    tableauPileToFoundation(IOStubs.readInt(Seq(3, 4))),
+    tableauPileToFoundation(IOMocks.readInt(Seq(3, 4))),
     emptyBoardWithTableauPile(tableauPileWithCard(aceOfGolds), 2),
     emptyBoardWithFoundation(foundationWithCard(aceOfGolds), 3)
   ))
 
 
   // TableauPile --> TableauPile
-  testsFor(emptySource(betweenTableauPiles(IOStubs.readInt(Seq(1, 2, 1)))))
+  testsFor(emptySource(betweenTableauPiles(IOMocks.readInt(Seq(1, 2, 1)))))
 
   test("givenABoardWithEmptyTableauPiles_whenMovingFromOneTableauPileToTheSameOne_thenExceptionIsRaised") {
     val board = emptyBoard
     intercept[InvalidMoveException] {
-      betweenTableauPiles(IOStubs.readInt(Seq(5, 5))).execute(board)
+      betweenTableauPiles(IOMocks.readInt(Seq(5, 5))).execute(board)
     }
   }
 
   testsFor(validMove(
     "givenABoardWithTwoCardsInThirdTableauPile_whenMovingToTheFifthTableauPile_thenTheNewBoardHasThatCardInTheExpectedTableauPile",
-    betweenTableauPiles(IOStubs.readInt(Seq(3, 5, 2))),
+    betweenTableauPiles(IOMocks.readInt(Seq(3, 5, 2))),
     emptyBoardWithTableauPile(new TableauPile(knightOfCups :: kingOfGolds :: Nil), 2),
     emptyBoardWithTableauPile(new TableauPile(knightOfCups :: kingOfGolds :: Nil), 4)
   ))

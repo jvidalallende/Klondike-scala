@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.test_utils.IOMocks
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite
 import org.scalatest.time.SpanSugar._
@@ -11,9 +12,7 @@ trait MainMenuBehaviors extends MockFactory {
   def mainMenuTests(gameFactory: GameFactory) {
 
     test(s"givenAMenuBuilderWith${gameFactory.name}_whenCreatingTheMenuAndSelectingTheExitOption_thenTheTestsEndsWithoutTimeout") {
-      val mockIO = mock[IOManager]
-      (mockIO.write(_: String)).expects(*).anyNumberOfTimes()
-      (mockIO.readInt _).expects(*).returning(7)
+      val mockIO = IOMocks.readIntAllowingWrites(Seq(7))
       val menu = MainMenuBuilder.build(gameFactory, mockIO)
       failAfter(200 millis) {
         menu.run()
@@ -21,10 +20,8 @@ trait MainMenuBehaviors extends MockFactory {
     }
 
     test(s"givenAMenuBuilderWith${gameFactory.name}_whenCreatingTheMenuHittingDeckAndSelectingTheExitOption_thenTheTestsEndsWithoutTimeout") {
-      val mockIO = mock[IOManager]
-      (mockIO.write(_: String)).expects(*).anyNumberOfTimes()
-      (mockIO.readInt _).expects(*).returning(1).noMoreThanOnce() // Hit Deck
-      (mockIO.readInt _).expects(*).returning(7) // Exit
+      // 1: Hit Deck, 7: Exit
+      val mockIO = IOMocks.readIntAllowingWrites(Seq(1, 7))
       val menu = MainMenuBuilder.build(gameFactory, mockIO)
       failAfter(200 millis) {
         menu.run()
@@ -32,11 +29,8 @@ trait MainMenuBehaviors extends MockFactory {
     }
 
     test(s"givenAMenuBuilderWith${gameFactory.name}_whenCreatingTheMenuMovingFromWasteToFoundationAndSelectingTheExitOption_thenTheTestsEndsWithoutTimeout") {
-      val mockIO = mock[IOManager]
-      (mockIO.write(_: String)).expects(*).anyNumberOfTimes()
-      (mockIO.readInt _).expects(*).returning(2).noMoreThanOnce() // Waste to Foundation
-      (mockIO.readInt _).expects(*).returning(1).noMoreThanOnce() // Destination for the foundation
-      (mockIO.readInt _).expects(*).returning(7) // Exit
+      // 2: Waste to Foundation, 1: Destination Foundation, 7: Exit
+      val mockIO = IOMocks.readIntAllowingWrites(Seq(2, 1, 7))
       val menu = MainMenuBuilder.build(gameFactory, mockIO)
       failAfter(200 millis) {
         menu.run()
@@ -44,11 +38,8 @@ trait MainMenuBehaviors extends MockFactory {
     }
 
     test(s"givenAMenuBuilderWith${gameFactory.name}_whenCreatingTheMenuSelectingACoupleOfInvalidOptionsAndThenTheExitOption_thenTheTestsEndsWithoutTimeout") {
-      val mockIO = mock[IOManager]
-      (mockIO.write(_: String)).expects(*).anyNumberOfTimes()
-      (mockIO.readInt _).expects(*).returning(0).noMoreThanOnce()
-      (mockIO.readInt _).expects(*).returning(23).noMoreThanOnce()
-      (mockIO.readInt _).expects(*).returning(7) // Exit
+      // 0: Invalid option, 23: Invalid option, 7: Exit
+      val mockIO = IOMocks.readIntAllowingWrites(Seq(2, 1, 7))
       val menu = MainMenuBuilder.build(gameFactory, mockIO)
       failAfter(200 millis) {
         menu.run()
