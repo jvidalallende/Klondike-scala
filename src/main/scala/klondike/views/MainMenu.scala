@@ -2,6 +2,7 @@ package klondike.views
 
 import klondike.commands.Command
 import klondike.exceptions.ExitGameException
+import klondike.io.IOManager
 import klondike.models.{FoundationsFullGoal, Game}
 
 class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IOManager) {

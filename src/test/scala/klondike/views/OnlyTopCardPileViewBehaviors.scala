@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.io.IOManager
 import klondike.models.Pile
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FunSuite

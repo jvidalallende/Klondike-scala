@@ -1,6 +1,6 @@
 package klondike.test_utils
 
-import klondike.views.IOManager
+import klondike.io.IOManager
 
 import scala.collection.mutable.ListBuffer
 

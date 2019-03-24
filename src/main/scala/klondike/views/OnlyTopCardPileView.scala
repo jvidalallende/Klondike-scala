@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.io.IOManager
 import klondike.models.Pile
 
 object OnlyTopCardPileView {

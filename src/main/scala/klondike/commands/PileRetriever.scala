@@ -1,7 +1,7 @@
 package klondike.commands
 
-import klondike.models.{Foundation, Board, TableauPile}
-import klondike.views.IOManager
+import klondike.io.IOManager
+import klondike.models.{Board, Foundation, TableauPile}
 
 object PileRetriever {
 

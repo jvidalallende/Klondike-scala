@@ -1,6 +1,6 @@
 package klondike.test_utils
 
-import klondike.views.IOManager
+import klondike.io.IOManager
 import org.scalamock.scalatest.MockFactory
 
 object IOMocks extends MockFactory {

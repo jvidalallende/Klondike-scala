@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.io.IOManager
 import klondike.models._
 
 class BoardView(__cardView: CardView, __io: IOManager) {

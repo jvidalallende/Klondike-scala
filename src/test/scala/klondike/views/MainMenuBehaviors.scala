@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.io.IOManager
 import klondike.test_utils.TestModels._
 import klondike.models.{Board, Card, Foundation}
 import klondike.test_utils.IOMocks

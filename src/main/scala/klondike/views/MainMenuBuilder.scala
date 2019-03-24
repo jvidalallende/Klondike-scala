@@ -2,6 +2,7 @@ package klondike.views
 
 import klondike.commands.{Command, CommandFactory}
 import klondike.controllers.MovementFactory
+import klondike.io.IOManager
 
 object MainMenuBuilder {
 

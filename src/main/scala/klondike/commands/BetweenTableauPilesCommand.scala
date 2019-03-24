@@ -2,9 +2,9 @@ package klondike.commands
 
 import klondike.controllers.MovementFactory
 import klondike.exceptions.InvalidMoveException
+import klondike.io.IOManager
 import klondike.models._
 import klondike.utils.ListHelpers
-import klondike.views.IOManager
 
 class BetweenTableauPilesCommand(__title: String, __movementFactory: MovementFactory, __io: IOManager) extends Command {
 

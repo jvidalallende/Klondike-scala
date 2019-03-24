@@ -1,5 +1,6 @@
 package klondike.views
 
+import klondike.io.IOManager
 import klondike.models.Card
 import klondike.test_utils.IOMocks
 import org.scalatest.FunSuite

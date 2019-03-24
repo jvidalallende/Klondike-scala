@@ -1,4 +1,4 @@
-package klondike.views
+package klondike.io
 
 abstract class IOManager {
 
