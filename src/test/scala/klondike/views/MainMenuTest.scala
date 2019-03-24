@@ -10,23 +10,9 @@ import org.scalatest.concurrent.Timeouts._
 class MainMenuTest extends FunSuite with MainMenuBehaviors with MockFactory {
 
   testsFor(mainMenuTests(SpanishGameFactory))
+  testsFor(finishGame(SpanishGameFactory, List(kingOfGolds, knightOfCups, kingOfSwords, kingOfClubsSpanish).map(c => foundationWithCard(c)), kingOfCups))
 
-
-  test("givenAMainMenuWithASpanishGame_whenExecutingTheMovementThatFillsFoundations_thenExecutionsEndsWithoutTimeout") {
-    val foundations = List(kingOfGolds, knightOfCups, kingOfSwords, kingOfClubsSpanish).map(c => foundationWithCard(c))
-    val boardAlmostFinished = new Board(emptyDeck, wasteWithCard(kingOfCups), foundations, emptyTableauPiles)
-    val gameFactoryMock = mock[GameFactory]
-    val mockIO = mock[IOManager]
-    (gameFactoryMock.initialBoard _).expects(7).returning(boardAlmostFinished).once()
-    (gameFactoryMock.cardView _).expects().returning(SpanishGameFactory.cardView)
-    (gameFactoryMock.tableauPileValidator _).expects().returning(SpanishGameFactory.tableauPileValidator)
-    (mockIO.write(_: String)).expects(*).anyNumberOfTimes()
-    (mockIO.readInt _).expects(*).returning(2).noMoreThanOnce() // Waste to Foundation
-    (mockIO.readInt _).expects(*).returning(2).noMoreThanOnce() // Destination foundation
-    val menu = MainMenuBuilder.build(gameFactoryMock, mockIO)
-    failAfter(200 millis) {
-      menu.run()
-    }
-  }
+  testsFor(mainMenuTests(FrenchGameFactory))
+  testsFor(finishGame(FrenchGameFactory, List(kingOfHearts, knightOfDiamonds, kingOfSpades, kingOfClubsFrench).map(c => foundationWithCard(c)), kingOfDiamonds))
 
 }
