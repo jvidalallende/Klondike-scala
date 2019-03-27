@@ -17,7 +17,16 @@ trait CardViewBehaviors extends MockFactory {
       view.draw(card, mockIO)
     }
 
-    test(s"givenCard${card.toString}_whenViewingIt_thenItsViewHasTheSameSizeAsEmptyView") {
+    test(s"givenCard${card.toString}_whenViewingIt_thenItsViewHasTheSameSizeAsPlaceholderView") {
+      val writeAccumulator = IOMocks.writeAccumulator
+      view.draw(card, writeAccumulator)
+      view.drawPlaceholder(writeAccumulator)
+      val values = writeAccumulator.asList
+      assert(values.length == 2)
+      assert(values.head.length == values.tail.head.length)
+    }
+
+    test(s"givenCard${card.toString}_whenViewingIt_thenItsViewHasTheSameSizeAsWhitespaceView") {
       val writeAccumulator = IOMocks.writeAccumulator
       view.draw(card, writeAccumulator)
       view.drawWhitespace(writeAccumulator)
