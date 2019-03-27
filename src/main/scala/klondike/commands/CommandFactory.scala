@@ -1,7 +1,6 @@
 package klondike.commands
 
 import klondike.io.IOManager
-import klondike.views._
 
 class CommandFactory(__movementFactory: MovementFactory, __io: IOManager) {
 

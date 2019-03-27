@@ -1,6 +1,5 @@
 package klondike.views
 
-import klondike.exceptions.ExitGameException
 import klondike.io.IOManager
 
 class SetupMenu(__io: IOManager) {

@@ -1,7 +1,5 @@
 package klondike.models
 
-import klondike.exceptions.EmptyPileException
-
 abstract class Pile {
 
   val name: String
