@@ -1,4 +1,4 @@
-package klondike.controllers
+package klondike.commands
 
 import klondike.exceptions.InvalidMoveException
 import klondike.models.{Card, Pile, TableauPile}

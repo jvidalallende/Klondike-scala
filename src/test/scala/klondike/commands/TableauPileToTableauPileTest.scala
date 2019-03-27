@@ -1,4 +1,4 @@
-package klondike.controllers
+package klondike.commands
 
 import klondike.exceptions.{EmptyPileException, InvalidMoveException}
 import klondike.models.TableauPile

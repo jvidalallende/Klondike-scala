@@ -1,6 +1,5 @@
 package klondike.commands
 
-import klondike.controllers.MovementFactory
 import klondike.exceptions.InvalidMoveException
 import klondike.io.IOManager
 import klondike.models._

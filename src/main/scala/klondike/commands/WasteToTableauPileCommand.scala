@@ -1,6 +1,5 @@
 package klondike.commands
 
-import klondike.controllers.MovementFactory
 import klondike.io.IOManager
 import klondike.models._
 import klondike.utils.ListHelpers

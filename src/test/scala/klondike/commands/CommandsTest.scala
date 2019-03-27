@@ -1,6 +1,5 @@
 package klondike.commands
 
-import klondike.controllers.MovementFactory
 import klondike.exceptions.{ExitGameException, InvalidMoveException}
 import klondike.models.{Board, TableauPile, Waste}
 import klondike.test_utils.IOMocks

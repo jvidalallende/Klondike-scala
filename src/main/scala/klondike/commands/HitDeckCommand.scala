@@ -1,6 +1,5 @@
 package klondike.commands
 
-import klondike.controllers.MovementFactory
 import klondike.models.{Board, Deck, Waste}
 
 class HitDeckCommand(__title: String, __movementFactory: MovementFactory) extends Command {
