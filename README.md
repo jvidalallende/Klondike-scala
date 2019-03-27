@@ -59,6 +59,11 @@ coverage:
   * Good test coverage of all relevant code, including views
   * Card view now draws the whole suit name instead of just initials
 
+* **[v0.3](https://github.com/jvidalallende/Klondike-scala/releases/tag/v0.3)**: Cleanup 
+  * Reorganized packages
+  * Clean unused import
+  * Add CardView tests to ensure that all draws use the same horizontal space
+
 
 ## Related sites
 
