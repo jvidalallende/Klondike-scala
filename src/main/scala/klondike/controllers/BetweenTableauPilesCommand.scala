@@ -15,7 +15,7 @@ class BetweenTableauPilesCommand(__title: String, __movementFactory: MovementFac
     val (source, sourceIndex) = PileRetriever.tableauPile(board, "source", _io)
     val (destination, destinationIndex) = PileRetriever.tableauPile(board, "destination", _io)
     if (sourceIndex == destinationIndex) {
-      throw InvalidMoveException("Cannot select the same pile as source an destination")
+      throw InvalidMoveException("Cannot select the same pile as source and destination")
     }
 
     val cardsToMove = _io.readInt(s"How many cards should be moved? ")

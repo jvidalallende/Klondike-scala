@@ -3,7 +3,7 @@ package klondike.views
 import klondike.controllers.Command
 import klondike.exceptions.ExitGameException
 import klondike.io.IOManager
-import klondike.models.{FoundationsFullGoal, Game}
+import klondike.models.{FoundationsFullGoal, Game, Goal}
 
 class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IOManager) {
 
@@ -11,16 +11,16 @@ class MainMenu(__commands: Vector[Command], __gameFactory: GameFactory, __io: IO
   private val _gameFactory = __gameFactory
   private val _io = __io
 
-  def run(): Unit = {
-    var game = new Game(_gameFactory.initialBoard(7))
+  def run(goal: Goal): Unit = {
+    var game = new Game(_gameFactory.initialBoard(7), goal)
     var keepRunning = true
     val boardView = new BoardView(_gameFactory.cardView, _io)
     while (keepRunning) {
       boardView.draw(game.board)
       val command = askUserForCommand()
       try {
-        game = new Game(command.execute(game.board))
-        if (FoundationsFullGoal.done(game.board)) {
+        game = new Game(command.execute(game.board), game.goal)
+        if (game.goal.done(game.board)) {
           keepRunning = false
           _io.write("\n *** Well done! ***\n\n")
         }

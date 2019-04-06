@@ -1,6 +1,7 @@
 package klondike.views
 
 import klondike.io.IOManager
+import klondike.models.FoundationsFullGoal
 
 class SetupMenu(__io: IOManager) {
   private val _io = __io
@@ -13,8 +14,8 @@ class SetupMenu(__io: IOManager) {
         _io.write("[2] Play game with French cards\n")
         _io.write("[Any other input] Exit\n\n")
         _io.readInt("What do you want to do? ") match {
-          case 1 => MainMenuBuilder.build(SpanishGameFactory, _io).run()
-          case 2 => MainMenuBuilder.build(FrenchGameFactory, _io).run()
+          case 1 => MainMenuBuilder.build(SpanishGameFactory, _io).run(FoundationsFullGoal)
+          case 2 => MainMenuBuilder.build(FrenchGameFactory, _io).run(FoundationsFullGoal)
           case _ => throw new NumberFormatException()
         }
 
