@@ -11,14 +11,14 @@ class SetupMenuTest extends FunSuite with MockFactory {
 
   test(s"givenASetupMenu_whenPlayingSpanishGameAndExiting_thenTheTestsEndsWithoutTimeout") {
     // 1: Spanish Game 7: Exit Game 3: Exit
-    failAfter(200 millis) {
+    failAfter(300 millis) {
       new SetupMenu(IOMocks.readIntAllowingWrites(Seq(1, 7, 3))).run()
     }
   }
 
   test(s"givenASetupMenu_whenPlayingFrenchGameAndExiting_thenTheTestsEndsWithoutTimeout") {
     // 2: French Game 7: Exit Game 3: Exit
-    failAfter(200 millis) {
+    failAfter(300 millis) {
       new SetupMenu(IOMocks.readIntAllowingWrites(Seq(2, 7, 3))).run()
     }
   }
@@ -30,7 +30,7 @@ class SetupMenuTest extends FunSuite with MockFactory {
     }
     (mockIO.write _).expects(*).anyNumberOfTimes()
 
-    failAfter(200 millis) {
+    failAfter(300 millis) {
       new SetupMenu(mockIO).run()
     }
   }
