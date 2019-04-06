@@ -1,6 +1,6 @@
 package klondike.views
 
-import klondike.commands.{Command, CommandFactory, MovementFactory}
+import klondike.controllers.{Command, CommandFactory, MovementFactory}
 import klondike.io.IOManager
 
 object MainMenuBuilder {

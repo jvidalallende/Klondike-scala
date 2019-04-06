@@ -1,6 +1,6 @@
 package klondike.views
 
-import klondike.commands.Command
+import klondike.controllers.Command
 import klondike.exceptions.ExitGameException
 import klondike.io.IOManager
 import klondike.models.{FoundationsFullGoal, Game}

@@ -1,4 +1,4 @@
-package klondike.commands
+package klondike.controllers
 
 import klondike.test_utils.TestModels._
 import klondike.views.{FrenchGameFactory, SpanishGameFactory}
