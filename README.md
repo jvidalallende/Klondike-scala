@@ -2,7 +2,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/jvidalallende/Klondike-scala/badge.svg?branch=master)](https://coveralls.io/github/jvidalallende/Klondike-scala?branch=master)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-# Scala-TicTacToe
+# Klondike-scala
 
 This is the final project for the 2018/19 edition of the
 [MSc. in Software Craftsmanship](https://www.etsisi.upm.es/master-upm-software-craftsmanship)
